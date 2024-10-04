@@ -1,89 +1,92 @@
 "use client";
-import { CircleArrowLeft, Phone } from "lucide-react";
-import Link from "next/link";
+
+import React from "react";
+
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+
+import { Button } from "@/components/ui/button";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import AuthWrapper from "@/components/AuthWrapper";
+import { InputForm } from "@/components/ui/inputForm";
+import { Mail } from "lucide-react";
+
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
 
-type Data = {
-  phone: string;
-};
+const formSchema = z.object({
+  email: z.string().email({ message: "Email should be valid" }),
+});
 
-const ForgetPassword = () => {
+const ForgotPassword = () => {
   const router = useRouter();
-  const [formData, setFormData] = useState<Data>({
-    phone: "",
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+    },
   });
 
-  const HandleChange: (e: React.ChangeEvent<HTMLInputElement>) => void = e => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value.trim(),
-    }));
-  };
-
-  const HandleSubmit: () => void = () => {
-    // ===========================================================
-    // === form validation before submit to upcoming API
-    if (formData.phone === "" || isNaN(Number(formData.phone))) {
-      return alert("Fill in all the inputs correctly!");
-    }
-    alert(["can Submit", JSON.stringify(formData)]);
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    console.log(values);
     router.push("/resetpassword");
-  };
+  }
 
   return (
-    <div className='min-h-screen flex items-center justify-center'>
-      <div className='max-w-[600px] p-2 flex-1 sm:mx-5 mx-2 flex flex-col items-center justify-center'>
-        <div className='w-full'>
-          <h1 className='md:text-5xl sm:text-3xl text-xl font-medium text-[#155FA0]'>
-            Forgot password ?
-          </h1>
+    <>
+      <AuthWrapper
+        title='Forgot Password'
+        link='back to SignIn'
+        text="No worries we'll send you instructions"
+        href='/signin'
+      >
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className=' max-w-md w-full md:text-xl '
+          >
+            <div className='flex flex-col gap-2'>
+              <FormField
+                control={form.control}
+                name='email'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <InputForm
+                        icon={<Mail className='w-4 h-4 text-[#155FA0]' />}
+                        placeholder='jpteks728@gmail.com'
+                        type='email'
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-          <p className='text-xl font-medium w-[300px] pb-5 pt-3'>
-            No worries we will send you reset instructions
-          </p>
-        </div>
-
-        <label htmlFor='phone' className='w-full px-1 pb-2 pt-3 text-sm'>
-          Phone number
-        </label>
-
-        {/* Phone input */}
-        <div className='flex border-2 rounded-xl w-full items-center pr-5 overflow-hidden'>
-          <input
-            type='tel'
-            placeholder='+237 xxx xxx xxx'
-            className='w-full py-3 px-5 focus:outline-none'
-            id='phone'
-            name='phone'
-            value={formData.phone}
-            onChange={HandleChange}
-          />
-          <Phone
-            color='#155FA0'
-            absoluteStrokeWidth
-            strokeWidth={1.5}
-            size={17}
-          />
-        </div>
-
-        <button
-          className='bg-[#155FA0] w-full text-white py-4 rounded-xl my-5 active:scale-95'
-          onClick={HandleSubmit}
-        >
-          Reset password
-        </button>
-
-        <Link
-          href={"signin"}
-          className='flex gap-x-2 text-[#155FA0] font-medium text-lg items-center'
-        >
-          <CircleArrowLeft absoluteStrokeWidth strokeWidth={1.5} size={17} />
-          <p>Login</p>
-        </Link>
-      </div>
-    </div>
+              <Button
+                type='submit'
+                className='w-full mt-3 bg-[#155FA0] hover:bg-[#155FA0]'
+              >
+                Reset Password
+              </Button>
+            </div>
+          </form>
+        </Form>
+      </AuthWrapper>
+    </>
   );
 };
 
-export default ForgetPassword;
+export default ForgotPassword;

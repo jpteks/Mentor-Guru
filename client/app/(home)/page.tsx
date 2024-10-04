@@ -13,7 +13,7 @@ export default function Home() {
       </Head> */}
 
       {/* Section 1: Hero Section with Geometric Background */}
-      <section className='bg-hi bg-cover bg-center min-h-screen flex flex-col items-center justify-center relative overflow-hidden backgroundImage'>
+      <section className='bg-cover bg-center min-h-screen flex flex-col items-center justify-center relative overflow-hidden backgroundImage'>
         <h1 className='text-4xl md:text-6xl text-white font-bold z-10 text-center'>
           Start Learning from Experienced & Talented
           <span className='text-orange-500'> Tutors</span>
