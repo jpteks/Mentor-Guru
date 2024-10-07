@@ -1,11 +1,11 @@
 import { Controller, Get, Post, Put, Delete, Body, Param, UseGuards } from '@nestjs/common';
 import { UserService } from '../user/user.service';
-import { createUserDto } from '../dto/createUser.dto';
-import { updateUserDto } from '../dto/updateUser.dto'; // Ensure to import your DTOs
-import { JwtAuthGuard } from '../guards/jwt.guard';
-import { Roles } from '../decorator/role.decorator';
-import { RolesGuard } from '../guards/role.guard';
-import { UserRole } from '../schemas/User.schema';
+import { createUserDto } from '@app/contracts/users/createUser.dto';
+import { updateUserDto } from '@app/contracts/users/updateUser.dto'; // Ensure to import your DTOs
+import { JwtAuthGuard } from '../../../../users/src/guards/jwt.guard';
+import { Roles } from '../../../../users/src/decorator/role.decorator';
+import { RolesGuard } from '../../../../users/src/guards/role.guard';
+import { UserRole } from '../../../../users/src/schemas/User.schema';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { Response,Request } from 'express';
 import { USER_PATTERNS } from '@app/contracts/users/user.patterns';

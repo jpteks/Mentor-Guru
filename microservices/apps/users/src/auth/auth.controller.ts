@@ -8,15 +8,15 @@ import { requestDto } from '../dto/request.dto';
 import { ResetPasswordDto } from '../dto/resetPassword.dto';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { Response,Request } from 'express';
-@Controller('auth')
+import {AUTH_PATTERNS }from '@app/contracts/users/user.patterns'
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-
+  @MessagePattern(AUTH_PATTERNS.REGISTER)
   async register(@Payload() registerDto: createUserDto) {
     return this.authService.register(registerDto);
   }
 
-  @MessagePattern({ cmd: 'verify-otp' })
+  @MessagePattern(AUTH_PATTERNS.VERIFY_OTP)
   async verifyOtp(
     @Payload() otpDto: otpDto,
     @Headers('Authorization') token: string,
@@ -25,17 +25,17 @@ export class AuthController {
     return this.authService.verifyOtp(otpDto, bearerToken);
   }
 
-  @MessagePattern({ cmd: 'login' })
+  @MessagePattern(AUTH_PATTERNS.LOGIN)
   async login(@Payload() loginDto: loginDto, @Res({ passthrough: true }) res: Response,): Promise<any> {
     return this.authService.login(loginDto,res);
   }
 
-  @MessagePattern({ cmd: 'request-password-reset' })
+  @MessagePattern(AUTH_PATTERNS.REQUEST_PASSWORD_RESET)
   async requestPasswordReset(@Payload() requestDto: requestDto): Promise<{ message: string }> {
     return this.authService.requestPasswordReset(requestDto);
   }
 
-  @MessagePattern({ cmd: 'reset-password' })
+  @MessagePattern(AUTH_PATTERNS.RESET_PASSWORD)
   async resetPassword(
     @Payload() resetPasswordDto: ResetPasswordDto,
     @Headers('Authorization') token: string
@@ -44,12 +44,12 @@ export class AuthController {
     return this.authService.resetPassword(resetPasswordDto, bearerToken);
   }
 
-  @MessagePattern({ cmd: 'refresh-token' })
+  @MessagePattern(AUTH_PATTERNS.REFRESH_TOKEN)
   async refreshToken(@Req() req: Request): Promise<{ accessToken: string }> {
     return this.authService.refreshToken(req);
   }
 
-  @MessagePattern({ cmd: 'logout' })
+  @MessagePattern(AUTH_PATTERNS.LOGOUT)
   async logout(@Res() res: Response): Promise<{ message: string }> {
    
     return this.authService.logout(res);
