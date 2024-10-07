@@ -1,5 +1,6 @@
 import { Search } from "lucide-react";
 import Image from "next/image";
+import {ArrowRight} from "lucide-react";
 
 export default function Courses() {
   return (
@@ -93,6 +94,8 @@ export default function Courses() {
           <button className='bg-blue-700 px-4 py-2 rounded-full'>ICT</button>
         </div>
 
+        <hr className='border-t-2 border-blue-500 mb-8'/>
+
         {/* Course Cards */}
         <div className='space-y-6'>
           {/* Course 1 */}
@@ -106,21 +109,18 @@ export default function Courses() {
             />
             <div className='flex-1'>
               <h2 className='text-xl font-bold text-blue-500'>Functions</h2>
-              <p className='text-sm text-gray-600'>
+              <p className='text-sm text-black'>
                 This course provides you a detailed understanding on functions,
                 from the basics arithetic of function to more complex.
               </p>
-              <div className='flex space-x-2 mt-2'>
-                <span className='bg-blue-500 text-white px-2 py-1 rounded-full text-xs'>
-                  Mathematics
-                </span>
-                <span className='bg-gray-200 text-black px-2 py-1 rounded-full text-xs'>
-                  Functions
-                </span>
+              <div className='flex space-x-8 mt-2'>
+              <button className="bg-blue-500 text-white px-2 py-1 rounded-lg text-xs">Functions</button>
+                <button className="bg-blue-500 text-white px-2 py-1 rounded-lg text-xs">Mathematics</button>
+                <button><ArrowRight className="bg-blue-500 text-white  rounded-lg  "/></button>
               </div>
             </div>
             <div className='text-right'>
-              <span className='text-blue-500 font-bold'>5.0 ★</span>
+              <span className='text-blue-500 font-bold'>★ 5.0</span>
               <br />
               <span className='text-gray-500 text-sm'>Instructor: Mr. Joe</span>
               <br />
@@ -129,7 +129,7 @@ export default function Courses() {
           </div>
 
           {/* Course 2 */}
-          <div className='bg-white rounded-lg shadow-md p-4 flex items-center space-x-4'>
+          <div className='bg-white rounded-lg shadow-lg border border-blue-500 p-4 flex items-center space-x-4'>
             <Image
               src='/course2.jpg'
               alt='Inequalities'
@@ -138,22 +138,19 @@ export default function Courses() {
               className='rounded-md'
             />
             <div className='flex-1'>
-              <h2 className='text-xl font-bold'>Inequalities</h2>
-              <p className='text-sm text-gray-600'>
-                This course provides you a detailed understanding on
-                inequalities...
+              <h2 className='text-xl font-bold text-blue-500'>Inequalities</h2>
+              <p className='text-sm  text-black'>
+              This course provides you a detailed understanding on Inequalities,
+              from the basics arithetic of Inequalities to more complex.
               </p>
-              <div className='flex space-x-2 mt-2'>
-                <span className='bg-blue-500 text-white px-2 py-1 rounded-full text-xs'>
-                  Mathematics
-                </span>
-                <span className='bg-gray-200 text-black px-2 py-1 rounded-full text-xs'>
-                  Inequalities
-                </span>
+              <div className='flex space-x-8 mt-2'>
+              <button className="bg-blue-500 text-white px-2 py-1 rounded-lg text-xs">Inequalities</button>
+                <button className="bg-blue-500 text-white px-2 py-1 rounded-lg text-xs">Mathematics</button>
+                <button><ArrowRight className="bg-blue-500 text-white  rounded-lg  "/></button>
               </div>
             </div>
             <div className='text-right'>
-              <span className='text-blue-500 font-bold'>4.3 ★</span>
+              <span className='text-blue-500 font-bold'>★ 4.3</span>
               <br />
               <span className='text-gray-500 text-sm'>Instructor: Mr. Joe</span>
               <br />
@@ -162,7 +159,7 @@ export default function Courses() {
           </div>
 
           {/* Course 3 */}
-          <div className='bg-white rounded-lg shadow-md p-4 flex items-center space-x-4'>
+          <div className='bg-white rounded-lg shadow-lg border border-blue-500 p-4 flex items-center space-x-4'>
             <Image
               src='/course3.jpg'
               alt='Essay Writing'
@@ -171,22 +168,19 @@ export default function Courses() {
               className='rounded-md'
             />
             <div className='flex-1'>
-              <h2 className='text-xl font-bold'>Essay Writing</h2>
-              <p className='text-sm text-gray-600'>
+              <h2 className='text-xl font-bold text-blue-500'>Essay Writing</h2>
+              <p className='text-sm text-black'>
                 This course provides you a detailed understanding on essay
-                writing...
+                writing
               </p>
-              <div className='flex space-x-2 mt-2'>
-                <span className='bg-blue-500 text-white px-2 py-1 rounded-full text-xs'>
-                  English
-                </span>
-                <span className='bg-gray-200 text-black px-2 py-1 rounded-full text-xs'>
-                  Essay Writing
-                </span>
+              <div className='flex space-x-8 mt-2'>
+              <button className="bg-blue-500 text-white px-2 py-1 rounded-lg text-xs">Essay Writing</button>
+                <button className="bg-blue-500 text-white px-2 py-1 rounded-lg text-xs">English</button>
+                <button><ArrowRight className="bg-blue-500 text-white  rounded-lg  "/></button>
               </div>
             </div>
             <div className='text-right'>
-              <span className='text-blue-500 font-bold'>4.3 ★</span>
+              <span className='text-blue-500 font-bold'>★ 4.3</span>
               <br />
               <span className='text-gray-500 text-sm'>Instructor: Mr. Joe</span>
               <br />
