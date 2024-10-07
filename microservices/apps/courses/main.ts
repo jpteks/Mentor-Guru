@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { CoursesModule } from './courses.module';
+import { CoursesModule } from './src/courses/courses.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { port } from '@app/contracts/port';
 
