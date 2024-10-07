@@ -56,7 +56,7 @@ The User Service will now be available at [http://localhost:3002](http://localho
 To run the MongoDB Docker image database. After starting the User Service, open a separate terminal in the mentorGuru/micrsoervices directory run:
 
 ```bash
-make run-mongodb
+make db
 ```
 
 ### Testing the MongoDB Instance
