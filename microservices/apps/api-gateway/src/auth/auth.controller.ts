@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Headers, Req, Res } from '@nestjs/common';
+import { Controller, Post, Body, Get, Headers, Req, Res,ValidationPipe,  UsePipes, } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { createUserDto } from '@app/contracts/users/createUser.dto';
 import { otpDto } from '@app/contracts/users/otp.dto';
@@ -10,7 +10,7 @@ import { Request, Response } from 'express';
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-
+  
   @Post('register')
   async register(@Body() registerDto: createUserDto) {
     return this.authService.register(registerDto);
