@@ -1,4 +1,15 @@
-import { Zap } from "lucide-react";
+import {
+    Home as HomeIcon,
+    Book,
+    Zap,
+    FileText,
+    Bell,
+    HelpCircle,
+    User,
+    LogOut,
+    MessageSquare
+     
+  } from 'lucide-react';
 
 export default function QuizzesPage() {
   return (
@@ -21,7 +32,7 @@ export default function QuizzesPage() {
           <ul>
             <li>
               <a href="#" className="flex items-center px-4 py-2 hover:bg-purple-700 rounded">
-                Dashboard
+              <HomeIcon className="mr-2" />Dashboard
               </a>
             </li>
             <li>
@@ -58,22 +69,22 @@ export default function QuizzesPage() {
           <ul>
             <li>
               <a href="#" className="flex items-center px-4 py-2 hover:bg-purple-700 rounded">
-                Help Center
+               Help Center
               </a>
             </li>
             <li>
               <a href="#" className="flex items-center px-4 py-2 hover:bg-purple-700 rounded">
-                Feedback
+              Feedback
               </a>
             </li>
             <li>
               <a href="#" className="flex items-center px-4 py-2 hover:bg-purple-700 rounded">
-                Profile
+              <User className="mr-2" />Profile
               </a>
             </li>
             <li>
               <a href="#" className="flex items-center px-4 py-2 hover:bg-purple-700 rounded">
-                Logout
+              <LogOut className="mr-2" />Logout
               </a>
             </li>
           </ul>
@@ -81,35 +92,45 @@ export default function QuizzesPage() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-grow p-8  bg-gray-100 relative">
+      <div className="flex-grow p-8 bg-gray-100 relative">
         <h1 className="text-3xl font-bold text-purple-800 mb-16">Quizzes</h1>
 
         {/* JP Badge */}
-        <div className='absolute top-4 right-4  bg-blue-700 text-white font-bold text-5xl w-20 h-20 rounded-full flex items-center justify-center'>
+        <div className='absolute top-4 right-4 bg-blue-700 text-white font-bold text-5xl w-20 h-20 rounded-full flex items-center justify-center'>
           JP
         </div>
 
         {/* Quiz List */}
         <div className="space-y-4">
-          <QuizItem title="O Level Normal Quizz" />
-          <QuizItem title="A Level Normal Quizz" />
-          <QuizItem title="O Level Competition Quizz" />
-          <QuizItem title="A Level Competition Quizz" />
+          <div className="bg-blue-700 rounded-lg p-4 flex items-center text-white">
+            <div className="bg-gray-300 rounded-full p-2 mr-4">
+              <Zap className="text-blue-600" />
+            </div>
+            <p className="font-semibold">O Level Normal Quizz</p>
+          </div>
+
+          <div className="bg-blue-700 rounded-lg p-4 flex items-center text-white">
+            <div className="bg-gray-300 rounded-full p-2 mr-4">
+              <Zap className="text-blue-600" />
+            </div>
+            <p className="font-semibold">A Level Normal Quizz</p>
+          </div>
+
+          <div className="bg-blue-700 rounded-lg p-4 flex items-center text-white">
+            <div className="bg-gray-300 rounded-full p-2 mr-4">
+              <Zap className="text-blue-600" />
+            </div>
+            <p className="font-semibold">O Level Competition Quizz</p>
+          </div>
+
+          <div className="bg-blue-700 rounded-lg p-4 flex items-center text-white">
+            <div className="bg-gray-300 rounded-full p-2 mr-4">
+              <Zap className="text-blue-600" />
+            </div>
+            <p className="font-semibold">A Level Competition Quizz</p>
+          </div>
         </div>
       </div>
     </div>
   );
 }
-
-interface QuizItemProps {
-  title: string;
-}
-
-const QuizItem: React.FC<QuizItemProps> = ({ title }) => (
-  <div className="bg-blue-700 rounded-lg p-4 flex items-center text-white">
-    <div className="bg-gray-300 rounded-full p-2 mr-4">
-      <Zap className="text-blue-600" />
-    </div>
-    <p className="font-semibold">{title}</p>
-  </div>
-);

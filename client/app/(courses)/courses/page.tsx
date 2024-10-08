@@ -1,4 +1,4 @@
-import { Search } from "lucide-react";
+import { Search,Home as HomeIcon,Book,FileText,Bell,HelpCircle,User,LogOut,MessageSquare } from "lucide-react";
 import Image from "next/image";
 import {ArrowRight} from "lucide-react";
 
@@ -22,39 +22,39 @@ export default function Courses() {
 
         {/* Sidebar Menu */}
         <nav className='space-y-4 grid grid-flow-row'>
-          <a href='#' className='hover:bg-purple-700 p-2 rounded-md'>
-            Dashboard
+          <a href='#' className='flex hover:bg-purple-700 p-2 rounded-md'>
+          <HomeIcon className="mr-2" />Dashboard
           </a>
-          <a href='#' className='hover:bg-purple-700 p-2 rounded-md'>
-            Courses
+          <a href='#' className='flex hover:bg-purple-700 p-2 rounded-md'>
+          <Book className="mr-2" />Courses
           </a>
-          <a href='#' className='hover:bg-purple-700 p-2 rounded-md'>
-            Quizzes
+          <a href='#' className='flex hover:bg-purple-700 p-2 rounded-md'>
+          <FileText className="mr-2" />Quizzes
           </a>
-          <a href='#' className='hover:bg-purple-700 p-2 rounded-md'>
-            PastPapers
+          <a href='#' className='flex hover:bg-purple-700 p-2 rounded-md'>
+          <FileText className="mr-2" />PastPapers
           </a>
-          <a href='#' className='hover:bg-purple-700 p-2 rounded-md'>
-            Answers
+          <a href='#' className='flex hover:bg-purple-700 p-2 rounded-md'>
+          <FileText className="mr-2" />Answers
           </a>
-          <a href='#' className='hover:bg-purple-700 p-2 rounded-md'>
-            Notification
+          <a href='#' className='flex hover:bg-purple-700 p-2 rounded-md'>
+          <Bell className="mr-2" />Notification
           </a>
 
           {/* Custom Divider */}
           <hr />
 
-          <a href='#' className='hover:bg-purple-700 p-2 rounded-md'>
-            Help Center
+          <a href='#' className='flex hover:bg-purple-700 p-2 rounded-md'>
+          <HelpCircle className="mr-2" />Help Center
           </a>
-          <a href='#' className='hover:bg-purple-700 p-2 rounded-md'>
-            Feedback
+          <a href='#' className='flex hover:bg-purple-700 p-2 rounded-md'>
+          <MessageSquare className="mr-2" />Feedback
           </a>
-          <a href='#' className='hover:bg-purple-700 p-2 rounded-md'>
-            Profile
+          <a href='#' className='flex hover:bg-purple-700 p-2 rounded-md'>
+          <User className="mr-2" />Profile
           </a>
-          <a href='#' className='hover:bg-purple-700 p-2 rounded-md'>
-            Logout
+          <a href='#' className='flex hover:bg-purple-700 p-2 rounded-md'>
+          <LogOut className="mr-2" />Logout
           </a>
         </nav>
       </aside>
