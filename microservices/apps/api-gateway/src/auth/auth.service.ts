@@ -1,21 +1,22 @@
 import { Injectable, Inject, InternalServerErrorException } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { AUTH_PATTERNS } from '@app/contracts/users/user.patterns';
-import { createUserDto } from '@app/contracts/users/createUser.dto';
-import { otpDto } from '@app/contracts/users/otp.dto';
-import { loginDto } from '@app/contracts/users/login.dto';
-import { requestDto } from '@app/contracts/users/request.dto';
-import { ResetPasswordDto } from '@app/contracts/users/resetPassword.dto';
-import { Request, Response } from 'express';
+import { createUserDto } from './dto/createUser.dto';
+import { otpDto } from './dto/otp.dto';
+import { loginDto } from './dto/login.dto';
+import { requestDto } from './dto/request.dto';
+import { ResetPasswordDto } from './dto/resetPassword.dto';
+import { updateUserDto } from './dto/updateUser.dto';
 import { Observable, catchError } from 'rxjs';
 
 @Injectable()
 export class AuthService {
-  constructor(@Inject('AUTH_SERVICE') private readonly authClient: ClientProxy) {}
+  constructor(@Inject('AUTH_SERVICE') private authClient: ClientProxy) {}
 
   // Register
-  register(createUserDto: createUserDto): Observable<any> {
-    return this.authClient.send(AUTH_PATTERNS.REGISTER, createUserDto).pipe(
+  register(CreateUserDto: createUserDto): Observable<any> {
+    const payload=CreateUserDto
+        return this.authClient.send(AUTH_PATTERNS.REGISTER, payload).pipe(
       catchError((error) => {
         throw new InternalServerErrorException(`Registration failed ohh: ${error.message}`);
       }),
