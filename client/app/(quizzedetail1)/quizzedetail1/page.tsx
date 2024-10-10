@@ -86,7 +86,7 @@ export default function QuizResultPage() {
       {/* Main Content */}
       <div className="flex-grow p-8 mt-48">
         <div className="flex justify-center items-center flex-col">
-          <div className="bg-blue-600 rounded-full w-40 h-40 flex items-center justify-center text-white text-4xl font-bold">
+          <div className="bg-blue-600 rounded-full w-40 h-40 flex items-center  justify-center text-white text-4xl font-bold">
             39/50
           </div>
           <h2 className="mt-4 text-4xl font-bold text-gray-800">Good</h2>
