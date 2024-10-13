@@ -6,7 +6,7 @@ export default function Courses() {
   return (
     <div className='flex min-h-screen'>
       {/* Sidebar */}
-      <aside className='w-64 bg-purple-900 text-white flex flex-col p-6'>
+      <aside className='w-64 bg-indigo-800 text-white flex flex-col p-6'>
         <div className='flex items-center mb-8'>
           {/* Logo */}
           <div className='bg-white p-2 rounded-md'>
@@ -21,42 +21,67 @@ export default function Courses() {
         </div>
 
         {/* Sidebar Menu */}
-        <nav className='space-y-4 grid grid-flow-row'>
-          <a href='#' className='flex hover:bg-purple-700 p-2 rounded-md'>
-          <HomeIcon className="mr-2" />Dashboard
-          </a>
-          <a href='#' className='flex hover:bg-purple-700 p-2 rounded-md'>
-          <Book className="mr-2" />Courses
-          </a>
-          <a href='#' className='flex hover:bg-purple-700 p-2 rounded-md'>
-          <FileText className="mr-2" />Quizzes
-          </a>
-          <a href='#' className='flex hover:bg-purple-700 p-2 rounded-md'>
-          <FileText className="mr-2" />PastPapers
-          </a>
-          <a href='#' className='flex hover:bg-purple-700 p-2 rounded-md'>
-          <FileText className="mr-2" />Answers
-          </a>
-          <a href='#' className='flex hover:bg-purple-700 p-2 rounded-md'>
-          <Bell className="mr-2" />Notification
-          </a>
-
-          {/* Custom Divider */}
-          <hr />
-
-          <a href='#' className='flex hover:bg-purple-700 p-2 rounded-md'>
-          <HelpCircle className="mr-2" />Help Center
-          </a>
-          <a href='#' className='flex hover:bg-purple-700 p-2 rounded-md'>
-          <MessageSquare className="mr-2" />Feedback
-          </a>
-          <a href='#' className='flex hover:bg-purple-700 p-2 rounded-md'>
-          <User className="mr-2" />Profile
-          </a>
-          <a href='#' className='flex hover:bg-purple-700 p-2 rounded-md'>
-          <LogOut className="mr-2" />Logout
-          </a>
-        </nav>
+        <nav className="mt-10">
+            <ul>
+              <li>
+                <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900 rounded">
+                  <HomeIcon className="mr-2" /> Dashboard
+                </a>
+              </li>
+              <li>
+                <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900">
+                  <Book className="mr-2" /> Courses
+                </a>
+              </li>
+              <li>
+                <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900">
+                  <FileText className="mr-2" /> Quizzes
+                </a>
+              </li>
+              <li>
+                <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900">
+                  <FileText className="mr-2" /> Past Papers
+                </a>
+              </li>
+              <li>
+                <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900">
+                  <FileText className="mr-2" /> Answers
+                </a>
+              </li>
+              <li>
+                <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900 rounded">
+                  <Bell className="mr-2" /> Notifications
+                </a>
+              </li>
+            </ul>
+          </nav>
+  
+          <hr className="my-24" />
+  
+          <div>
+            <ul>
+              <li>
+                <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900 rounded">
+                  <HelpCircle className="mr-2" /> Help Center
+                </a>
+              </li>
+              <li>
+                <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900 rounded">
+                  <MessageSquare className="mr-2" /> Feedback
+                </a>
+              </li>
+              <li>
+                <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900 rounded">
+                  <User className="mr-2" /> Profile
+                </a>
+              </li>
+              <li>
+                <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900 rounded">
+                  <LogOut className="mr-2" /> Logout
+                </a>
+              </li>
+            </ul>
+          </div>
       </aside>
 
       {/* Main Content */}
@@ -68,30 +93,30 @@ export default function Courses() {
             <input
               type='text'
               placeholder='Search course by title'
-              className='w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500'
+              className='w-full px-4 py-2 border border-blue-700 rounded-md focus:outline-none focus:border-blue-500'
             />
             <button className=' '>
               <Search className='text-blue-500 w-6 ' />
             </button>
           </div>
-          <div className='bg-blue-700 text-white font-bold text-5xl w-20 h-20 rounded-full flex items-center justify-center ml-4'>
+          <div className='bg-indigo-800 text-white font-bold text-5xl w-20 h-20 rounded-full flex items-center justify-center ml-4'>
             JP
           </div>
         </div>
 
         {/* Category Filters */}
         <div className='flex space-x-4 mb-8 text-white font-bold'>
-          <button className='bg-blue-700  px-4 py-2 rounded-full'>All</button>
-          <button className='bg-blue-700 px-4 py-2 rounded-full'>
+          <button className='bg-indigo-800 px-4 py-2 rounded-full'>All</button>
+          <button className='bg-indigo-800 px-4 py-2 rounded-full'>
             Mathematics
           </button>
-          <button className='bg-blue-700 px-4 py-2 rounded-full'>
+          <button className='bg-indigo-800 px-4 py-2 rounded-full'>
             Economics
           </button>
-          <button className='bg-blue-700 px-4 py-2 rounded-full'>
+          <button className='bg-indigo-800 px-4 py-2 rounded-full'>
             English
           </button>
-          <button className='bg-blue-700 px-4 py-2 rounded-full'>ICT</button>
+          <button className='bg-indigo-800 px-4 py-2 rounded-full'>ICT</button>
         </div>
 
         <hr className='border-t-2 border-blue-500 mb-8'/>

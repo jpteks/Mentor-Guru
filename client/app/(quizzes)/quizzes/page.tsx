@@ -15,7 +15,7 @@ export default function QuizzesPage() {
   return (
     <div className="relative flex min-h-screen">
       {/* Sidebar */}
-      <div className="w-64 bg-purple-800 text-white flex flex-col p-6">
+      <div className="w-64 bg-indigo-800 text-white flex flex-col p-6">
         <div className="flex items-center mb-8">
           {/* Logo */}
           <div className="bg-white p-2 rounded-md">
@@ -31,7 +31,7 @@ export default function QuizzesPage() {
         <nav className="mt-10">
           <ul>
             <li>
-              <a href="#" className="flex items-center px-4 py-2 hover:bg-purple-700 rounded">
+              <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900 rounded">
               <HomeIcon className="mr-2" />Dashboard
               </a>
             </li>

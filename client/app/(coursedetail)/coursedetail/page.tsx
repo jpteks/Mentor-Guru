@@ -5,7 +5,7 @@ import { Progress } from "@/components/ui/progress";
 export default function CourseOverview() {
   return (
     <div className="flex min-h-screen">
-      {/* Sidebar */}<div className="w-64 bg-blue-700 text-white flex flex-col p-6">
+      {/* Sidebar */}<div className="w-64 bg-indigo-800 text-white flex flex-col p-6">
           <div className="flex items-center mb-8">
             {/* Logo */}
             <div className="bg-white p-2 rounded-md">
@@ -16,32 +16,32 @@ export default function CourseOverview() {
           <nav className="mt-10">
             <ul>
               <li>
-                <a href="#" className="flex items-center px-4 py-2 hover:bg-blue-500 rounded">
+                <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900 rounded">
                   <HomeIcon className="mr-2" /> Dashboard
                 </a>
               </li>
               <li>
-                <a href="#" className="flex items-center px-4 py-2 hover:bg-blue-500">
+                <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900">
                   <Book className="mr-2" /> Courses
                 </a>
               </li>
               <li>
-                <a href="#" className="flex items-center px-4 py-2 hover:bg-blue-500">
+                <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900">
                   <FileText className="mr-2" /> Quizzes
                 </a>
               </li>
               <li>
-                <a href="#" className="flex items-center px-4 py-2 hover:bg-blue-500">
+                <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900">
                   <FileText className="mr-2" /> Past Papers
                 </a>
               </li>
               <li>
-                <a href="#" className="flex items-center px-4 py-2 hover:bg-blue-500">
+                <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900">
                   <FileText className="mr-2" /> Answers
                 </a>
               </li>
               <li>
-                <a href="#" className="flex items-center px-4 py-2 hover:bg-purple-700 rounded">
+                <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900 rounded">
                   <Bell className="mr-2" /> Notifications
                 </a>
               </li>
@@ -53,22 +53,22 @@ export default function CourseOverview() {
           <div>
             <ul>
               <li>
-                <a href="#" className="flex items-center px-4 py-2 hover:bg-purple-700 rounded">
+                <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900 rounded">
                   <HelpCircle className="mr-2" /> Help Center
                 </a>
               </li>
               <li>
-                <a href="#" className="flex items-center px-4 py-2 hover:bg-purple-700 rounded">
+                <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900 rounded">
                   <MessageSquare className="mr-2" /> Feedback
                 </a>
               </li>
               <li>
-                <a href="#" className="flex items-center px-4 py-2 hover:bg-purple-700 rounded">
+                <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900 rounded">
                   <User className="mr-2" /> Profile
                 </a>
               </li>
               <li>
-                <a href="#" className="flex items-center px-4 py-2 hover:bg-purple-700 rounded">
+                <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900 rounded">
                   <LogOut className="mr-2" /> Logout
                 </a>
               </li>
@@ -79,9 +79,9 @@ export default function CourseOverview() {
       {/* Main Content */}
       <main className="flex-grow p-8 ">
         <div className="flex justify-between">
-          <h1 className="text-3xl font-bold text-blue-700">Introduction to functions</h1>
+          <h1 className="text-3xl font-bold text-indigo-900">Introduction to functions</h1>
           <div className="flex items-center space-x-4">
-          <div className='bg-blue-700 text-white font-bold text-5xl w-20 h-20 rounded-full flex items-center justify-center ml-4'>
+          <div className='bg-indigo-900 text-white font-bold text-5xl w-20 h-20 rounded-full flex items-center justify-center ml-4'>
             JP
           </div>
           </div>
@@ -98,21 +98,21 @@ export default function CourseOverview() {
             </div>
             <div className='flex space-x-80 mt-8'>
               <div>
-              <p className="text-gray-700 font-bold">Instructor Mr. Joe</p>
-              <p className="text-sm text-gray-500">Professor, Mechanical Engineer</p>
+              <p className="text-indigo-900 font-bold">Instructor Mr. Joe</p>
+              <p className="text-sm text-indigo-900">Professor, Mechanical Engineer</p>
               </div>
               <div className='flex'>
-                  <Share2 className="text-blue-800" size={24} />
-                  <Bookmark className="text-purple-800" size={24} />
+                  <Share2 className="text-indigo-900" size={24} />
+                  <Bookmark className="text-indigo-900" size={24} />
               </div>
             </div>
             <div className='mt-4 '>
-                <h1 className='text-5xl font-semibold'>About this course</h1>
+                <h1 className='text-5xl font-semibold text-indigo-900'>About this course</h1>
               <p className="text-gray-600 ">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ligula libero, ullamcorper vel maximus ac, scelerisque sed nibh.</p>
             </div>
             {/* Rating Section */}
         <div className="">
-          <h2 className="text-2xl font-semibold">Rate this course</h2>
+          <h2 className="text-2xl font-semibold text-indigo-900">Rate this course</h2>
           <div className="flex items-center mt-2">
             <Star className="text-yellow-500" />
             <Star className="text-yellow-500" />
@@ -125,7 +125,7 @@ export default function CourseOverview() {
 
           {/* Progress and Quiz section */}
           <div className="col-span-1  p-6 ">
-          <div className="flex flex-col items-center bg-blue-800 rounded-lg p-4">
+          <div className="flex flex-col items-center bg-blue-700 rounded-lg p-4">
   <p className="text-lg text-white font-semibold ">Study Progress</p>
   
   {/* Progress Bar */}
@@ -139,20 +139,20 @@ export default function CourseOverview() {
   <p className="text-lg text-white">45%</p>
 </div>
             <div className="flex justify-between items-center mt-4">
-              <h3 className="text-blue-600 font-semibold">Course Completion</h3>
-              <span className='text-blue-600'>1/4</span>
+              <h3 className="text-indigo-900 font-semibold">Course Completion</h3>
+              <span className='text-blue-700'>1/4</span>
             </div>
             <div className="flex items-center space-x-4 p-2 mt-8 bg-gray-100 rounded-lg">
             <PlayCircle className="text-blue-700  " size={24} />
         <div >
-          <h3 className="text-blue-600 font-semibold">Introduction to functions</h3>
+          <h3 className="text-blue-700 font-semibold">Introduction to functions</h3>
           <p className="text-sm text-black">5m</p>          
         </div>
-        <CheckCircle className="text-blue-600" size={24} />
+        <CheckCircle className="text-blue-700" size={24} />
       </div>
 
       {/* Lesson 2 - Active */}
-      <div className="flex items-center space-x-4 p-4 bg-blue-600 mt-4 text-white rounded-lg">
+      <div className="flex items-center space-x-4 p-4 bg-blue-700 mt-4 text-white rounded-lg">
         <PauseCircle size={24} />
         <div>
           <h3 className="font-semibold">Functions operations</h3>
@@ -162,22 +162,22 @@ export default function CourseOverview() {
 
       {/* Lesson 3 - Pending */}
       <div className="flex items-center space-x-4 p-4 mt-4 bg-gray-100 rounded-lg">
-        <PlayCircle className="text-blue-600" size={24} />
+        <PlayCircle className="text-blue-700" size={24} />
         <div>
-          <h3 className="text-blue-600 font-semibold">Graph Functions</h3>
+          <h3 className="text-blue-700 font-semibold">Graph Functions</h3>
           <p className="text-sm text-black">20m</p>
         </div>
       </div>
 
       {/* Lesson 4 - Pending */}
       <div className="flex items-center space-x-4 p-4 mt-4 bg-gray-100 rounded-lg">
-        <PlayCircle className="text-blue-600" size={24} />
+        <PlayCircle className="text-blue-700" size={24} />
         <div>
-          <h3 className="text-blue-600 font-semibold">Conclusion</h3>
+          <h3 className="text-blue-700 font-semibold">Conclusion</h3>
           <p className="text-sm text-black">5m</p>
         </div>
       </div>
-         <button className="mt-4 bg-blue-600 text-white py-2 px-4 w-full rounded-lg">Quiz</button>
+         <button className="mt-4 bg-indigo-900 text-white py-2 px-4 w-full rounded-lg">Quiz</button>
           </div>
         </div>
       </main>

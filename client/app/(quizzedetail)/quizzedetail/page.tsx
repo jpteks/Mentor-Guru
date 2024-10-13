@@ -18,7 +18,7 @@ export default function QuizPage() {
   return (
     <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
-      <div className="w-64 bg-purple-800 text-white p-6">
+      <div className="w-64 bg-indigo-800 text-white p-6">
         <div className="mb-8 flex items-center">
           <div className="bg-white p-2 rounded-md">
             <img src="/logo.png" alt="Mentor Guru Logo" width={40} height={40} />
@@ -28,32 +28,32 @@ export default function QuizPage() {
         <nav className="mt-10">
           <ul>
             <li>
-              <a href="#" className="flex items-center px-4 py-2 hover:bg-purple-700 rounded">
+              <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900 rounded">
               <HomeIcon className="mr-2" />Dashboard
               </a>
             </li>
             <li>
-              <a href="#" className="flex items-center px-4 py-2 hover:bg-purple-700 rounded">
+              <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900 rounded">
                 <Book className="mr-2" />Courses
               </a>
             </li>
             <li>
-              <a href="#" className="flex items-center px-4 py-2 hover:bg-purple-700 rounded">
+              <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900 rounded">
               <FileText className="mr-2" />Quizzes
               </a>
             </li>
             <li>
-              <a href="#" className="flex items-center px-4 py-2 hover:bg-purple-700 rounded">
+              <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900 rounded">
               <FileText className="mr-2" />PastPapers
               </a>
             </li>
             <li>
-              <a href="#" className="flex items-center px-4 py-2 hover:bg-purple-700 rounded">
+              <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900 rounded">
               <FileText className="mr-2" />Answers
               </a>
             </li>
             <li>
-              <a href="#" className="flex items-center px-4 py-2 hover:bg-purple-700 rounded">
+              <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900 rounded">
               <Bell className="mr-2" />Notification
               </a>
             </li>
@@ -65,22 +65,22 @@ export default function QuizPage() {
         <div>
           <ul>
             <li>
-              <a href="#" className="flex items-center px-4 py-2 hover:bg-purple-700 rounded">
+              <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900 rounded">
               <HelpCircle className="mr-2" />Help Center
               </a>
             </li>
             <li>
-              <a href="#" className="flex items-center px-4 py-2 hover:bg-purple-700 rounded">
+              <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900 rounded">
               <MessageSquare className="mr-2" />Feedback
               </a>
             </li>
             <li>
-              <a href="#" className="flex items-center px-4 py-2 hover:bg-purple-700 rounded">
+              <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900 rounded">
               <User className="mr-2" />Profile
               </a>
             </li>
             <li>
-              <a href="#" className="flex items-center px-4 py-2 hover:bg-purple-700 rounded">
+              <a href="#" className="flex items-center px-4 py-2 hover:bg-indigo-900 rounded">
               <LogOut className="mr-2" /> Logout
               </a>
             </li>
@@ -91,8 +91,8 @@ export default function QuizPage() {
       {/* Main Content */}
       <div className="flex-grow p-8">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold text-purple-800">Quizzes</h1>
-          <div className="bg-blue-600 text-white rounded-lg px-4 py-2 flex items-center mt-24">
+          <h1 className="text-2xl font-bold text-indigo-800">Quizzes</h1>
+          <div className="bg-blue-500 text-white rounded-lg px-4 py-2 flex items-center mt-24">
             <Clock className="w-5 h-5 mr-2" />
             <span className="text-xl font-bold">00:58:24</span>
           </div>
@@ -136,10 +136,10 @@ export default function QuizPage() {
 
           {/* Navigation Buttons */}
           <div className="flex justify-between mt-6">
-            <Button className="bg-blue-700 text-white" size="lg">
+            <Button className="bg-blue-500 text-white hover:bg-blue-600 " size="lg">
               <ArrowLeft className="mr-2" /> Previous
             </Button>
-            <Button className="bg-blue-700 text-white" size="lg">
+            <Button className="bg-blue-500 text-white hover:bg-blue-600" size="lg">
               Next <ArrowRight className="ml-2" />
             </Button>
           </div>
@@ -147,7 +147,7 @@ export default function QuizPage() {
       </div>
 
       {/* JP Badge */}
-      <div className="absolute top-4 right-4 bg-blue-700 text-white font-bold text-5xl w-20 h-20 rounded-full flex items-center justify-center">
+      <div className="absolute top-4 right-4 bg-indigo-800 text-white font-bold text-5xl w-20 h-20 rounded-full flex items-center justify-center">
         JP
       </div>
     </div>
