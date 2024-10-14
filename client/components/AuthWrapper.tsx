@@ -1,12 +1,13 @@
 import Link from "next/link";
 import React from "react";
+import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 
 const AuthWrapper = ({
   children,
   link,
   text,
   href,
-  title
+  title,
 }: Readonly<{
   children: React.ReactNode;
   link: string;
@@ -15,18 +16,25 @@ const AuthWrapper = ({
   title: string;
 }>) => {
   return (
-    <div className=' min-h-screen flex flex-col items-center justify-center'>
-      <h1 className='md:text-5xl text-3xl text-center font-medium text-[#155FA0]'>
-        {title}
-      </h1>
-      <p className='text-slate-700 text-sm'>
-        {text}
-        <Link href={href} className='text-[#155FA0] underline'>
-          {link}
-        </Link>
-      </p>
+    <Card className='max-w-lg w-full mx-auto my-auto p-3 flex flex-col items-center justify-center bg-white text-black'>
+      <CardHeader>
+        <CardTitle>
+          <h1 className='md:text-5xl text-3xl text-center font-medium text-[#155FA0]'>
+            {title}
+          </h1>
+        </CardTitle>
+        <CardDescription>
+          <p className='text-slate-700 text-sm text-center'>
+            {text}
+            <Link href={href} className='text-[#155FA0] underline'>
+              {link}
+            </Link>
+          </p>
+        </CardDescription>
+      </CardHeader>
+
       {children}
-    </div>
+    </Card>
   );
 };
 
