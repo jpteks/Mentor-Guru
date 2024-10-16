@@ -18,7 +18,7 @@ export default function Home() {
         <div className='absolute left-900 top-10'>
           <ModeToggle />
         </div>
-        <h1 className='text-4xl md:text-6xl  font-black z-10 text-center text-white'>
+        <h1 className='text-4xl md:text-6xl p-3  font-black z-10 text-center text-white'>
           Start Learning from <TypeAnime /> <br /> & Talented
           <span className='text-orange-500'> Tutors.</span>
         </h1>
@@ -45,7 +45,7 @@ export default function Home() {
         </div>
 
         <Link href='/courses'>
-          <button className='absolute top-10 right-10 bg-orange-500 text-white px-4 py-2 rounded-md z-10 hover:bg-orange-600 transition'>
+          <button className='hidden md:flex absolute top-10 right-10 bg-orange-500 text-white px-4 py-2 rounded-md z-10 hover:bg-orange-600 transition'>
             Browse Course
           </button>
         </Link>
@@ -53,7 +53,7 @@ export default function Home() {
 
       {/* Section 2: Why Learning Online is Best for Student */}
       <div className='min-h-screen flex items-center justify-center '>
-        <div className='max-w-6xl mx-auto p-8 flex'>
+        <div className='max-w-6xl mx-auto p-8 flex flex-wrap md:flex-nowrap'>
           {/* Main Title Section */}
           <div className='text-left mb-12'>
             <h1 className='text-4xl font-bold '>
@@ -87,7 +87,7 @@ export default function Home() {
           </div>
 
           {/* Cards Section */}
-          <div className='grid grid-cols-2 md:grid-cols-2 gap-6'>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
             {/* Card 1 */}
             <div className='bg-blue-500 p-6 rounded-lg flex items-center'>
               <Image
@@ -98,7 +98,7 @@ export default function Home() {
                 className='mr-4'
               />
               <div className='text-white'>
-                <h2 className='text-xl font-semibold'>
+                <h2 className='md:text-xl font-semibold'>
                   Content Created by Industry Experts
                 </h2>
               </div>
@@ -114,7 +114,7 @@ export default function Home() {
                 className='mr-4'
               />
               <div className='text-gray-800'>
-                <h2 className='text-xl font-semibold'>
+                <h2 className='md:text-xl font-semibold'>
                   Practical Projects & Assignments
                 </h2>
               </div>
@@ -130,7 +130,7 @@ export default function Home() {
                 className='mr-4'
               />
               <div className='text-gray-800'>
-                <h2 className='text-xl font-semibold'>
+                <h2 className='md:text-xl font-semibold'>
                   Interactive Learning Experience
                 </h2>
               </div>
@@ -146,7 +146,7 @@ export default function Home() {
                 className='mr-4'
               />
               <div className='text-gray-800'>
-                <h2 className='text-xl font-semibold'>
+                <h2 className='md:text-xl font-semibold'>
                   Community & Collaboration
                 </h2>
               </div>
@@ -197,7 +197,7 @@ export default function Home() {
 
       <div className=' py-16 '>
         {/* Stats Section */}
-        <div className='flex justify-center space-x-8 mb-16'>
+        <div className='flex justify-center gap-2 md:space-x-8 mb-16 flex-wrap'>
           <div className='bg-blue-600 text-white text-center px-8 py-6 rounded-lg shadow-md'>
             <h4 className='text-sm font-semibold mb-2'>USERS</h4>
             <p className='text-3xl font-bold'>2000+</p>
