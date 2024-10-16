@@ -14,19 +14,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { AvatarImage } from "@radix-ui/react-avatar";
-import {
-  ArrowBigRight,
-  ArrowRight,
-  Badge,
-  Check,
-  Star,
-  User,
-  Video,
-} from "lucide-react";
+import { ArrowRight, Badge, Check, Star, User, Video } from "lucide-react";
+import Link from "next/link";
 
 const Course = () => {
   return (
-    <div className='p-2 h-full'>
+    <div className='p-2 grow'>
       <Card
         className='border w-full h-[200px]  rounded-md bg-center bg-no-repeat'
         style={{ background: "url('/Hexagon.svg')" }}
@@ -46,16 +39,23 @@ const Course = () => {
           </CardDescription>
         </CardHeader>
         <CardContent className='flex gap-2'>
-          <Button className='bg-white text-black'>Watch Preview</Button>
-          <Button className='bg-white text-black'>Enroll Courses</Button>
+          <Button className='bg-white text-black dark:hover:text-black hover:text-white'>
+            Watch Preview
+          </Button>
+          <Button className='bg-white text-black dark:hover:text-black hover:text-white'>
+            Enroll Courses
+          </Button>
         </CardContent>
       </Card>
       {/* ---------------------------------------------------------Courses bento grid -----------------------------------------------------*/}
-      <div className='grid md:grid-cols-[2fr_minmax(150px,_1fr)] mt-2 gap-3 p-2 '>
-        {/* Courses Videos */}
+      <div className='grid md:grid-cols-[2fr_minmax(150px,_1fr)]  mt-2 gap-3 p-2 '>
+        {/* Courses Videos chapters */}
         <Card className='border p-2 '>
           <div className='flex items-center justify-start'>
-            <Button className='bg-white text-black' size='icon'>
+            <Button
+              className='bg-white text-black dark:hover:text-black hover:text-white'
+              size='icon'
+            >
               <Star className='w-5 h-5' />
             </Button>
 
@@ -77,9 +77,11 @@ const Course = () => {
                 <AccordionTrigger className='flex items-center justify-between px-2 bg-slate-200 dark:bg-inherit'>
                   Getting Started
                 </AccordionTrigger>
-                <AccordionContent className='flex gap-2 text-sm text-slate-500 px-2'>
-                  <Video /> courses intro video
-                </AccordionContent>
+                <Link href='/courses/dfdvvcvc/chapters/zqalmpu_cveza2mp9àcdzz'>
+                  <AccordionContent className='flex gap-2 text-sm text-slate-500 px-2'>
+                    <Video /> courses intro video
+                  </AccordionContent>
+                </Link>
               </AccordionItem>
 
               <AccordionItem value='item-2'>
@@ -114,7 +116,10 @@ const Course = () => {
           {/* Instructor's card */}
           <Card className='px-4 pt-2 dark:bg-[#1d1e22]'>
             <div className='flex items-center justify-start gap-2'>
-              <Button className='bg-white text-black' size='icon'>
+              <Button
+                className='bg-white text-black dark:hover:text-black hover:text-white'
+                size='icon'
+              >
                 <User className='w-5 h-5' />
               </Button>
               Instructor
@@ -132,7 +137,10 @@ const Course = () => {
           {/* Related courses card */}
           <Card className='p-4 dark:bg-[#1d1e22] '>
             <div className='flex items-center justify-start gap-2'>
-              <Button className='bg-white text-black' size='icon'>
+              <Button
+                className='bg-white text-black dark:hover:text-black hover:text-white'
+                size='icon'
+              >
                 <Badge className='w-5 h-5' />
               </Button>
               Related Courses
@@ -148,7 +156,10 @@ const Course = () => {
 
             <div className='border mt-[1px] flex items-center justify-between text-xs font-bold p-1'>
               see Details
-              <Button className='bg-white text-black' size='sm'>
+              <Button
+                className='bg-white text-black dark:hover:text-black hover:text-white'
+                size='sm'
+              >
                 <ArrowRight className='w-5 h-5' />
               </Button>
             </div>
