@@ -11,8 +11,9 @@ export default function CourseLayout({
       <div className=' min-h-screen w-[250px] min-w-[250px] hidden md:block'>
         <SiderBar />
       </div>
-      <main className='w-full h-full min-h-screen'>
+      <main className='w-full flex flex-col min-h-screen'>
         <Header />
+
         {children}
       </main>
     </div>

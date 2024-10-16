@@ -6,7 +6,7 @@ const CardCourse = () => {
   return (
     <Card className=''>
       <Link
-        href='/courses/deropmwq&9866'
+        href='/courses/qxnlpr_dewz6èndrtmn'
         className='block rounded-lg p-4 shadow-sm shadow-indigo-100'
       >
         <Image
