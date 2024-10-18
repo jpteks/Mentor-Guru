@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Form,
@@ -21,12 +21,14 @@ import { InputForm } from "@/components/ui/inputForm";
 import { Eye, EyeOff, Mail } from "lucide-react";
 
 import Link from "next/link";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const formSchema = z.object({
   password: z.string().min(6, {
     message: "Password should not be empty.",
   }),
   email: z.string().email({ message: "Email should be valid" }),
+  terms: z.boolean().refine(v => v, { message: "Accept terms and conditions" }),
 });
 
 const SignIn = () => {
@@ -46,6 +48,13 @@ const SignIn = () => {
     // ✅ This will be type-safe and validated.
     console.log(values);
   }
+
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
 
   return (
     <>
@@ -118,10 +127,35 @@ const SignIn = () => {
               </Link>
               <Button
                 type='submit'
-                className='w-full mt-3 bg-[#155FA0] hover:bg-[#155FA0]'
+                className='w-full mt-3 bg-[#155FA0] hover:bg-[#155FA0] dark:text-white'
               >
-                SignUp
+                SignIn
               </Button>
+              <FormField
+                control={form.control}
+                name='terms'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <div className='flex items-center space-x-2'>
+                        <Checkbox
+                          id='terms'
+                          className='border-black'
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                        <label
+                          htmlFor='terms'
+                          className='font-medium text-xs leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
+                        >
+                          Accept terms and conditions
+                        </label>
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
           </form>
         </Form>

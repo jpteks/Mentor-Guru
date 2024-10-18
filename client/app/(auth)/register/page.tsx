@@ -198,7 +198,7 @@ const Register = () => {
               />
               <Button
                 type='submit'
-                className='w-full mt-3 bg-[#155FA0] hover:bg-[#155FA0]'
+                className='w-full mt-3 bg-[#155FA0] hover:bg-[#155FA0] dark:text-white'
               >
                 SignUp
               </Button>
