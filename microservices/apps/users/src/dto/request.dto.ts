@@ -1,9 +1,7 @@
-import {IsNotEmpty, IsEmail} from 'class-validator'
+import { IsNotEmpty, IsEmail } from 'class-validator';
 
-export class requestDto{
-    @IsEmail()
-    @IsNotEmpty()
-    email:string;
-    
- 
+export class requestDto {
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
 }

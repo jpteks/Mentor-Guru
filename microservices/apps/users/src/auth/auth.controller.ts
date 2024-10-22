@@ -1,57 +1,77 @@
-import { Controller, Post, Body, Headers, Get, Req,Res } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Headers,
+  Get,
+  Res,
+  Req,
+  HttpCode,
+  HttpStatus,
+} from '@nestjs/common';
 import { createUserDto } from '../dto/createUser.dto';
-import { updateUserDto } from '../dto/updateUser.dto'; 
+import { Response, Request } from 'express';
 import { AuthService } from './auth.service';
 import { otpDto } from '../dto/otp.dto';
 import { loginDto } from '../dto/login.dto';
 import { requestDto } from '../dto/request.dto';
 import { ResetPasswordDto } from '../dto/resetPassword.dto';
-import { MessagePattern, Payload } from '@nestjs/microservices';
-import { Response,Request } from 'express';
-import {AUTH_PATTERNS }from '@app/contracts/users/user.patterns'
+
+@Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-  @MessagePattern(AUTH_PATTERNS.REGISTER)
-  async register(@Payload() registerDto: createUserDto) {
+
+  @HttpCode(HttpStatus.CREATED)
+  @Post('register')
+  async register(@Body() registerDto: createUserDto) {
     return this.authService.register(registerDto);
   }
 
-  @MessagePattern(AUTH_PATTERNS.VERIFY_OTP)
+  @HttpCode(HttpStatus.OK)
+  @Post('verify-otp')
   async verifyOtp(
-    @Payload() otpDto: otpDto,
+    @Body() otpDto: otpDto,
     @Headers('Authorization') token: string,
   ) {
     const bearerToken = token.split(' ')[1];
+
     return this.authService.verifyOtp(otpDto, bearerToken);
   }
 
-  @MessagePattern(AUTH_PATTERNS.LOGIN)
-  async login(@Payload() loginDto: loginDto, @Res({ passthrough: true }) res: Response,): Promise<any> {
-    return this.authService.login(loginDto,res);
+  @HttpCode(HttpStatus.OK)
+  @Post('login')
+  async login(
+    @Body() loginDto: loginDto,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<any> {
+    return this.authService.login(loginDto, res);
   }
 
-  @MessagePattern(AUTH_PATTERNS.REQUEST_PASSWORD_RESET)
-  async requestPasswordReset(@Payload() requestDto: requestDto): Promise<{ message: string }> {
+  @HttpCode(HttpStatus.OK)
+  @Post('request-password-reset')
+  async requestPasswordReset(
+    @Body() requestDto: requestDto,
+  ): Promise<{ message: string }> {
     return this.authService.requestPasswordReset(requestDto);
   }
 
-  @MessagePattern(AUTH_PATTERNS.RESET_PASSWORD)
+  @HttpCode(HttpStatus.OK)
+  @Post('reset-password')
   async resetPassword(
-    @Payload() resetPasswordDto: ResetPasswordDto,
-    @Headers('Authorization') token: string
+    @Body() resetPasswordDto: ResetPasswordDto,
+    @Headers('Authorization') token: string,
   ): Promise<{ message: string }> {
     const bearerToken = token.split(' ')[1];
     return this.authService.resetPassword(resetPasswordDto, bearerToken);
   }
-
-  @MessagePattern(AUTH_PATTERNS.REFRESH_TOKEN)
+  @HttpCode(HttpStatus.OK)
+  @Get('refresh-token')
   async refreshToken(@Req() req: Request): Promise<{ accessToken: string }> {
     return this.authService.refreshToken(req);
   }
-
-  @MessagePattern(AUTH_PATTERNS.LOGOUT)
+  @HttpCode(HttpStatus.OK)
+  @Post('logout')
   async logout(@Res() res: Response): Promise<{ message: string }> {
-   
     return this.authService.logout(res);
   }
 }

@@ -1,16 +1,16 @@
 import {
   IsString,
   IsNotEmpty,
+  IsBoolean,
+  IsDate,
   IsEmail,
   MinLength,
-  IsEnum,
 } from 'class-validator';
-import { UserRole } from '../schemas/User.schema';
 
 export class createUserDto {
   @IsString()
   @IsNotEmpty()
-  @IsEmail({}, { message: 'Please enter a correct email' })
+  @IsEmail({}, { message: 'Please enter correct email' })
   email: string;
 
   @IsString()
@@ -20,15 +20,11 @@ export class createUserDto {
 
   @IsString()
   @IsNotEmpty()
-  @MinLength(3)
   username: string;
 
   @IsString()
   @IsNotEmpty()
-  @IsEnum(UserRole, {
-    message: "Please enter a correct role: 'admin' or 'student'",
-  })
-  role: UserRole;
+  role: string;
 
   @IsString()
   @IsNotEmpty()
@@ -37,4 +33,19 @@ export class createUserDto {
   @IsString()
   @IsNotEmpty()
   region: string;
+
+  @IsString()
+  @IsNotEmpty()
+  otp: string;
+
+  @IsBoolean()
+  isActive: boolean;
+  @IsBoolean()
+  isEmailVerified: boolean;
+
+  @IsDate()
+  otpExpiry: Date;
+
+  @IsDate()
+  lastLogin: Date;
 }

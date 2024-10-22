@@ -7,24 +7,29 @@ import { updateUserDto } from '../dto/updateUser.dto';
 import * as bcrypt from 'bcrypt';
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private readonly  userModel: Model<User>) {}
+  constructor(
+    @InjectModel(User.name) private readonly userModel: Model<User>,
+  ) {}
 
-  async create(createUserDto: createUserDto): Promise<{ statusCode: number; message: string,token:string }> {
+  async create(
+    createUserDto: createUserDto,
+  ): Promise<{ statusCode: number; message: string; token: string }> {
     try {
-      const { username, email, phoneNumber, region, password,role } = createUserDto;
-  
+      const { username, email, phoneNumber, region, password, role } =
+        createUserDto;
+
       // Check if email already exists
       const user = await this.userModel.findOne({ email });
-      if (user) return {
-        statusCode: HttpStatus.BAD_REQUEST,
-        message: 'user exist already',
-        token:null
-      };
-  
+      if (user)
+        return {
+          statusCode: HttpStatus.BAD_REQUEST,
+          message: 'user exist already',
+          token: null,
+        };
+
       // Hash the password
       const hashedPassword = await bcrypt.hash(password, 10);
-     
-  
+
       // Create new user
       const newUser = new this.userModel({
         username,
@@ -32,36 +37,32 @@ export class UserService {
         phoneNumber,
         region,
         password: hashedPassword,
-        otp:null,
-        otpExpiry:null,
+        otp: null,
+        otpExpiry: null,
         role,
-        isEmailVerified:true,
-        accountStatus:true
-   
-        
+        isEmailVerified: true,
+        accountStatus: true,
       });
-  
+
       // Save the new user to the database
       await newUser.save();
-  
-         return {
+
+      return {
         statusCode: HttpStatus.CREATED,
         message: 'user created',
-        token:null
+        token: null,
       };
     } catch (e) {
       // Log error for debugging
       console.error('Error during creation of user:', e);
-  
+
       return {
         statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
         message: 'Server crashed',
-        token:null
+        token: null,
       };
     }
-  
   }
-  
 
   async findAll(): Promise<User[]> {
     return this.userModel.find().exec();
@@ -75,11 +76,14 @@ export class UserService {
     return user;
   }
 
-  async update(id: string, updateUserDto: updateUserDto): Promise<{ message: string; statusCode: number }> {
+  async update(
+    id: string,
+    updateUserDto: updateUserDto,
+  ): Promise<{ message: string; statusCode: number }> {
     const user = await this.userModel.findById(id).exec();
-    
+
     if (!user) {
-      return { message: "User not found", statusCode: HttpStatus.NOT_FOUND };
+      return { message: 'User not found', statusCode: HttpStatus.NOT_FOUND };
     }
 
     // Only hash the password if it exists in the DTO
@@ -94,15 +98,14 @@ export class UserService {
     user.phoneNumber = updateUserDto.phoneNumber;
 
     await user.save();
-    return { message: "User updated successfully", statusCode: HttpStatus.OK };
+    return { message: 'User updated successfully', statusCode: HttpStatus.OK };
   }
 
-  async remove(id: string): Promise<{message:string,statusCode:number}> {
+  async remove(id: string): Promise<{ message: string; statusCode: number }> {
     const result = await this.userModel.findByIdAndDelete(id).exec();
     if (!result) {
-      
-      return {message:"user not found",statusCode:HttpStatus.NOT_FOUND};
+      return { message: 'user not found', statusCode: HttpStatus.NOT_FOUND };
     }
-    return {message:"user deleted successfully",statusCode:HttpStatus.OK};
+    return { message: 'user deleted successfully', statusCode: HttpStatus.OK };
   }
 }

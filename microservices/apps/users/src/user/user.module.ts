@@ -5,7 +5,6 @@ import { User, UserSchema } from '../schemas/User.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from '../guards/role.guard';
-
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),

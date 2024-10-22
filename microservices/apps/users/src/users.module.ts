@@ -3,9 +3,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
-import { UserSchema,User } from '../src/schemas/User.schema';
+import { UserSchema, User } from '../src/schemas/User.schema';
 
-import {ConfigModule,ConfigService} from '@nestjs/config'
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ConfigifyModule } from '@itgorillaz/configify';
 import { AuthModule } from './auth/auth.module';
 import { userConfiguration } from './config/config.configuration';
@@ -15,7 +15,7 @@ import { UserModule } from './user/user.module';
 @Module({
   imports: [
     ConfigifyModule.forRootAsync(),
-   
+
     // ConfigModule.forRoot({
     //   isGlobal: true,
     //   envFilePath: 'microservices/.env',
@@ -27,24 +27,19 @@ import { UserModule } from './user/user.module';
       }),
       inject: [userConfiguration],
     }),
-    MongooseModule.forFeature([
-      {name:User.name,
-      schema:UserSchema},
-   ] ),
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     UserModule,
-  
-  //  JwtModule.registerAsync({
-  //   inject:[configuration],
-  //   global:true,
-  //   useFactory:(config:configuration)=>({
-  //     secret:config.jwtSecret,
-  //     signOptions:{
-  //       expiresIn:config.jwtExp
-  //     }
-  //   })
-  //  }),
- 
-      
+
+    //  JwtModule.registerAsync({
+    //   inject:[configuration],
+    //   global:true,
+    //   useFactory:(config:configuration)=>({
+    //     secret:config.jwtSecret,
+    //     signOptions:{
+    //       expiresIn:config.jwtExp
+    //     }
+    //   })
+    //  }),
   ],
   controllers: [UsersController],
   providers: [UsersService],

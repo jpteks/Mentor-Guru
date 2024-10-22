@@ -1,167 +1,26 @@
-import { Injectable, Inject, InternalServerErrorException } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
-import { AUTH_PATTERNS } from '@app/contracts/users/user.patterns';
-import { createUserDto } from './dto/createUser.dto';
-import { otpDto } from './dto/otp.dto';
-import { loginDto } from './dto/login.dto';
-import { requestDto } from './dto/request.dto';
-import { ResetPasswordDto } from './dto/resetPassword.dto';
-import { updateUserDto } from './dto/updateUser.dto';
-import { Observable, catchError } from 'rxjs';
+import { Injectable } from '@nestjs/common';
+import { CreateAuthDto } from './dto/create-auth.dto';
+import { UpdateAuthDto } from './dto/update-auth.dto';
 
 @Injectable()
 export class AuthService {
-  constructor(@Inject('AUTH_SERVICE') private authClient: ClientProxy) {}
-
-  // Register
-  register(CreateUserDto: createUserDto): Observable<any> {
-    const payload=CreateUserDto
-        return this.authClient.send(AUTH_PATTERNS.REGISTER, payload).pipe(
-      catchError((error) => {
-        throw new InternalServerErrorException(`Registration failed ohh: ${error.message}`);
-      }),
-    );
+  create(createAuthDto: CreateAuthDto) {
+    return 'This action adds a new auth';
   }
 
-  // OTP Verification
-  verifyOtp(otpDto: otpDto, token: string): Observable<any> {
-    const payload = { otpDto, token };
-    return this.authClient.send(AUTH_PATTERNS.VERIFY_OTP, payload).pipe(
-      catchError((error) => {
-        throw new InternalServerErrorException(`OTP Verification failed: ${error.message}`);
-      }),
-    );
+  findAll() {
+    return `This action returns all auth`;
   }
 
-  // Login
-  login(loginDto: loginDto, res: Response): Observable<any> {
-    const payload = { loginDto };
-    return this.authClient.send(AUTH_PATTERNS.LOGIN, payload).pipe(
-      catchError((error) => {
-        throw new InternalServerErrorException(`Login failed: ${error.message}`);
-      }),
-    );
+  findOne(id: number) {
+    return `This action returns a #${id} auth`;
   }
 
-  // Request Password Reset
-  requestPasswordReset(requestDto: requestDto): Observable<any> {
-    return this.authClient.send(AUTH_PATTERNS.REQUEST_PASSWORD_RESET, requestDto).pipe(
-      catchError((error) => {
-        throw new InternalServerErrorException(`Password reset request failed: ${error.message}`);
-      }),
-    );
+  update(id: number, updateAuthDto: UpdateAuthDto) {
+    return `This action updates a #${id} auth`;
   }
 
-  // Reset Password
-  resetPassword(resetPasswordDto: ResetPasswordDto, token: string): Observable<any> {
-    const payload = { resetPasswordDto, token };
-    return this.authClient.send(AUTH_PATTERNS.RESET_PASSWORD, payload).pipe(
-      catchError((error) => {
-        throw new InternalServerErrorException(`Password reset failed: ${error.message}`);
-      }),
-    );
-  }
-
-  // Refresh Token
-  refreshToken(req: Request): Observable<any> {
-    return this.authClient.send(AUTH_PATTERNS.REFRESH_TOKEN, req).pipe(
-      catchError((error) => {
-        throw new InternalServerErrorException(`Token refresh failed: ${error.message}`);
-      }),
-    );
-  }
-
-  // Logout
-  logout(req: Request): Observable<any> {
-    return this.authClient.send(AUTH_PATTERNS.LOGOUT, req).pipe(
-      catchError((error) => {
-        throw new InternalServerErrorException(`Logout failed: ${error.message}`);
-      }),
-    );
+  remove(id: number) {
+    return `This action removes a #${id} auth`;
   }
 }
-
-
-// import { ClientProxy } from '@nestjs/microservices';
-// import {
-//   BadRequestException,
-//   ForbiddenException,
-//   Inject,
-//   Injectable,
-//   InternalServerErrorException,
-// } from '@nestjs/common';
-// import { catchError, Observable } from 'rxjs';
-// import { AUTH_PATTERNS } from '@app/contracts/users/user.patterns';
-// import { createUserDto } from '@app/contracts/users/createUser.dto';
-// import { updateUserDto } from '@app/contracts/users/updateUser.dto';
-// import { loginDto } from '@app/contracts/users/login.dto';
-// import { requestDto } from '@app/contracts/users/request.dto';
-// import { otpDto } from '@app/contracts/users/otp.dto';
-// import { ResetPasswordDto } from '@app/contracts/users/resetPassword.dto';
-
-// @Injectable()
-// export class AuthService {
-//   constructor(@Inject('AUTH_SERVICE') private authClient: ClientProxy) {}
-
-//   register(createUserDto: createUserDto): Observable<any> {
-//     const payload = createUserDto;
-//     return this.authClient.send(AUTH_PATTERNS.REGISTER, payload).pipe(
-//       catchError((error) => {
-//         throw new InternalServerErrorException(` ${error.message} `);
-//       }),
-//     );
-//   }
-//   verifyOtp(otpDto: otpDto,token:string): Observable<any> {
-//     const payload = [{otpDto:otpDto},{token:token}];
-//     return this.authClient.send(AUTH_PATTERNS.VERIFY_OTP, payload).pipe(
-//       catchError((error) => {
-//         throw new InternalServerErrorException(` ${error.message} `);
-//       }),
-//     );
-//   }
-//   login(loginDto:loginDto,res:Response): Observable<any> {
-//     const payload = [{loginDto:loginDto},{res:res}];
-//     return this.authClient.send(AUTH_PATTERNS.LOGIN, payload).pipe(
-//       catchError((error) => {
-//         throw new InternalServerErrorException(` ${error.message} `);
-//       }),
-//     );
-//   }
-//   requestPasswordReset(requestDto:requestDto): Observable<any> {
-//     const payload = [{requestDto:requestDto}];
-//     return this.authClient.send(AUTH_PATTERNS.REQUEST_PASSWORD_RESET, payload).pipe(
-//       catchError((error) => {
-//         throw new InternalServerErrorException(` ${error.message} `);
-//       }),
-//     );
-//   }
-//   resetPassword(resetPasswordDto:ResetPasswordDto,): Observable<any> {
-//     const payload = [{resetPasswordDto:resetPasswordDto}];
-//     return this.authClient.send(AUTH_PATTERNS.RESET_PASSWORD, payload).pipe(
-//       catchError((error) => {
-//         throw new InternalServerErrorException(` ${error.message} `);
-//       }),
-//     );
-//   }
-//   refreshToken(req:Request): Observable<any> {
-    
-//     return this.authClient.send(AUTH_PATTERNS.REFRESH_TOKEN, req).pipe(
-//       catchError((error) => {
-//         throw new InternalServerErrorException(` ${error.message} `);
-//       }),
-//     );
-//   }
-//   logout(requestDto:requestDto): Observable<any> {
-//     const payload = [{requestDto:requestDto}];
-//     return this.authClient.send(AUTH_PATTERNS.LOGOUT, payload).pipe(
-//       catchError((error) => {
-//         throw new InternalServerErrorException(` ${error.message} `);
-//       }),
-//     );
-//   }
-
-
-
-
-// }
-

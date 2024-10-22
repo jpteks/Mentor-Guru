@@ -3,7 +3,11 @@ import * as nodemailer from 'nodemailer';
 
 @Injectable()
 export class EmailService {
-  async sendOtpEmail(username:string,email: string, otp: string): Promise<void> {
+  async sendOtpEmail(
+    username: string,
+    email: string,
+    otp: string,
+  ): Promise<void> {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -22,7 +26,10 @@ export class EmailService {
       text: `Hello ${username} your otp code is ${otp}`,
     });
   }
-  async sendPasswordResetEmail(email: string, resetLink: string): Promise<void> {
+  async sendPasswordResetEmail(
+    email: string,
+    resetLink: string,
+  ): Promise<void> {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
