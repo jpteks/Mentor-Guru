@@ -41,7 +41,7 @@ export class UserService {
         otpExpiry: null,
         role,
         isEmailVerified: true,
-        accountStatus: true,
+        accountStatus:'active' ,
       });
 
       // Save the new user to the database
