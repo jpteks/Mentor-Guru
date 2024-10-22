@@ -1,0 +1,53 @@
+services:
+  courses:
+    build:
+      context: .
+      target: development
+    command: pnpm run start:dev courses
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - '3003:3000'
+    depends_on:
+      - coursesDB
+
+  api-gateway:
+    build:
+      context: .
+      target: development
+    command: pnpm run start:dev api-gateway
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - '3001:3000'
+  usersDB:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: user
+      MONGO_INITDB_ROOT_PASSWORD: user
+      MONGO_INITDB_DATABASE: usersDB
+    ports:
+      - '27017:27017' # Mapping MongoDB to the default port 27017
+    volumes:
+      - userdata:/data/db # Mounting volume for usersDB data
+
+  coursesDB:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: meta
+      MONGO_INITDB_ROOT_PASSWORD: meta
+      MONGO_INITDB_DATABASE: coursesDB
+    ports:
+      - '27018:27017' # Mapping host port 27018 to container port 27017
+    volumes:
+      - metadata:/data/db # Mounting volume for courseDB data
+
+volumes:
+  userdata:
+    driver: local
+  metadata:
+    driver: local

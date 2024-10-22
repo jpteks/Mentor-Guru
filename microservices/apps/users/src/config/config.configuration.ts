@@ -6,6 +6,8 @@ export class userConfiguration {
   userDB: string;
   @Value('PORT')
   port: string;
+  @Value('GATEWAY_PORT')
+  gateway_port: string;
   @Value('JWT_SECRET')
   jwtSecret: string;
   @Value('EXPIRES')
