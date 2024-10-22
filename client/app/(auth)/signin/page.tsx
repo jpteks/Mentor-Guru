@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 
 import {
   Form,
@@ -21,17 +21,19 @@ import { InputForm } from "@/components/ui/inputForm";
 import { Eye, EyeOff, Mail } from "lucide-react";
 
 import Link from "next/link";
-import { Checkbox } from "@/components/ui/checkbox";
+import toast from "react-hot-toast";
+import { coursesApi } from "@/app/constant";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   password: z.string().min(6, {
     message: "Password should not be empty.",
   }),
   email: z.string().email({ message: "Email should be valid" }),
-  terms: z.boolean().refine(v => v, { message: "Accept terms and conditions" }),
 });
 
 const SignIn = () => {
+  const router = useRouter();
   const [isShowPassword, setIsShowPassword] = useState(false);
   const toggleShowPassword = () => setIsShowPassword(!isShowPassword);
 
@@ -43,18 +45,19 @@ const SignIn = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      //setLoading(true);
+      const response = await coursesApi.post("/auth/login", values);
+      console.log(response);
+      router.push("/courses");
+      toast.success("you logged in!");
+    } catch (error) {
+      toast.error("Something went wrong" + error);
+    } finally {
+      //setLoading(false);
+    }
   }
-
-  const [isMounted, setIsMounted] = useState(false);
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) return null;
 
   return (
     <>
@@ -131,31 +134,6 @@ const SignIn = () => {
               >
                 SignIn
               </Button>
-              <FormField
-                control={form.control}
-                name='terms'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <div className='flex items-center space-x-2'>
-                        <Checkbox
-                          id='terms'
-                          className='border-black'
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                        <label
-                          htmlFor='terms'
-                          className='font-medium text-xs leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
-                        >
-                          Accept terms and conditions
-                        </label>
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
             </div>
           </form>
         </Form>

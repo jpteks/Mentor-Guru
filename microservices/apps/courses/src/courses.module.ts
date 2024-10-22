@@ -12,7 +12,7 @@ import { Course, CourseSchema } from './schemas/course.schema';
     // Necessary for initiating the db connection by passing uri connection string
     MongooseModule.forRootAsync({
       useFactory: async (dbConfig: dbConfiguration) => ({
-        uri: dbConfig.coursesDB,
+        uri: 'mongodb://meta:meta@coursesDB:27017/coursesDB?authSource=admin' /*|| dbConfig.DB_METADATA_URL || dbConfig.coursesDB*/,
       }),
       inject: [dbConfiguration],
     }),

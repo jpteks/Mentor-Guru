@@ -8,14 +8,12 @@ import { ModeToggle } from "@/components/mode-toggle";
 import Why from "./components/Why";
 import MobileNav from "./components/Mobile-nav";
 
-
 export default function Home() {
   return (
     <section>
-     
       <MobileNav />
       {/* Section 1: Hero Section with Geometric Background */}
-      <section className='bg-cover bg-blue-600 dark:bg-inherit  bg-center  min-h-screen flex flex-col items-center justify-center relative overflow-hidden -z-30 '>
+      <section className='bg-cover bg-blue-600 dark:bg-inherit  bg-center  min-h-screen flex flex-col items-center justify-center relative overflow-hidden '>
         <GraduationCap
           className='absolute left-10 top-10  hidden md:flex'
           size={52}
