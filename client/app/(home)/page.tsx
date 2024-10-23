@@ -2,11 +2,11 @@ import { GraduationCap } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import TypeAnime from "./components/TypeAnime";
-import CardBox from "./components/Card";
 import { ModeToggle } from "@/components/mode-toggle";
 //import { motion } from "framer-motion";
 import Why from "./components/Why";
 import MobileNav from "./components/Mobile-nav";
+import { Testimonial } from "./components/Testimonial";
 
 export default function Home() {
   return (
@@ -54,23 +54,8 @@ export default function Home() {
       <Why />
 
       {/* Testimonial Section */}
-      <section className='py-12'>
-        <div className='text-center mb-8'>
-          <h1 className='text-3xl md:text-4xl font-bold'>
-            Our Successful <span className='text-orange-500'>Stories</span>
-          </h1>
-        </div>
-
-        <div className='max-w-6xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-y-10 place-items-center'>
-          {/* Testimonial Card 1 */}
-          <CardBox />
-
-          {/* Testimonial Card 2 */}
-          <CardBox />
-
-          {/* Testimonial Card 3 */}
-          <CardBox />
-        </div>
+      <section>
+        <Testimonial />
       </section>
 
       {/* Video Section */}
