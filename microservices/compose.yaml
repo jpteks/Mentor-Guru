@@ -6,7 +6,7 @@ services:
         - APP=courses
     restart: always
     ports:
-      - 3003:3000
+      - 3003:3003
     depends_on: 
       - coursesDB
 

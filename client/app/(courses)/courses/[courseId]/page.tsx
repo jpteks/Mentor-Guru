@@ -4,8 +4,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -13,8 +15,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { AvatarImage } from "@radix-ui/react-avatar";
-import { ArrowRight, Badge, Check, Star, User, Video } from "lucide-react";
+import {
+  ArrowRight,
+  Badge as BadgeIcon,
+  Check,
+  Star,
+  Video,
+} from "lucide-react";
 import Link from "next/link";
 
 const Course = () => {
@@ -27,9 +34,9 @@ const Course = () => {
         <CardHeader>
           <CardDescription className='flex text-xs font-semibold items-center'>
             Yebga Ruben
-            <Badge className='p-1 w-7 h-7 text-blue-400'>
+            <BadgeIcon className='p-1 w-7 h-7 text-blue-400'>
               <Check className='w-3 h-3' />
-            </Badge>
+            </BadgeIcon>
           </CardDescription>
           <CardTitle className='text-white text-3xl'>
             Moment Of a Force
@@ -61,9 +68,7 @@ const Course = () => {
 
             <CardHeader>
               <CardTitle>Courses Overview</CardTitle>
-              <CardDescription>
-                9 sections . 41 lectures . 3H47m
-              </CardDescription>
+              <CardDescription>10 videos</CardDescription>
             </CardHeader>
           </div>
 
@@ -116,22 +121,20 @@ const Course = () => {
           {/* Instructor's card */}
           <Card className='px-4 pt-2 dark:bg-[#1d1e22]'>
             <div className='flex items-center justify-start gap-2'>
-              <Button
-                className='bg-white text-black dark:hover:text-black hover:text-white'
-                size='icon'
-              >
-                <User className='w-5 h-5' />
-              </Button>
+              <Avatar>
+                <AvatarImage src='/profile.jpeg' />
+                <AvatarFallback>Usr</AvatarFallback>
+              </Avatar>
               Instructor
             </div>
             <CardHeader>
-              <CardTitle>Yebga Ruben</CardTitle>
-              <CardDescription>
-                9 sections . 41 lectures . 3H47m
+              <CardTitle className='text-sm'>Yebga Ruben</CardTitle>
+              <CardDescription className='text-sm'>
+                computer Engineer
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p>Free</p>
+              <Badge>Free</Badge>
             </CardContent>
           </Card>
           {/* Related courses card */}
@@ -141,7 +144,7 @@ const Course = () => {
                 className='bg-white text-black dark:hover:text-black hover:text-white'
                 size='icon'
               >
-                <Badge className='w-5 h-5' />
+                <BadgeIcon className='w-5 h-5' />
               </Button>
               Related Courses
             </div>

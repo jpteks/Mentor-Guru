@@ -89,14 +89,16 @@ const Otp = () => {
 
             <Button
               type='submit'
-              className='w-full mt-3 bg-[#155FA0] hover:bg-[#155FA0]'
+              className='w-full mt-3 bg-[#155FA0] hover:bg-[#155FA0] dark:text-white'
             >
               Verify me
             </Button>
 
             <p className='cursor-pointer text-sm text-slate-600 text-center'>
               Didn&apos;t receive code ?
-              <span className='hover:underline text-blue-800'>Resend</span>
+              <span className='hover:underline text-blue-800 dark:text-white'>
+                Resend
+              </span>
             </p>
           </form>
         </Form>

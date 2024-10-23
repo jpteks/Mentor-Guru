@@ -19,7 +19,6 @@ import { z } from "zod";
 import AuthWrapper from "@/components/AuthWrapper";
 import { InputForm } from "@/components/ui/inputForm";
 
-
 import { useRouter } from "next/navigation";
 
 const formSchema = z
@@ -114,7 +113,7 @@ const ResetPassword = () => {
 
               <Button
                 type='submit'
-                className='w-full mt-3 bg-[#155FA0] hover:bg-[#155FA0]'
+                className='w-full mt-3 bg-[#155FA0] hover:bg-[#155FA0] dark:text-white'
               >
                 Reset Password
               </Button>

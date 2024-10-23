@@ -4,19 +4,23 @@ import { CoursesController } from './courses.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { CloudinaryService } from './cloudinary.service';
 import { ConfigifyModule } from '@itgorillaz/configify';
+import { UploadConfiguration } from './config/upload.configuration';
 import { port } from '@app/contracts/port';
 
 @Module({
   imports: [
     ConfigifyModule.forRootAsync(),
-    ClientsModule.register([
+    ClientsModule.registerAsync([
       {
         name: 'COURSES_SERVICE',
-        transport: Transport.TCP,
-        options: {
-          host: 'localhost',
-          port: port.COURSES,
-        },
+        useFactory: async (coursesTransportConfig: UploadConfiguration) => ({
+          transport: Transport.TCP,
+          options: {
+            host: coursesTransportConfig.host || 'localhost',
+            port: port.COURSES,
+          },
+        }),
+        inject: [UploadConfiguration],
       },
     ]),
   ],
