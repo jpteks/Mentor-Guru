@@ -1,46 +1,45 @@
-import { Check, GraduationCap } from "lucide-react";
-//import Head from "next/head";
-import Image from "next/image";
+import { GraduationCap } from "lucide-react";
 import Link from "next/link";
-
 import React from "react";
 import TypeAnime from "./components/TypeAnime";
-import * as motion from "framer-motion/client";
-import CardBox from "./components/Card";
 import { ModeToggle } from "@/components/mode-toggle";
+//import { motion } from "framer-motion";
+import Why from "./components/Why";
+import MobileNav from "./components/Mobile-nav";
+import { Testimonial } from "./components/Testimonial";
 
 export default function Home() {
   return (
-    <div>
+    <section>
+      <MobileNav />
       {/* Section 1: Hero Section with Geometric Background */}
-      <section className='bg-cover bg-blue-600 dark:bg-inherit  bg-center min-h-screen flex flex-col items-center justify-center relative overflow-hidden '>
-        <GraduationCap className='absolute left-10 top-10' size={52} />
-        <div className='absolute left-900 top-10'>
+      <section className='bg-cover bg-blue-600 dark:bg-inherit  bg-center  min-h-screen flex flex-col items-center justify-center relative overflow-hidden '>
+        <GraduationCap
+          className='absolute left-10 top-10  hidden md:flex'
+          size={52}
+        />
+        <div className='absolute left-900 top-10  hidden md:flex'>
           <ModeToggle />
         </div>
-        <h1 className='text-4xl md:text-6xl p-3  font-black z-10 text-center text-white'>
+        <h1 className='text-4xl md:text-6xl p-3  font-black z-10 text-center text-white '>
           Start Learning from <TypeAnime /> <br /> & Talented
           <span className='text-orange-500'> Tutors.</span>
         </h1>
 
         <div className='flex space-x-4 mt-8 z-10'>
-          <motion.button
-            whileHover={{ scale: 1.2 }}
-            whileTap={{ scale: 1.1 }}
-            drag='x'
-            dragConstraints={{ left: -100, right: 100 }}
+          <button
+            // whileHover={{ scale: 1.2 }}
+            // whileTap={{ scale: 1.1 }}
+            // drag='x'
+            // dragConstraints={{ left: -100, right: 100 }}
             className='bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition'
           >
             Join Us Now
-          </motion.button>
+          </button>
           <Link href='/signin'>
-            <motion.button
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              className='bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition'
-            >
+            <button className='bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition'>
               Start Learning
-            </motion.button>
+            </button>
           </Link>
         </div>
 
@@ -52,127 +51,11 @@ export default function Home() {
       </section>
 
       {/* Section 2: Why Learning Online is Best for Student */}
-      <div className='min-h-screen flex items-center justify-center '>
-        <div className='max-w-6xl mx-auto p-8 flex flex-wrap md:flex-nowrap'>
-          {/* Main Title Section */}
-          <div className='text-left mb-12'>
-            <h1 className='text-4xl font-bold '>
-              Why <span className='text-blue-500'>Learning Online</span> is Best
-              for <span className='text-orange-500'>Students</span>
-            </h1>
-
-            {/* Checkmarks Section */}
-            <ul className='mt-6 space-y-4 text-lg'>
-              <li className='flex items-center'>
-                <div className='border-2 w-5 h-5 border-blue-400 bg-blue-400 rounded-full flex items-center justify-center'>
-                  <Check className='text-white w-4 h-4' />
-                </div>
-                <span className='ml-3'>
-                  E-learning platform with quality courses
-                </span>
-              </li>
-              <li className='flex items-center'>
-                <div className='border-2 w-5 h-5 border-blue-400 bg-blue-400 rounded-full flex items-center justify-center'>
-                  <Check className='text-white w-4 h-4' />
-                </div>
-                <span className='ml-3'>Practical projects & assignments</span>
-              </li>
-              <li className='flex items-center'>
-                <div className='border-2 w-5 h-5 border-blue-400 bg-blue-400 rounded-full flex items-center justify-center'>
-                  <Check className='text-white w-4 h-4' />
-                </div>
-                <span className='ml-3'>Interactive learning experience</span>
-              </li>
-            </ul>
-          </div>
-
-          {/* Cards Section */}
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-            {/* Card 1 */}
-            <div className='bg-blue-500 p-6 rounded-lg flex items-center'>
-              <Image
-                src='/images/5484597.jpg'
-                alt='Icon'
-                width={64}
-                height={64}
-                className='mr-4'
-              />
-              <div className='text-white'>
-                <h2 className='md:text-xl font-semibold'>
-                  Content Created by Industry Experts
-                </h2>
-              </div>
-            </div>
-
-            {/* Card 2 */}
-            <div className='bg-white p-6 rounded-lg border border-gray-300 flex items-center'>
-              <Image
-                src='/images/icon.png'
-                alt='Icon'
-                width={64}
-                height={64}
-                className='mr-4'
-              />
-              <div className='text-gray-800'>
-                <h2 className='md:text-xl font-semibold'>
-                  Practical Projects & Assignments
-                </h2>
-              </div>
-            </div>
-
-            {/* Card 3 */}
-            <div className='bg-white p-6 rounded-lg border border-gray-300 flex items-center'>
-              <Image
-                src='/images/icon.png'
-                alt='Icon'
-                width={64}
-                height={64}
-                className='mr-4'
-              />
-              <div className='text-gray-800'>
-                <h2 className='md:text-xl font-semibold'>
-                  Interactive Learning Experience
-                </h2>
-              </div>
-            </div>
-
-            {/* Card 4 */}
-            <div className='bg-white p-6 rounded-lg border border-gray-300 flex items-center'>
-              <Image
-                src='/images/icon.png'
-                alt='Icon'
-                width={64}
-                height={64}
-                className='mr-4'
-              />
-              <div className='text-gray-800'>
-                <h2 className='md:text-xl font-semibold'>
-                  Community & Collaboration
-                </h2>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Why />
 
       {/* Testimonial Section */}
-      <section className='py-12'>
-        <div className='text-center mb-8'>
-          <h1 className='text-4xl font-bold'>
-            Our Successful <span className='text-orange-500'>Stories</span>
-          </h1>
-        </div>
-
-        <div className='max-w-6xl mx-auto  px-4 grid grid-cols-1 md:grid-cols-3 gap-6'>
-          {/* Testimonial Card 1 */}
-          <CardBox />
-
-          {/* Testimonial Card 2 */}
-          <CardBox />
-
-          {/* Testimonial Card 3 */}
-          <CardBox />
-        </div>
+      <section>
+        <Testimonial />
       </section>
 
       {/* Video Section */}
@@ -291,6 +174,6 @@ export default function Home() {
           </div>
         </div>
       </footer>
-    </div>
+    </section>
   );
 }

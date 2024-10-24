@@ -3,25 +3,40 @@ services:
     build:
       context: .
       target: development
+      args:
+        BUILD_STAGE: development
     command: pnpm run start:dev courses
+    #user: "${UID}:${GID}"
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     ports:
-      - '3003:3000'
+      - '3003:3003'
+    environment:
+      - coursesDB="mongodb://meta:meta@coursesDB:27017/coursesDB?authSource=admin"
     depends_on:
       - coursesDB
+    networks:
+      - app-network
 
   api-gateway:
     build:
       context: .
       target: development
+      args:
+        BUILD_STAGE: development
     command: pnpm run start:dev api-gateway
+    #user: "${UID}:${GID}"
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     ports:
-      - '3001:3000'
+      - '3001:3001'
+    environment:
+      - host=courses
+    networks:
+      - app-network
+
   usersDB:
     image: mongo
     restart: always
@@ -33,6 +48,8 @@ services:
       - '27017:27017' # Mapping MongoDB to the default port 27017
     volumes:
       - userdata:/data/db # Mounting volume for usersDB data
+    networks:
+      - app-network
 
   coursesDB:
     image: mongo
@@ -45,9 +62,15 @@ services:
       - '27018:27017' # Mapping host port 27018 to container port 27017
     volumes:
       - metadata:/data/db # Mounting volume for courseDB data
+    networks:
+      - app-network
 
 volumes:
   userdata:
     driver: local
   metadata:
     driver: local
+
+networks:
+  app-network:
+    driver: bridge

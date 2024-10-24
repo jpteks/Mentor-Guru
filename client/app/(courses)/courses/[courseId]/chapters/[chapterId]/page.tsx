@@ -1,7 +1,9 @@
+import { BreadCrumb } from "@/app/(courses)/components/bread-crumb";
 import VideoPlayer from "@/app/(courses)/components/videoPlayer";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-import { Card, CardTitle, CardHeader } from "@/components/ui/card";
+import { Card, CardTitle, CardHeader, CardContent } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 import {
   BookMarked,
   ChevronDown,
@@ -19,11 +21,13 @@ const Video = ({
   // check if user is auth is not redirect to "/"
   return (
     <div className='grow'>
-      <div>Bread Crumb {params.courseId} </div>
+      <div className='py-2 block md:hidden'>
+        <BreadCrumb />
+      </div>
 
-      <div className='border md:grid  md:grid-cols-[3fr_1fr]  '>
+      <div className='border-t md:grid  lg:grid-cols-[3fr_1fr] '>
         {/* -----------------------------------------------------------video player------------------------------------------- */}
-        <div className='h-screen px-6 mb-9 '>
+        <div className='px-6 mb-9  pt-3  h-auto'>
           <h1 className='text-3xl font-bold '>Contact Forces</h1>
           <div className='border mt-1'>
             <VideoPlayer />
@@ -72,6 +76,12 @@ const Video = ({
                 Your study Pogress <span>5%</span>
               </CardTitle>
             </CardHeader>
+            <CardContent>
+              <Progress value={33} />
+              <div className='border p-1 rounded-md mt-5'>
+                Good job! ✨ just few lectures remaining
+              </div>
+            </CardContent>
           </Card>
           <div className='text-sm flex flex-col gap-3'>
             <div className='border rounded-lg p-2 flex items-center justify-between'>

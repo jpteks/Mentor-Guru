@@ -20,6 +20,7 @@ FROM base AS development
 ARG APP 
 
 ARG NODE_ENV=development
+ARG BUILD_STAGE=production  # default to production
 
 ENV NODE_ENV=${NODE_ENV}
 
@@ -31,7 +32,8 @@ RUN pnpm install
 
 COPY . . 
 
-RUN pnpm run build ${APP}
+# Only run build if BUILD_STAGE is not development
+RUN if [ "$BUILD_STAGE" != "development" ]; then pnpm run build ${APP}; fi
 
 # production stage -------------------------------------------------------------------------
 

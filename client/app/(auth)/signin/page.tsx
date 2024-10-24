@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 
 import {
   Form,
@@ -21,6 +21,9 @@ import { InputForm } from "@/components/ui/inputForm";
 import { Eye, EyeOff, Mail } from "lucide-react";
 
 import Link from "next/link";
+import toast from "react-hot-toast";
+import { coursesApi } from "@/app/constant";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   password: z.string().min(6, {
@@ -30,6 +33,7 @@ const formSchema = z.object({
 });
 
 const SignIn = () => {
+  const router = useRouter();
   const [isShowPassword, setIsShowPassword] = useState(false);
   const toggleShowPassword = () => setIsShowPassword(!isShowPassword);
 
@@ -41,10 +45,18 @@ const SignIn = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      //setLoading(true);
+      const response = await coursesApi.post("/auth/login", values);
+      console.log(response);
+      router.push("/courses");
+      toast.success("you logged in!");
+    } catch (error) {
+      toast.error("Something went wrong" + error);
+    } finally {
+      //setLoading(false);
+    }
   }
 
   return (
@@ -118,9 +130,9 @@ const SignIn = () => {
               </Link>
               <Button
                 type='submit'
-                className='w-full mt-3 bg-[#155FA0] hover:bg-[#155FA0]'
+                className='w-full mt-3 bg-[#155FA0] hover:bg-[#155FA0] dark:text-white'
               >
-                SignUp
+                SignIn
               </Button>
             </div>
           </form>

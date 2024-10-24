@@ -18,10 +18,8 @@ const AuthWrapper = ({
   return (
     <Card className='max-w-lg w-full mx-auto my-auto p-3 flex flex-col items-center justify-center bg-white text-black'>
       <CardHeader>
-        <CardTitle>
-          <h1 className='md:text-5xl text-3xl text-center font-medium text-[#155FA0]'>
-            {title}
-          </h1>
+        <CardTitle className='md:text-5xl text-3xl text-center font-medium text-[#155FA0]'>
+          {title}
         </CardTitle>
         <CardDescription>
           <p className='text-slate-700 text-sm text-center'>
