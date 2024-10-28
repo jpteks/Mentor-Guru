@@ -10,4 +10,7 @@ export class UploadConfiguration {
 
   @Value('CLOUDINARY_API_SECRET')
   apiSecret: string;
+
+  @Value('host')
+  host: string;
 }

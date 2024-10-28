@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const Region = [
   "Littoral",
   "Center",
@@ -10,3 +12,9 @@ export const Region = [
   "Adamawa",
   "South",
 ];
+
+export const backend_url = "http://localhost:3002";
+
+export const coursesApi = axios.create({
+  baseURL: backend_url,
+});

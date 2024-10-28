@@ -26,7 +26,13 @@ export class UserController {
   @Post('create')
   @Roles(UserRole.ADMIN)
   @UseGuards(RolesGuard)
-  create(@Body() createUserDto: createUserDto) {
+  create(@Body() createUserDto: createUserDto, @Request() request) {
+    const userRole = request.user.role;
+    if (userRole === UserRole.STUDENT) {
+      return {
+        message: 'Access denied. You can only view your own information.',
+      };
+    }
     return this.usersService.create(createUserDto);
   }
 

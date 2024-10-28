@@ -8,19 +8,19 @@ export enum UserRole {
 
 @Schema({ timestamps: true })
 export class User extends Document {
-  @Prop({ required: true, unique: true })
+  @Prop({ unique: true })
   email: string;
 
-  @Prop({ required: true })
+  @Prop({ required: false })
   password: string;
 
-  @Prop({ required: true, minlength: 3 })
+  @Prop({ required:false, minlength: 3 })
   username: string;
 
-  @Prop({ required: true })
+  @Prop({ required: false })
   phoneNumber: string;
 
-  @Prop({ required: true })
+  @Prop({ required: false })
   region: string;
 
   @Prop({ default: false })

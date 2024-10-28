@@ -1,5 +1,5 @@
-import Header from "../components/Header";
-import SiderBar from "../components/Sidebar";
+import Header from "./components/Header";
+import SiderBar from "./components/Sidebar";
 
 export default function CourseLayout({
   children,
@@ -8,7 +8,7 @@ export default function CourseLayout({
 }>) {
   return (
     <div className='flex items-start justify-center'>
-      <div className=' min-h-screen w-[250px] min-w-[250px] hidden md:block'>
+      <div className=' min-h-screen w-[250px] min-w-[250px] hidden lg:block'>
         <SiderBar />
       </div>
       <main className='w-full flex flex-col min-h-screen'>

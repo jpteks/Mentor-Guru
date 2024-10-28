@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   Form,
@@ -24,17 +24,20 @@ import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Region } from "@/app/constant";
+import { coursesApi, Region } from "@/app/constant";
 import AuthWrapper from "@/components/AuthWrapper";
 import { InputPhone } from "@/components/ui/inputPhone";
 import { InputForm } from "@/components/ui/inputForm";
 import { Eye, EyeOff, Mail, Phone, User } from "lucide-react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const formSchema = z.object({
   username: z.string().min(2, {
     message: "Username must be at least 2 characters.",
   }),
-  phone: z.string().min(9, {
+  phoneNumber: z.string().min(9, {
     message: "phone number must be at least 9 characters.",
   }),
   region: z.string().min(3, {
@@ -43,11 +46,13 @@ const formSchema = z.object({
   password: z.string().min(6, {
     message: "Password must be at least 6 characters.",
   }),
+  terms: z.boolean().refine(v => v, { message: "Accept terms and conditions" }),
   email: z.string().email({ message: "Email should be valid" }),
   role: z.enum(["student", "admin", "tutor"]),
 });
 
 const Register = () => {
+  const router = useRouter();
   const [isShowPassword, setIsShowPassword] = useState(false);
   const toggleShowPassword = () => setIsShowPassword(!isShowPassword);
 
@@ -55,7 +60,7 @@ const Register = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
-      phone: "",
+      phoneNumber: "",
       region: "",
       password: "",
       email: "",
@@ -63,11 +68,25 @@ const Register = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      //setLoading(true);
+      const response = await coursesApi.post("/auth/register", values);
+      console.log(response);
+      router.push("/signin");
+      toast.success("successfully registered");
+    } catch (error) {
+      toast.error("Something went wrong" + error);
+    } finally {
+      //setLoading(false);
+    }
   }
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
 
   return (
     <>
@@ -121,7 +140,7 @@ const Register = () => {
 
               <FormField
                 control={form.control}
-                name='phone'
+                name='phoneNumber'
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Phone Number</FormLabel>
@@ -198,10 +217,35 @@ const Register = () => {
               />
               <Button
                 type='submit'
-                className='w-full mt-3 bg-[#155FA0] hover:bg-[#155FA0]'
+                className='w-full mt-3 bg-[#155FA0] hover:bg-[#155FA0] dark:text-white'
               >
                 SignUp
               </Button>
+              <FormField
+                control={form.control}
+                name='terms'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <div className='flex items-center space-x-2'>
+                        <Checkbox
+                          id='terms'
+                          className='border-black'
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                        <label
+                          htmlFor='terms'
+                          className='font-medium text-xs leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
+                        >
+                          Accept terms and conditions
+                        </label>
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
           </form>
         </Form>
