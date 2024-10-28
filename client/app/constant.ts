@@ -13,6 +13,23 @@ export const Region = [
   "South",
 ];
 
+export const subjects = [
+  "Physics",
+  "Pathematics",
+  "Chemistry",
+  "Biology",
+  "Further mathematics",
+  "ICT",
+  "Computer sc",
+  "English",
+  "French",
+  "Additional mathematics",
+  "History",
+  "Geography",
+  "Economics",
+  "Literature",
+]
+
 export const backend_url = "http://localhost:3002";
 
 export const coursesApi = axios.create({

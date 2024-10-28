@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { Quote } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
 export const InfiniteMovingCards = ({
@@ -94,8 +95,8 @@ export const InfiniteMovingCards = ({
             <li
               className='w-[350px]  max-w-full bg-white relative rounded-2xl  border-[2px] flex-shrink-0 px-8 py-6 md:w-[450px]'
               style={{
-                background:
-                  "linear-gradient(180deg, var(--slate-800), var(--slate-900)",
+                background: "white",
+                // "linear-gradient(180deg, var(--slate-800), var(--slate-900)",
               }}
               key={item.name}
             >
@@ -105,15 +106,15 @@ export const InfiniteMovingCards = ({
                   className='user-select-none -z-1 pointer-events-none absolute   -left-0.5 -top-0.5 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]'
                 ></div>
 
-                <span className=' relative z-20 text-sm leading-[1.6] text-gray-100 font-normal'>
-                  {item.quote}
+                <span className=' relative z-20 text-sm leading-[1.6] text-black font-normal'>
+                  <Quote /> {item.quote} <Quote className="ml-auto" />
                 </span>
                 <div className='relative z-20 mt-6 flex flex-row items-center'>
                   <span className='flex flex-col gap-1'>
-                    <span className=' text-sm leading-[1.6] text-gray-400 font-normal'>
+                    <span className=' text-sm leading-[1.6] text-gray-900 font-normal'>
                       {item.name}
                     </span>
-                    <span className=' text-sm leading-[1.6] text-gray-400 font-normal'>
+                    <span className=' text-sm leading-[1.6] text-gray-900 font-bold'>
                       {item.title}
                     </span>
                   </span>
