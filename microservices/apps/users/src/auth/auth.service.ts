@@ -296,7 +296,7 @@ export class AuthService {
     }
 
     try {
-      const decoded = this.jwtService.verify(refreshToken);
+      const decoded = this.jwtService.verify(refreshToken,{secret:process.env.JWT_SECRET});
       const newAccessToken = this.jwtService.sign({
         id: decoded.id,
         role: decoded.role,
