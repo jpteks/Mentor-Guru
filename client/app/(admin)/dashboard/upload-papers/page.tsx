@@ -84,7 +84,7 @@ export default function Home() {
           </div>
           <div>
             <Label htmlFor='category'>Category</Label>
-            <Select name='category' id='category'>
+            <Select name='category'>
               <SelectTrigger className=''>
                 <SelectValue placeholder='Select a category' />
               </SelectTrigger>

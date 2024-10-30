@@ -6,7 +6,7 @@ import SidebarItems from "./Siderbar-items";
 const SidebarRoutes = () => {
   const guestRoutes = [
     { href: "/dashboard", label: "Dashboard", icon: HomeIcon },
-    { href: "/upload-papers", label: "upload", icon: Upload },
+    { href: "/dashboard/upload-papers", label: "upload", icon: Upload },
   ];
   const routes = guestRoutes;
   return (

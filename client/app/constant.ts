@@ -28,10 +28,10 @@ export const subjects = [
   "Geography",
   "Economics",
   "Literature",
-]
+];
 
 export const backend_url = "http://localhost:3002";
 
-export const coursesApi = axios.create({
+export const backendApi = axios.create({
   baseURL: backend_url,
 });

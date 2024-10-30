@@ -27,7 +27,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/(admin)/dashboard",
-    "app/(admin)/upload-papers"
+    "app/(admin)/dashboard/upload-papers"
   ],
   "exclude": ["node_modules"]
 }
