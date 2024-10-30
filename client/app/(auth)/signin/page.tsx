@@ -22,8 +22,9 @@ import { Eye, EyeOff, Mail } from "lucide-react";
 
 import Link from "next/link";
 import toast from "react-hot-toast";
-import { coursesApi } from "@/app/constant";
+import { backendApi } from "@/app/constant";
 import { useRouter } from "next/navigation";
+import { AxiosError } from "axios";
 
 const formSchema = z.object({
   password: z.string().min(6, {
@@ -36,6 +37,7 @@ const SignIn = () => {
   const router = useRouter();
   const [isShowPassword, setIsShowPassword] = useState(false);
   const toggleShowPassword = () => setIsShowPassword(!isShowPassword);
+  const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -47,15 +49,37 @@ const SignIn = () => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      //setLoading(true);
-      const response = await coursesApi.post("/auth/login", values);
-      console.log(response);
-      router.push("/courses");
-      toast.success("you logged in!");
-    } catch (error) {
-      toast.error("Something went wrong" + error);
+      setLoading(true);
+      const response = await backendApi.post("/auth/login", values);
+
+      if (response?.data) {
+        const { statusCode, message } = response.data;
+
+        if (statusCode === 409) {
+          router.push("/otp");
+        } else {
+          router.push("/courses");
+          toast.success(message || "Logged in successfully");
+        }
+      } else {
+        toast.error("Unexpected response from the server.");
+      }
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        // Handle Axios-specific errors
+        toast.error(
+          `API error: ${error.response?.data?.message || error.message}`
+        );
+      } else if (error instanceof Error) {
+        // Handle generic errors
+        console.error(`Something went wrong: ${error.message}`);
+
+        toast.error(`Something went wrong`);
+      } else {
+        toast.error("An unknown error occurred.");
+      }
     } finally {
-      //setLoading(false);
+      setLoading(false);
     }
   }
 
@@ -132,7 +156,7 @@ const SignIn = () => {
                 type='submit'
                 className='w-full mt-3 bg-[#155FA0] hover:bg-[#155FA0] dark:text-white'
               >
-                SignIn
+                {loading ? "Loading..." : "SignIn"}
               </Button>
             </div>
           </form>

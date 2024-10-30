@@ -24,7 +24,7 @@ import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { coursesApi, Region } from "@/app/constant";
+import { backendApi, Region } from "@/app/constant";
 import AuthWrapper from "@/components/AuthWrapper";
 import { InputPhone } from "@/components/ui/inputPhone";
 import { InputForm } from "@/components/ui/inputForm";
@@ -55,6 +55,7 @@ const Register = () => {
   const router = useRouter();
   const [isShowPassword, setIsShowPassword] = useState(false);
   const toggleShowPassword = () => setIsShowPassword(!isShowPassword);
+  const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -70,15 +71,16 @@ const Register = () => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      //setLoading(true);
-      const response = await coursesApi.post("/auth/register", values);
-      console.log(response);
-      router.push("/signin");
-      toast.success("successfully registered");
+      setLoading(true);
+      const response = await backendApi.post("/auth/register", values);
+      console.log(response.data);
+      const token = response.data.token;
+      toast.success(response.data.message);
+      router.push(`/otp?token=${token}`);
     } catch (error) {
       toast.error("Something went wrong" + error);
     } finally {
-      //setLoading(false);
+      setLoading(false);
     }
   }
   const [isMounted, setIsMounted] = useState(false);
@@ -219,7 +221,7 @@ const Register = () => {
                 type='submit'
                 className='w-full mt-3 bg-[#155FA0] hover:bg-[#155FA0] dark:text-white'
               >
-                SignUp
+                {loading ? "Loading..." : "SignUp"}
               </Button>
               <FormField
                 control={form.control}

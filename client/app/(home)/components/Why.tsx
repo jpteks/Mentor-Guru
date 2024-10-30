@@ -2,9 +2,9 @@
 
 import { useScroll, motion, useTransform } from "framer-motion";
 import { Check } from "lucide-react";
-import Image from "next/image";
 
 import React, { useRef } from "react";
+import { CardHover } from "./HoverCard";
 const Why = () => {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -20,9 +20,9 @@ const Why = () => {
         scale: scalePogress,
         opacity: opacityPogress,
       }}
-      className='min-h-screen flex items-center justify-center '
+      className='min-h-screen hidden md:flex items-center justify-center '
     >
-      <div className='max-w-6xl mx-auto p-8 flex flex-wrap md:flex-nowrap'>
+      <div className='max-w-6xl mx-auto p-8 grid grid-rows-1 md:grid-cols-[1fr_2fr]  '>
         {/* Main Title Section */}
         <div className='text-left mb-12'>
           <h1 className='text-4xl font-bold '>
@@ -55,72 +55,7 @@ const Why = () => {
           </ul>
         </div>
 
-        {/* Cards Section */}
-        <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 mx-auto gap-6'>
-          {/* Card 1 */}
-          <div className='bg-blue-500 p-6 rounded-lg flex items-center'>
-            <Image
-              src='/images/5484597.jpg'
-              alt='Icon'
-              width={64}
-              height={64}
-              className='mr-4'
-            />
-            <div className='text-white'>
-              <h2 className='md:text-xl font-semibold'>
-                Content Created by Industry Experts
-              </h2>
-            </div>
-          </div>
-
-          {/* Card 2 */}
-          <div className='bg-white p-6 rounded-lg border border-gray-300 flex items-center'>
-            <Image
-              src='/images/icon.png'
-              alt='Icon'
-              width={64}
-              height={64}
-              className='mr-4'
-            />
-            <div className='text-gray-800'>
-              <h2 className='md:text-xl font-semibold'>
-                Practical Projects & Assignments
-              </h2>
-            </div>
-          </div>
-
-          {/* Card 3 */}
-          <div className='bg-white p-6 rounded-lg border border-gray-300 flex items-center'>
-            <Image
-              src='/images/icon.png'
-              alt='Icon'
-              width={64}
-              height={64}
-              className='mr-4'
-            />
-            <div className='text-gray-800'>
-              <h2 className='md:text-xl font-semibold'>
-                Interactive Learning Experience
-              </h2>
-            </div>
-          </div>
-
-          {/* Card 4 */}
-          <div className='bg-white p-6 rounded-lg border border-gray-300 flex items-center'>
-            <Image
-              src='/images/icon.png'
-              alt='Icon'
-              width={64}
-              height={64}
-              className='mr-4'
-            />
-            <div className='text-gray-800'>
-              <h2 className='md:text-xl font-semibold'>
-                Community & Collaboration
-              </h2>
-            </div>
-          </div>
-        </div>
+        <CardHover />
       </div>
     </motion.div>
   );
