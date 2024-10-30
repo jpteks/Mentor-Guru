@@ -212,8 +212,8 @@ export class AuthService {
     // Store refresh token in a cookie
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true, // Ensures the cookie is not accessible via JavaScript
-      secure: false, // Use secure flag in production
-      sameSite: 'none', // Helps protect against CSRF attacks strict
+      secure: true, // Use secure flag in production
+      sameSite: 'strict', // Helps protect against CSRF attacks strict
     });
 
     return {
@@ -314,8 +314,8 @@ export class AuthService {
     // Clear the refresh token cookie
     res.clearCookie('refreshToken', {
       httpOnly: true,
-      secure: false, // Secure flag for production
-      sameSite: 'none',
+      secure: true, // Secure flag for production
+      sameSite: 'strict',
     });
 
     return { message: 'Logged out successfully' };
