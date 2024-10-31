@@ -14,24 +14,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
 import { subjects } from "@/app/constant";
 import { addPaperAction } from "@/actions/addPaperAction";
 import { paperFormState, StringMap } from "@/types/paper";
+import { Input } from "@/components/ui/input";
+import SubmitBtn from "../../components/SubmitBtn";
 
 const initialState: paperFormState<StringMap> = {};
 
 export default function Home() {
   const [formState, formAction] = useFormState(addPaperAction, initialState);
+  const [url, setUrl] = useState("");
   //const { name, category, url } = formState?.data || {};
   const [showForm, setshowForm] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
+
     if (formState.successMsg) {
       toast.success(formState.successMsg);
       formRef?.current?.reset();
-      //setshowForm(false);
+      setshowForm(false);
     }
   }, [formState]);
 
@@ -41,7 +44,10 @@ export default function Home() {
         <UploadDropzone
           endpoint='imageUploader'
           className=' dark:bg-white'
-          onClientUploadComplete={() => {
+          onClientUploadComplete={res => {
+            console.log("onClientUploadComplete", res);
+            const url = res[0].appUrl;
+            setUrl(url);
             setshowForm(true);
           }}
           onUploadError={(error: Error) => {
@@ -51,10 +57,10 @@ export default function Home() {
         />
       )}
 
-      {!showForm && (
+      {showForm && (
         <form
           action={formAction}
-          className='space-y-4 min-w-96  p-2'
+          className='space-y-0 min-w-96  p-2'
           ref={formRef}
         >
           <div>
@@ -105,7 +111,17 @@ export default function Home() {
             </div>
           </div>
 
-          <Button type='submit'>upload</Button>
+          <div>
+            <Label htmlFor='url'>Link</Label>
+            <Input name='url' value={url} readOnly />
+            <div className='min-h-8'>
+              {formState?.errors?.url && (
+                <p className='text-red-500 text-sm'>{formState?.errors?.url}</p>
+              )}
+            </div>
+          </div>
+
+          <SubmitBtn />
         </form>
       )}
     </main>

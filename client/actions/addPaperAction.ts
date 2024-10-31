@@ -25,5 +25,5 @@ export async function addPaperAction(
 
   await createPaper(validatedData.data);
 
-  return { ...prevState, successMsg: "Paper added successfully" };
+  return { successMsg: "Paper added successfully" };
 }
