@@ -34,4 +34,5 @@ export const backend_url = "http://localhost:3002";
 
 export const backendApi = axios.create({
   baseURL: backend_url,
+  withCredentials: true,
 });
