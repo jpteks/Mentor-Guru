@@ -41,7 +41,7 @@ export class AuthService {
       // Hash the password
       const hashedPassword = await bcrypt.hash(password, 10);
       const otp = this.otpService.generateOtp();
-      const otpExpiry = new Date(Date.now() + 1 * 60000); // OTP valid for 10 minutes
+      const otpExpiry = new Date(Date.now() + 10 * 60000); // OTP valid for 10 minutes
 
       // Create new user
       const newUser = new this.userModel({
@@ -115,7 +115,7 @@ export class AuthService {
           message: 'user already verified',
         };
       }
-      if (String(user.otp) != otp) {
+      if (user.otp != otp) {
         return {
           statusCode: HttpStatus.BAD_REQUEST,
           message: 'invalid otp',
@@ -126,7 +126,7 @@ export class AuthService {
       if (user.otpExpiry < new Date()) {
         // Generate new OTP
         const newOtp = this.otpService.generateOtp();
-        const newOtpExpiry = new Date(Date.now() + 1 * 60000); // OTP valid for 10 minutes
+        const newOtpExpiry = new Date(Date.now() + 10 * 60000); // OTP valid for 10 minutes
 
         // Update the user's OTP and expiry
         user.otp = newOtp;
@@ -212,7 +212,7 @@ export class AuthService {
     // Store refresh token in a cookie
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true, // Ensures the cookie is not accessible via JavaScript
-      secure: true, // Use secure flag in production
+      secure: false, // Use secure flag in production
       sameSite: 'strict', // Helps protect against CSRF attacks strict
     });
 
@@ -239,7 +239,7 @@ export class AuthService {
       { id: user._id },
       { expiresIn: '1h' },
     );
-    const resetLink = `http://your-app.com/reset-password?token=${resetToken}`;
+    const resetLink = `http://localhost:3000/resetpassword?token=${resetToken}`;
 
     // Send email using EmailService
     await this.emailService.sendPasswordResetEmail(email, resetLink);

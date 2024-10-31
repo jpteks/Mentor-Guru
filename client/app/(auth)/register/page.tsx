@@ -93,7 +93,7 @@ const Register = () => {
   return (
     <>
       <AuthWrapper
-        title=' Create an Accout'
+        title=' Create an Account'
         link='SignIn'
         text='Already have an account?'
         href='/signin'
