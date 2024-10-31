@@ -14,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { subjects } from "@/app/constant";
+import { paper, subjects,year } from "@/app/constant";
 import { addPaperAction } from "@/actions/addPaperAction";
 import { paperFormState, StringMap } from "@/types/paper";
 import { Input } from "@/components/ui/input";
@@ -30,7 +30,6 @@ export default function Home() {
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-
     if (formState.successMsg) {
       toast.success(formState.successMsg);
       formRef?.current?.reset();
@@ -106,6 +105,58 @@ export default function Home() {
               {formState?.errors?.category && (
                 <p className='text-red-500 text-sm'>
                   {formState?.errors?.category}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div>
+            <Label htmlFor='paper'>Paper</Label>
+            <Select name='paper'>
+              <SelectTrigger>
+                <SelectValue placeholder='Select a paper' />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>paper</SelectLabel>
+                  {paper.map((s, index) => (
+                    <SelectItem key={index} value={s}>
+                      {s}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            <div className='min-h-8'>
+              {formState?.errors?.paper && (
+                <p className='text-red-500 text-sm'>
+                  {formState?.errors?.paper}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div>
+            <Label htmlFor='year'>Year</Label>
+            <Select name='year'>
+              <SelectTrigger>
+                <SelectValue placeholder='Select a year' />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>yr</SelectLabel>
+                  {year.map((s, index) => (
+                    <SelectItem key={index} value={s}>
+                      {s}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            <div className='min-h-8'>
+              {formState?.errors?.year && (
+                <p className='text-red-500 text-sm'>
+                  {formState?.errors?.year}
                 </p>
               )}
             </div>

@@ -14,6 +14,14 @@ const paperSchema = new mongoose.Schema(
       required: true,
       type: String,
     },
+    paper: {
+      required: true,
+      type: String,
+    },
+    year: {
+      required: true,
+      type: String,
+    },
   },
   { timestamps: true }
 );

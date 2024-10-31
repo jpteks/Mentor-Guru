@@ -3,8 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "react-hot-toast";
-import { dbConnect } from "@/lib/mongo.connection";
-
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -26,8 +24,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-   await dbConnect();
-
   return (
     <html lang='en'>
       <body

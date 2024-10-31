@@ -1,5 +1,6 @@
 "use server";
 
+import { dbConnect } from "@/lib/mongo.connection";
 import { paperSchema } from "@/schemas/paper";
 import { paperFormState, StringMap } from "@/types/paper";
 import { convertZodErrors } from "@/utils/errors";
@@ -13,6 +14,8 @@ export async function addPaperAction(
     name: formData.get("name") ?? "",
     category: formData.get("category") ?? "",
     url: formData.get("url") ?? "",
+    paper: formData.get("paper") ?? "",
+    year: formData.get("year") ?? "",
   };
 
   const validatedData = paperSchema.safeParse(unvalidatedData);
@@ -21,9 +24,9 @@ export async function addPaperAction(
     console.error(validatedData.error);
     const errors = convertZodErrors(validatedData.error);
     return { ...prevState, errors };
+  } else {
+    await dbConnect();
+    await createPaper(validatedData.data);
+    return { successMsg: "Paper added successfully" };
   }
-
-  await createPaper(validatedData.data);
-
-  return { successMsg: "Paper added successfully" };
 }
