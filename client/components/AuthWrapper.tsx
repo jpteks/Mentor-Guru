@@ -21,13 +21,11 @@ const AuthWrapper = ({
         <CardTitle className='md:text-5xl text-3xl text-center font-medium text-[#155FA0]'>
           {title}
         </CardTitle>
-        <CardDescription>
-          <p className='text-slate-700 text-sm text-center'>
-            {text}
-            <Link href={href} className='text-[#155FA0] underline'>
-              {link}
-            </Link>
-          </p>
+        <CardDescription className='text-slate-700 text-sm text-center'>
+          {text}
+          <Link href={href} className='text-[#155FA0] underline'>
+            {link}
+          </Link>
         </CardDescription>
       </CardHeader>
 

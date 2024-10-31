@@ -1,12 +1,11 @@
-import { GraduationCap } from "lucide-react";
-import Link from "next/link";
-import React from "react";
-import TypeAnime from "./components/TypeAnime";
 import { ModeToggle } from "@/components/mode-toggle";
-//import { motion } from "framer-motion";
-import Why from "./components/Why";
+import { GraduationCap} from "lucide-react";
 import MobileNav from "./components/Mobile-nav";
 import { Testimonial } from "./components/Testimonial";
+import TypeAnime from "./components/TypeAnime";
+import Why from "./components/Why";
+import WhyMobile from "./components/Why-mobile";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -52,6 +51,7 @@ export default function Home() {
 
       {/* Section 2: Why Learning Online is Best for Student */}
       <Why />
+      <WhyMobile />
 
       {/* Testimonial Section */}
       <section>

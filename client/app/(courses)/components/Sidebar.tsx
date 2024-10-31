@@ -1,6 +1,7 @@
-import { LogOut, GraduationCap } from "lucide-react";
+import { GraduationCap } from "lucide-react";
 import Link from "next/link";
 import SidebarRoutes from "./Sidebar-routes";
+import Logout from "./logout";
 
 const SiderBar = () => {
   return (
@@ -13,13 +14,7 @@ const SiderBar = () => {
       </div>
 
       <SidebarRoutes />
-
-      <div className='border-t dark:border-neutral-600 '>
-        <a href='#' className='flex  p-2  items-center'>
-          <LogOut className='mr-2 ' size={16} />
-          Logout
-        </a>
-      </div>
+      <Logout />
     </aside>
   );
 };

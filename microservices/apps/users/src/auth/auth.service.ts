@@ -115,7 +115,7 @@ export class AuthService {
           message: 'user already verified',
         };
       }
-      if (user.otp != otp) {
+      if (String(user.otp) != otp) {
         return {
           statusCode: HttpStatus.BAD_REQUEST,
           message: 'invalid otp',
@@ -139,7 +139,7 @@ export class AuthService {
         await this.emailService.sendOtpEmail(user.username, user.email, newOtp);
 
         return {
-          statusCode: HttpStatus.OK,
+          statusCode: HttpStatus.GONE,
           message: 'OTP has expired. A new OTP has been sent to your email.',
         };
       }
@@ -174,7 +174,7 @@ export class AuthService {
     const user = await this.userModel.findOne({ email });
     if (!user) {
       return {
-        message: 'invalid user',
+        message: 'user with this email not found',
         statusCode: HttpStatus.BAD_REQUEST,
         token: null,
       };
