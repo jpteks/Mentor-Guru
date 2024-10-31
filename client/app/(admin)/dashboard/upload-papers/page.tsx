@@ -14,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { paper, subjects,year } from "@/app/constant";
+import { paper, subjects, year } from "@/app/constant";
 import { addPaperAction } from "@/actions/addPaperAction";
 import { paperFormState, StringMap } from "@/types/paper";
 import { Input } from "@/components/ui/input";
@@ -41,11 +41,11 @@ export default function Home() {
     <main className='flex min-h-screen flex-col items-center justify-between p-24'>
       {!showForm && (
         <UploadDropzone
-          endpoint='imageUploader'
+          endpoint='fileUploader'
           className=' dark:bg-white'
           onClientUploadComplete={res => {
-            console.log("onClientUploadComplete", res);
-            const url = res[0].appUrl;
+          
+            const url = res[0].url;
             setUrl(url);
             setshowForm(true);
           }}
