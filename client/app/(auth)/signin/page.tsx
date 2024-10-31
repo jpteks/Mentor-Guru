@@ -50,14 +50,20 @@ const SignIn = () => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setLoading(true);
-      const response = await backendApi.post("/auth/login", values);
+      const response = await backendApi.post("/auth/login", values,{withCredentials:true});
+      console.log(response.data);
 
       if (response?.data) {
         const { statusCode, message } = response.data;
 
         if (statusCode === 409) {
           router.push("/otp");
-        } else {
+        } 
+        if (statusCode === 400) {
+          toast.error(message);
+          router.push("/signin");
+        } 
+        else {
           router.push("/courses");
           toast.success(message || "Logged in successfully");
         }
