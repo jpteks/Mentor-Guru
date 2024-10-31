@@ -50,7 +50,9 @@ const SignIn = () => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setLoading(true);
-      const response = await backendApi.post("/auth/login", values,{withCredentials:true});
+      const response = await backendApi.post("/auth/login", values, {
+        withCredentials: true,
+      });
       console.log(response.data);
 
       if (response?.data) {
@@ -58,12 +60,10 @@ const SignIn = () => {
 
         if (statusCode === 409) {
           router.push("/otp");
-        } 
+        }
         if (statusCode === 400) {
           toast.error(message);
-          router.push("/signin");
-        } 
-        else {
+        } else {
           router.push("/courses");
           toast.success(message || "Logged in successfully");
         }
