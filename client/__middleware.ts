@@ -21,7 +21,8 @@ export async function middleware(request: NextRequest) {
 
   // Verify token and extract user role from it
   const user = token ? verifyToken(token as string) : null;
-  const userRole = user ? user.role : null;
+
+  const userRole = user ? user?.role : null;
 
   // Redirect to /signin if user is not authenticated on protected routes
   if (isProtectedRoute && !user) {

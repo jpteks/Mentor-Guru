@@ -43,7 +43,7 @@ export class AuthController {
   async login(
     @Body() loginDto: loginDto,
     @Res({ passthrough: true }) res: Response,
-  ){
+  ) {
     return this.authService.login(loginDto, res);
   }
 
