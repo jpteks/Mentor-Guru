@@ -5,6 +5,7 @@ const paperSchema = new mongoose.Schema(
     name: {
       required: true,
       type: String,
+      unique: true,
     },
     category: {
       required: true,
@@ -13,6 +14,7 @@ const paperSchema = new mongoose.Schema(
     url: {
       required: true,
       type: String,
+      unique: true,
     },
     paper: {
       required: true,
@@ -21,9 +23,11 @@ const paperSchema = new mongoose.Schema(
     year: {
       required: true,
       type: String,
+      unique: true,
     },
   },
   { timestamps: true }
 );
 
-export const Paper = mongoose.model("Paper", paperSchema);
+export const Paper =
+  mongoose.models.Paper || mongoose.model("Paper", paperSchema);

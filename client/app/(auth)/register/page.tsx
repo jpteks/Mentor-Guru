@@ -73,7 +73,6 @@ const Register = () => {
     try {
       setLoading(true);
       const response = await backendApi.post("/auth/register", values);
-      console.log(response.data);
       const token = response.data.token;
       toast.success(response.data.message);
       router.push(`/otp?token=${token}`);

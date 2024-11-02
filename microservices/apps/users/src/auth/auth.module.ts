@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigifyModule } from '@itgorillaz/configify';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { EmailService } from './email/email.service';
@@ -36,6 +35,7 @@ import { userConfiguration } from '../config/config.configuration';
         secret: configService.jwtSecret,
         signOptions: {
           expiresIn: configService.jwtExp,
+          algorithm: 'HS256',
         },
       }),
     }),

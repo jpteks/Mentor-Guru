@@ -265,10 +265,7 @@ export class AuthService {
       const user = await this.userModel.findById(decoded.id);
 
       if (!user) {
-        throw new HttpException(
-          'Invalid token or user not found',
-          HttpStatus.BAD_REQUEST,
-        );
+        throw new HttpException('user not found', HttpStatus.NOT_FOUND);
       }
 
       // Hash the new password
@@ -296,7 +293,9 @@ export class AuthService {
     }
 
     try {
-      const decoded = this.jwtService.verify(refreshToken,{secret:process.env.JWT_SECRET});
+      const decoded = this.jwtService.verify(refreshToken, {
+        secret: process.env.JWT_SECRET,
+      });
       const newAccessToken = this.jwtService.sign({
         id: decoded.id,
         role: decoded.role,
@@ -314,7 +313,7 @@ export class AuthService {
     // Clear the refresh token cookie
     res.clearCookie('refreshToken', {
       httpOnly: true,
-      secure: true, // Secure flag for production
+      secure: false, // Secure flag for production
       sameSite: 'strict',
     });
 

@@ -53,7 +53,6 @@ const SignIn = () => {
       const response = await backendApi.post("/auth/login", values, {
         withCredentials: true,
       });
-      console.log(response.data);
 
       if (response?.data) {
         const { statusCode, message } = response.data;

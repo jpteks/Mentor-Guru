@@ -2,9 +2,9 @@ import { ModeToggle } from "@/components/mode-toggle";
 
 import { GraduationCap, Search } from "lucide-react";
 import Notifications from "./notifications";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import { Menu } from "@/app/(home)/components/menu";
+import AvatarBtn from "./profileAvatar";
 
 const Header = () => {
   return (
@@ -33,10 +33,7 @@ const Header = () => {
 
       <div className='flex  items-center justify-end w-1/2 md:w-1/4 '>
         <div className='flex justify-center flex-row-reverse items-center gap-2 border rounded-full p-1'>
-          <Avatar>
-            <AvatarImage src='https://github.com/shadcn.png' alt='@shadcn' />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
+          <AvatarBtn />
 
           <ModeToggle />
 

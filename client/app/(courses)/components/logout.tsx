@@ -6,15 +6,14 @@ import toast from "react-hot-toast";
 
 const Logout = () => {
   const logout = async () => {
-  try {
+    try {
       await backendApi.post("/auth/logout");
       toast.success("Logout Success");
       window.location.href = "/login";
-    
-  } catch (error) {
-    console.log(error);
-    toast.error("Failed to logout");
-  }
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to logout");
+    }
   };
   return (
     <div className='border-t py-3 dark:border-neutral-600 grid '>
