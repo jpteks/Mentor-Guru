@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { verifyToken, hasAccess } from "@/utils/verifyToken";
+import axios from "axios"; // Import axios
+import { backend_url } from "./app/constant";
 
 const protectedRoutes = [
   "/dashboard",
@@ -16,24 +17,45 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith(route)
   );
 
-  // Retrieve token from cookies
-  const token = request.cookies.get("refreshToken")?.value;
-
-  // Verify token and extract user role from it
-  const user = token ? verifyToken(token as string) : null;
-
-  const userRole = user ? user?.role : null;
+  // Retrieve tokens from cookies
+  const refreshToken = request.cookies.get("refreshToken")?.value;
+  const accessToken = request.cookies.get("accessToken")?.value;
 
   // Redirect to /signin if user is not authenticated on protected routes
-  if (isProtectedRoute && !user) {
-    return NextResponse.redirect(new URL("/signin", request.nextUrl));
-  }
+  if (isProtectedRoute && !accessToken) {
+    if (refreshToken) {
+      try {
+        // Try refreshing the access token using the refresh token
+        const response = await axios.get(`${backend_url}/auth/refresh-token`, {
+          headers: {
+            Cookie: `refreshToken=${refreshToken}`, // Send refreshToken in headers
+          },
+          withCredentials: true,
+        });
 
-  // Role-based access control for protected routes
-  if (isProtectedRoute && user) {
-    const isAllowed = hasAccess(userRole as string, pathname);
-    if (!isAllowed) {
-      return NextResponse.redirect(new URL("/", request.nextUrl));
+        // Check if we got a new access token
+        const newAccessToken = response.data.accessToken;
+        if (newAccessToken) {
+          // Set the new access token in cookies
+          const nextResponse = NextResponse.next();
+          nextResponse.cookies.set("accessToken", newAccessToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict",
+            path: "/",
+          });
+
+          console.log("New access token fetched and set.");
+
+          return nextResponse;
+        }
+      } catch (error) {
+        console.error("Error refreshing token:", error);
+        return NextResponse.redirect(new URL("/signin", request.nextUrl));
+      }
+    } else {
+      // No access or refresh token available, redirect to signin
+      return NextResponse.redirect(new URL("/signin", request.nextUrl));
     }
   }
 

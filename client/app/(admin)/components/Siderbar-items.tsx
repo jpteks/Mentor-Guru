@@ -24,17 +24,20 @@ const SidebarItems = ({ icon: Icon, label, href }: SidebarItemsProps) => {
       onClick={onClick}
       type='button'
       className={cn(
-        "flex items-center gap-x-2 text-slate-500 text-sm font-[500] pl-6 transition-all hover:text-slate-600 hover:bg-slate-300/20 w-full",
+        "flex items-center gap-x-2 text-slate-500 text-sm font-[500] pl-6 transition-all hover:text-blue-600  hover:bg-sky-100 w-full",
         isActive &&
           "text-sky-700 bg-sky-200/20 hover:bg-sky-200/20 hover:text-sky-700"
       )}
     >
-      <div className='flex items-center gap-x-2 py-2'>
+      <div
+        //className='flex items-center gap-x-2 py-2'
+        className='flex h-[48px] grow items-center justify-center gap-2  p-3 text-sm font-medium  md:flex-none md:justify-start md:p-2 md:px-3 w-full'
+      >
         <Icon
           size={22}
           className={cn("text-slate-500", isActive && "text-sky-700")}
         />
-        {label}
+        <p className='hidden md:block'>{label}</p>
       </div>
     </button>
   );
