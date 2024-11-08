@@ -15,7 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { paper, subjects, year } from "@/app/constant";
-import { addPaperAction } from "@/actions/addPaperAction";
+import { addPaperAction } from "@/actions/paperAction";
 import { paperFormState, StringMap } from "@/types/paper";
 import { Input } from "@/components/ui/input";
 import SubmitBtn from "../../components/SubmitBtn";
@@ -38,13 +38,20 @@ export default function Home() {
   }, [formState]);
 
   return (
-    <main className='flex min-h-screen flex-col items-center justify-between p-24'>
+    <main className='flex min-h-screen flex-col justify-start items-center p-6'>
+      <div className='flex w-full items-center justify-between border-b p-3'>
+        <h1 className={`text-2xl`}>Upload Papers</h1>
+      </div>
+      <h1
+        className={`mb-4 text-xl md:text-2xl font-black dark:text-white text-neutral-800 animate-bounce`}
+      >
+        get started ✅
+      </h1>
       {!showForm && (
         <UploadDropzone
           endpoint='fileUploader'
           className=' dark:bg-white'
           onClientUploadComplete={res => {
-          
             const url = res[0].url;
             setUrl(url);
             setshowForm(true);

@@ -22,13 +22,11 @@ const PastPapers = () => {
             image: "/card.jpg",
             link: "past-papers/advanced",
           },
-          // {
-          //   title: "Syllabus",
-          //   description: "This is the third past paper",
-          //   image: "/card.jpg",
-          // },
         ].map((card, index) => (
-          <Card key={index} className='max-w-screen-md dark:bg-slate-700 border-2'>
+          <Card
+            key={index}
+            className='max-w-screen-md dark:bg-slate-700 border-2'
+          >
             <CardHeader>
               <CardTitle className='text-center text-3xl'>
                 {card.title}{" "}
