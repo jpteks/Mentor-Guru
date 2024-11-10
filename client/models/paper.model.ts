@@ -3,31 +3,29 @@ import mongoose from "mongoose";
 const paperSchema = new mongoose.Schema(
   {
     name: {
-      required: true,
       type: String,
-      unique: true,
+      required: true,
     },
     category: {
-      required: true,
       type: String,
+      required: true,
     },
     url: {
-      required: true,
       type: String,
-      unique: true,
+      required: true,
+      unique: true, 
     },
     paper: {
-      required: true,
       type: String,
+      required: true,
     },
     year: {
-      required: true,
       type: String,
-      unique: true,
+      required: true,
     },
   },
   { timestamps: true }
 );
 
-export const Paper =
-  mongoose.models.Paper || mongoose.model("Paper", paperSchema);
+
+export const Paper = mongoose.models.Paper || mongoose.model("Paper", paperSchema);

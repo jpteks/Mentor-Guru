@@ -3,7 +3,7 @@ import {
   IsNotEmpty,
   IsEmail,
   MinLength,
-  IsEnum,
+  IsEnum,IsOptional,IsMongoId
 } from 'class-validator';
 import { UserRole } from '../schemas/User.schema';
 
@@ -37,4 +37,5 @@ export class createUserDto {
   @IsString()
   @IsNotEmpty()
   region: string;
+
 }

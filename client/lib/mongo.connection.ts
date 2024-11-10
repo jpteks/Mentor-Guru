@@ -7,6 +7,6 @@ export async function dbConnect() {
     
     return conn;
   } catch (error) {
-    console.error(error);
+    console.error("eror connecting to db",error);
   }
 }

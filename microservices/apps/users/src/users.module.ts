@@ -7,7 +7,9 @@ import { ConfigifyModule } from '@itgorillaz/configify';
 import { AuthModule } from './auth/auth.module';
 import { userConfiguration } from './config/config.configuration';
 import { UserModule } from './user/user.module';
-
+import {SubscriptionModule} from './subscription/subscription.module'
+import { PlanModule } from './Plan/plan.module';
+import { PaymentModule } from './Payment/payment.module';
 @Module({
   imports: [
     ConfigifyModule.forRootAsync(),
@@ -18,8 +20,11 @@ import { UserModule } from './user/user.module';
       }),
       inject: [userConfiguration],
     }),
-    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
     UserModule,
+    SubscriptionModule,
+    PlanModule,
+    PaymentModule
   ],
   controllers: [UsersController],
   providers: [UsersService],
