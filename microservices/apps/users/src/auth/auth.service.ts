@@ -259,6 +259,12 @@ export class AuthService {
       secure: false, // Use secure flag in production
       sameSite: 'strict', // Helps protect against CSRF attacks strict
     });
+    res.cookie('accessToken', accessToken, {
+      httpOnly: true, // Ensures the cookie is not accessible via JavaScript
+      secure: false, // Use secure flag in production
+      sameSite: 'strict', // Helps protect against CSRF attacks strict
+      maxAge: 1 * 60 * 1000, // 10mins
+    });
 
     return {
       message: `${user.username} you are successfully login`,
@@ -340,10 +346,13 @@ export class AuthService {
       const decoded = this.jwtService.verify(refreshToken, {
         secret: process.env.JWT_SECRET,
       });
-      const newAccessToken = this.jwtService.sign({
-        id: decoded.id,
-        role: decoded.role,
-      });
+      const newAccessToken = this.jwtService.sign(
+        {
+          id: decoded.id,
+          role: decoded.role,
+        },
+        { expiresIn: process.env.EXPIRE },
+      );
 
       return { accessToken: newAccessToken };
     } catch (error) {

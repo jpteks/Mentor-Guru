@@ -13,7 +13,18 @@ export const Region = [
   "South",
 ];
 
-export const subjects = [
+export const ordinarySubjects = [
+  "Physics",
+  "Mathematics",
+  "Chemistry",
+  "Biology",
+  "Computer sc",
+  "English",
+  "French",
+  "Additional mathematics",
+];
+
+export const advancedSubjects = [
   "Physics",
   "Mathematics",
   "Chemistry",
@@ -23,12 +34,11 @@ export const subjects = [
   "Computer sc",
   "English",
   "French",
-  "Additional mathematics",
-  "History",
-  "Geography",
-  "Economics",
-  "Literature",
 ];
+
+export const subjects = Array.from(
+  new Set(ordinarySubjects.concat(advancedSubjects))
+);
 
 export const year = [
   "2024",
@@ -56,3 +66,9 @@ export const backendApi = axios.create({
   baseURL: backend_url,
   withCredentials: true,
 });
+
+export const ROLES = {
+  ADMIN: "1010",
+  USER: "1050",
+  STUDENT: "5050",
+};

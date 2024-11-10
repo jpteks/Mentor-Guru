@@ -17,6 +17,7 @@ const config: Config = {
         xs: "300px",
       },
       colors: {
+        darkGrey: "#121212",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
@@ -83,6 +84,11 @@ const config: Config = {
         scroll: {
           to: {
             transform: "translate(calc(-50% - 0.5rem))",
+          },
+        },
+        shimmer: {
+          "100%": {
+            transform: "translateX(100%)",
           },
         },
       },
