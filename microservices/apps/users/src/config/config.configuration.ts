@@ -2,7 +2,7 @@ import { Configuration, Value } from '@itgorillaz/configify';
 
 @Configuration()
 export class userConfiguration {
-  @Value('DB_USER_URL')
+  @Value('DB_URL')
   userDB: string;
 
   @Value('PORT')

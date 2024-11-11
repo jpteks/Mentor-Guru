@@ -12,11 +12,17 @@ import { otpDto } from '../dto/otp.dto';
 import { loginDto } from '../dto/login.dto';
 import { requestDto } from '../dto/request.dto';
 import { ResetPasswordDto } from '../dto/resetPassword.dto';
-
+import { Subscription } from '../schemas/Subscription.schema';
+import { createSubscriptionDto } from '../dto/createSubscription.dto';
+import { Payment } from '../schemas/Payment.schema';
+import { Plan } from '../schemas/Plan.schema';
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectModel(User.name) private readonly userModel: Model<User>,
+    @InjectModel('User') private userModel: Model<User>,
+    @InjectModel('Subscription') private subscriptionModel: Model<Subscription>,
+    @InjectModel('Payment') private readonly paymentModel: Model<Payment>,
+    @InjectModel('Plan') private readonly planModel: Model<Plan>,
     private readonly jwtService: JwtService,
     private readonly otpService: OtpService,
     private readonly emailService: EmailService,
@@ -26,55 +32,92 @@ export class AuthService {
     createUserDto: createUserDto,
   ): Promise<{ statusCode: number; message: string; token: string }> {
     try {
-      const { username, email, phoneNumber, region, password, role } =
-        createUserDto;
-
+      const { username, email, phoneNumber, region, password, role } = createUserDto;
+  
       // Check if email already exists
       const user = await this.userModel.findOne({ email });
       if (user)
         return {
           statusCode: HttpStatus.BAD_REQUEST,
-          message: 'user exist already',
+          message: 'User already exists',
           token: null,
         };
-
+  
       // Hash the password
       const hashedPassword = await bcrypt.hash(password, 10);
       const otp = this.otpService.generateOtp();
       const otpExpiry = new Date(Date.now() + 10 * 60000); // OTP valid for 10 minutes
-
+      const freePlan = await this.planModel.findOne({ packageName: 'Free' });
+      if (!freePlan) return {
+        statusCode: HttpStatus.BAD_REQUEST,
+        message: 'Plan not found',
+        token: null,
+        
+      };
       // Create new user
       const newUser = new this.userModel({
         username,
         email,
         phoneNumber,
         region,
+        plan:freePlan._id,
         password: hashedPassword,
-        otp,
-        otpExpiry,
-
         role,
-      });
-
-      // Save the new user to the database
-      await newUser.save();
-
-      // Send OTP via email
-      await this.emailService.sendOtpEmail(
-        newUser.username,
-        newUser.email,
         otp,
+        subscription: null,
+        otpExpiry,
+        subscriptionDate: new Date().toLocaleDateString('en-CA'),
+        subscriptionExpiresAt:null
+      });
+  
+      // Save the user
+      await newUser.save();
+  
+  
+      
+      const subscription = new this.subscriptionModel({
+        user: newUser._id,
+        plan: freePlan._id,
+        payment:null,
+        subscriptionDate: new Date().toLocaleDateString('en-CA'),
+        expirationDate: null,
+      });
+      await subscription.save();
+      const payment = new this.paymentModel({
+        user: newUser._id,
+        subscription: subscription._id,
+        amount: 0,
+        status: 'completed',
+        paymentMethod: 'cash',
+        paymentDate: new Date().toLocaleDateString('en-CA'),
+      });
+  
+      await payment.save();
+      await this.subscriptionModel.updateOne(
+        { _id: subscription._id },
+        { $set: { payment: payment._id } },
       );
+      // Update user with the subscription ID
+      await this.userModel.updateOne(
+        { _id: newUser._id },
+        { $set: { subscription: subscription._id } },
+      );
+      await subscription.save();
+      // Send OTP via email
+      await this.emailService.sendOtpEmail(newUser.username, newUser.email, otp);
+  
+      // Generate JWT token
       const token = this.jwtService.sign({ id: newUser._id });
+  
       return {
         statusCode: HttpStatus.CREATED,
-        message: 'OTP sent through your mail expires in 10mins.',
+        message: 'OTP sent through your mail. It expires in 10 minutes.',
         token,
       };
     } catch (e) {
       // Log error for debugging
       console.error('Error during registration:', e);
-
+  
       return {
         statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
         message: 'Server crashed',
@@ -82,6 +125,7 @@ export class AuthService {
       };
     }
   }
+  
   //------------------------------------------------verifyOTp----------------------------------
   async verifyOtp(
     otpDto: otpDto,

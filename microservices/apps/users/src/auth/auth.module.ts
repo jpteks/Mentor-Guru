@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module,forwardRef } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigifyModule } from '@itgorillaz/configify';
 import { AuthController } from './auth.controller';
@@ -7,10 +7,12 @@ import { EmailService } from './email/email.service';
 import { OtpService } from './otp/otp.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from '../schemas/User.schema';
+import { UserModule } from '../user/user.module';
 import { OTPModule } from './otp/otp.module';
 import { EmailModule } from './email/email.module';
 import { JwtAuthGuard } from '../guards/jwt.guard';
 import { userConfiguration } from '../config/config.configuration';
+import { SubscriptionModule } from '../subscription/subscription.module';
 @Module({
   imports: [
     ConfigifyModule.forRootAsync(),
@@ -20,6 +22,7 @@ import { userConfiguration } from '../config/config.configuration';
     // }),
     OTPModule,
     EmailModule,
+    forwardRef(() => UserModule), forwardRef(() => SubscriptionModule),
     //   MongooseModule.forRootAsync({
     //     imports: [ConfigModule],
     //     useFactory: async (configService: ConfigService) => ({
@@ -27,7 +30,7 @@ import { userConfiguration } from '../config/config.configuration';
     //     }),
     //     inject: [ConfigService],
     //   }),
-    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
     JwtModule.registerAsync({
       global: true,
       inject: [userConfiguration],
