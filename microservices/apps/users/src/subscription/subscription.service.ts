@@ -2,6 +2,7 @@ import { Types } from 'mongoose';
 import { BadRequestException, ForbiddenException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import { User } from '../schemas/User.schema';
 import { Subscription } from '../schemas/Subscription.schema';
 import { Payment } from '../schemas/Payment.schema';
@@ -39,7 +40,7 @@ export class SubscriptionService {
       user: user._id,
       plan: plan._id,
       payment:null,
-      subscriptionDate: new Date().toISOString().split('T')[0],
+      subscriptionDate: new Date().toISOString().replace('T', ' ').substring(0, 19),
       expirationDate: createSubscriptionDto.packageName=='Free'?null: expiresAt
     });
     await subscription.save();
@@ -49,8 +50,9 @@ export class SubscriptionService {
       amount: createSubscriptionDto.packageName=='Free'? 0 :createSubscriptionDto.packageName=='Basic'? 6000 :7000,
       status: 'completed',
       paymentMethod: 'cash',
-      paymentDate: new Date().toISOString().split('T')[0],
+      paymentDate: new Date().toISOString().replace('T', ' ').substring(0, 19),
     });
+
 
     await payment.save();
     await this.subscriptionModel.updateOne(
@@ -77,10 +79,10 @@ async getUserAccessRights(userId: string) {
   if (!subscription) {
     throw new NotFoundException('Subscription not found for the user');
   }
+  
   return subscription
 }
-async updateSubscription(userId: string, updateSubscriptionDto: any): Promise<{ statusCode: number; message: string; }> {
-  
+async updateSubscription(userId: string, updateSubscriptionDto: any): Promise<{ statusCode: number; message: string }> {
   const user = await this.userModel.findById(userId);
   if (!user) {
     return {
@@ -89,7 +91,7 @@ async updateSubscription(userId: string, updateSubscriptionDto: any): Promise<{ 
     };
   }
 
-
+ 
   const subscription = await this.subscriptionModel.findOne({ user: user._id });
   if (!subscription) {
     return {
@@ -107,60 +109,61 @@ async updateSubscription(userId: string, updateSubscriptionDto: any): Promise<{ 
     };
   }
 
-
+  // Set expiration date for paid packages
   let expirationDate = subscription.expirationDate;
   if (updateSubscriptionDto.packageName !== 'Free') {
-    expirationDate = new Date();
-    expirationDate.setMinutes(expirationDate.getMinutes() + 3);  
+    expirationDate = new Date()
+    expirationDate.setMinutes(expirationDate.getMinutes() + 3); 
   }
 
-
   const updatedSubscription = await this.subscriptionModel.findByIdAndUpdate(
-    subscription._id, 
+    subscription._id,
     {
       $set: {
         plan: plan._id,
         expirationDate: expirationDate,
-        subscriptionDate: new Date().toISOString().split('T')[0],  
+        subscriptionDate:new Date().toISOString().replace('T', ' ').substring(0, 19),
       },
     },
-    { new: true }  
+    { new: true }
   );
-  const paymentAmount = updateSubscriptionDto.packageName === 'Free' ? 0 : updateSubscriptionDto.packageName === 'Basic' ? 6000 : 7000;
-
+  const paymentAmount =
+  updateSubscriptionDto.packageName === 'Free' ? 0 :
+  updateSubscriptionDto.packageName === 'Basic' ? 6000 : 7000;
   const payment = new this.paymentModel({
     user: user._id,
     subscription: updatedSubscription._id,
     amount: paymentAmount,
-    status: 'completed',
+    status: 'completed', 
     paymentMethod: 'cash',  
-    paymentDate: new Date().toISOString().split('T')[0],
+    paymentDate:new Date().toISOString().replace('T', ' ').substring(0, 19),
   });
 
   await payment.save();
-  if (!updatedSubscription) {
-    return {
-      statusCode: HttpStatus.BAD_REQUEST,
-      message: 'Failed to update subscription',
-    };
-  }
   await this.subscriptionModel.updateOne(
-    { _id: user._id },
-    { $set: { payment: payment._id } },
+    { _id: subscription._id },
+    {
+      $set: {
+        payment: payment._id,
+       
+      },
+    }
   );
-  
-  await updatedSubscription.save();
-
-
-  await user.populate('subscription', 'packageName subscriptionDate expirationDate');
-  await user.save();
+  await this.userModel.updateOne(
+    { _id: userId },
+    {
+      $set: {
+        subscription: updatedSubscription._id,
+        plan: plan._id,
+      },
+    }
+  );
 
   return {
     statusCode: HttpStatus.OK,
     message: 'Subscription updated successfully',
   };
 }
-
 async deleteSubscription(userId: string) {
     const user = await this.userModel.findById(userId).populate('subscription').exec();
     if (!user || !user.subscription) throw new NotFoundException('User or subscription not found');
@@ -169,15 +172,14 @@ async deleteSubscription(userId: string) {
     user.subscription = null;  
     await user.save();
 }
-
-  
 async getAllSubscriptions() {
-    return await this.subscriptionModel.find().populate('user', 'username  phoneNumber ').exec();
+    return await this.subscriptionModel.find().populate('user', 'username  phoneNumber ').populate('plan')
+    .populate('payment', 'amount status paymentMethod paymentDate').exec();
   }
   
-  async checkSubscriptionAccess(userId: string): Promise<void> {
+async checkSubscriptionAccess(userId: string): Promise<void> {
     const subscription = await this.subscriptionModel
-      .findOne({ user: userId })
+      .findOne({ user: new Types.ObjectId(userId) })
       .populate('plan')
       .exec();
 
@@ -191,9 +193,51 @@ async getAllSubscriptions() {
     }
 
     if (subscription.plan.packageName === 'Free') {
-      return; 
+      return;
     }
-
-   
   }
+
+  @Cron(CronExpression.EVERY_10_SECONDS)
+  async updateExpiredSubscriptions() {
+    const currentDate = new Date();
+
+    const expiredSubscriptions = await this.subscriptionModel
+      .find({
+        expirationDate: { $lt: currentDate },
+        'plan.packageName': { $ne: 'Free' }
+      })
+      .populate('plan')
+      .exec();
+      console.log(expiredSubscriptions)
+      
+      const freePlan = await this.planModel.findOne({ packageName: 'Free' }).exec();
+      if (!freePlan) {
+        console.log('Free plan not found. Exiting cron job.');
+        return;
+      }
+      
+    for (const subscription of expiredSubscriptions) {
+      const newPayment = new this.paymentModel({
+        user: subscription.user,          
+        subscription: subscription._id,    
+        amount: 0,                         
+        status: 'completed',               
+        paymentMethod: 'cash',              
+        paymentDate: new Date().toISOString().replace('T', ' ').substring(0, 19),           
+      });
+      await newPayment.save();
+      await this.subscriptionModel.updateOne(
+        { _id: subscription._id },
+        {
+          $set: {
+            'plan': freePlan._id,  
+            expirationDate: null,
+            Payment:newPayment._id   
+          },
+        },
+      );
+      console.log(subscription)
+    }
+  }
+
 }

@@ -5,7 +5,7 @@ const paperSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
-      type: String,
+     
     },
     category: {
       type: String,
@@ -23,7 +23,7 @@ const paperSchema = new mongoose.Schema(
     year: {
       type: String,
       required: true,
-      type: String,
+
     },
   },
   { timestamps: true }

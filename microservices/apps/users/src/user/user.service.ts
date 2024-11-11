@@ -56,7 +56,7 @@ export class UserService {
         isEmailVerified: true,
         accountStatus:'active' ,
         subscription:null,
-        subscriptionDate:new Date(),
+        subscriptionDate:new Date().toLocaleDateString('en-CA'),
         subscriptionExpiresAt:null
         
       });
@@ -69,7 +69,7 @@ export class UserService {
         user: user._id,
         plan: freePlan._id,
         payment:null,
-        subscriptionDate: new Date().toISOString().split('T')[0],
+        subscriptionDate:new Date().toLocaleDateString('en-CA'),
         expirationDate: null,
       });
       await subscription.save();
@@ -112,11 +112,11 @@ export class UserService {
   }
 
   async findAll(): Promise<User[]> {
-    return this.userModel.find().populate('subscription', 'subscriptionDate expirationDate').populate('plan', 'packageName').exec();
+    return this.userModel.find().populate('plan', 'packageName').exec();
   }
 
   async findOne(id: string): Promise<User> {
-    const user = await this.userModel.findById(id).populate('subscription', 'subscriptionDate expirationDate').populate('plan', 'packageName')
+    const user = await this.userModel.findById(id).populate('plan', 'packageName')
     .exec();
     if (!user) {
       throw new NotFoundException(`User with id ${id} not found`);

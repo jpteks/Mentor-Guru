@@ -66,7 +66,7 @@ export class AuthService {
         otp,
         subscription: null,
         otpExpiry,
-        subscriptionDate: new Date(),
+        subscriptionDate: new Date().toLocaleDateString('en-CA'),
         subscriptionExpiresAt:null
       });
   
@@ -79,7 +79,7 @@ export class AuthService {
         user: newUser._id,
         plan: freePlan._id,
         payment:null,
-        subscriptionDate: new Date().toISOString().split('T')[0],
+        subscriptionDate: new Date().toLocaleDateString('en-CA'),
         expirationDate: null,
       });
       await subscription.save();
@@ -89,7 +89,7 @@ export class AuthService {
         amount: 0,
         status: 'completed',
         paymentMethod: 'cash',
-        paymentDate: new Date().toISOString().split('T')[0],
+        paymentDate: new Date().toLocaleDateString('en-CA'),
       });
   
       await payment.save();

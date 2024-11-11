@@ -1,5 +1,5 @@
 import { JwtAuthGuard } from '../guards/jwt.guard';
-import { Controller, Patch, Param, Body,Delete, Get, UseGuards, Post,Request} from '@nestjs/common';
+import { Controller, Patch, Param, Body,Delete, Get, UseGuards, Post,Request, Put} from '@nestjs/common';
 import { SubscriptionService } from './subscription.service';
 import { Roles } from '../decorator/role.decorator';
 import { RolesGuard } from '../guards/role.guard';
@@ -17,11 +17,25 @@ export class SubscriptionController {
   async create(@Param('userId') userId: string, @Body() createSubscriptionDto: createSubscriptionDto) {
         return this.subscriptionService.createSubscription(userId, createSubscriptionDto); 
     }
-  @Patch(':userId')
+  @Put(':userId')
   @Roles(UserRole.ADMIN)
   @UseGuards(RolesGuard)
   async update(@Param('userId') userId: string, @Body() updateSubscriptionDto: UpdateSubscriptionDto) {
     return this.subscriptionService.updateSubscription(userId, updateSubscriptionDto);
+  }
+  @Get('/access/:userId')
+  @Roles(UserRole.ADMIN,UserRole.STUDENT)
+  @UseGuards(RolesGuard)
+  async getSubscriptionAccess(@Param('userId') userId: string, @Request() request) {
+    const userRole = request.user.role;
+
+    
+    if (userRole === UserRole.STUDENT && request.user.id !== userId) {
+      return {
+        message: 'Access denied. You can only view your own information.',
+      };
+    }
+    return this.subscriptionService.checkSubscriptionAccess(userId);
   }
   @Get(':userId')
   @Roles(UserRole.ADMIN,UserRole.STUDENT)
