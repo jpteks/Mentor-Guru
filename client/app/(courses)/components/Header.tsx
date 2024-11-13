@@ -1,10 +1,11 @@
 import { ModeToggle } from "@/components/mode-toggle";
 
-import { GraduationCap, Search } from "lucide-react";
+import { GraduationCap } from "lucide-react";
 import Notifications from "./notifications";
 import Link from "next/link";
 import { Menu } from "@/app/(home)/components/menu";
 import AvatarBtn from "./profileAvatar";
+import Search from "./Search";
 
 const Header = () => {
   return (
@@ -20,15 +21,7 @@ const Header = () => {
       </Link>
 
       <div className='w-full hidden lg:flex justify-center '>
-        <div className='flex p-1 items-center justify-center gap-2 py-3 px-3 rounded-full  border'>
-          <Search size={16} />
-          <input
-            type='search'
-            placeholder='find a course...'
-            className='bg-transparent outline-none text-xs'
-            //onFocus={() => alert("hello")}
-          />
-        </div>
+        <Search placeholder="search course..." />
       </div>
 
       <div className='flex  items-center justify-end w-1/2 md:w-1/4 '>

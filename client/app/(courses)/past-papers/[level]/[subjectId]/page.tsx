@@ -1,3 +1,4 @@
+import { PaperTableSkeleton } from "@/app/(courses)/components/skeletonns";
 import Table from "@/app/(courses)/components/table";
 
 import { Suspense } from "react";
@@ -15,7 +16,10 @@ export default async function page({
 
   return (
     <div className='p-4'>
-      <Suspense fallback={<div>Loading..</div>}>
+      <Suspense
+        key={subjectId + level + currentPage}
+        fallback={<PaperTableSkeleton />}
+      >
         <Table name={subjectId} level={level} currentPage={currentPage} />
       </Suspense>
     </div>
