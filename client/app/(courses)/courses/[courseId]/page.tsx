@@ -113,6 +113,14 @@ const Course = () => {
                   <Video /> Forces types, components etc
                 </AccordionContent>
               </AccordionItem>
+               <AccordionItem value='item-4'>
+                <AccordionTrigger className='flex items-center justify-between px-2 bg-slate-200 dark:bg-inherit'>
+                  Forces
+                </AccordionTrigger>
+                <AccordionContent className='flex gap-2 text-sm text-slate-500 px-2'>
+                  <Video /> Forces types, components etc
+                </AccordionContent>
+              </AccordionItem>
             </Accordion>
           </div>
         </Card>

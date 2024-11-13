@@ -1,4 +1,4 @@
-import {IsString,IsNotEmpty,IsBoolean, IsDate} from 'class-validator'
+import {IsString,IsNotEmpty,IsBoolean, IsDate,IsOptional} from 'class-validator'
 
 export class updateUserDto{
     @IsString()
@@ -16,4 +16,6 @@ export class updateUserDto{
     @IsString()
     @IsNotEmpty()
     phoneNumber:string;
+    @IsOptional()
+    subscription:string;
 }

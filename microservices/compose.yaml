@@ -14,8 +14,8 @@ services:
     image: mongo
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: user
-      MONGO_INITDB_ROOT_PASSWORD: user
+      MONGO_INITDB_ROOT_USERNAME: MentorGuru
+      MONGO_INITDB_ROOT_PASSWORD: MentorGuru
       MONGO_INITDB_DATABASE: usersDB
     ports:
       - '27017:27017' # Mapping MongoDB to the default port 27017
