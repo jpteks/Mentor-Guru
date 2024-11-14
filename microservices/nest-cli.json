@@ -1,40 +1,40 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "microservices/apps/users/src",
+  "sourceRoot": "apps/users/src",
   "compilerOptions": {
     "deleteOutDir": true,
     "webpack": true,
-    "tsConfigPath": "microservices/apps/users/tsconfig.app.json"
+    "tsConfigPath": "apps/users/tsconfig.app.json"
   },
   "monorepo": true,
-  "root": "microservices",
+  "root": "apps",
   "projects": {
     "users": {
       "type": "application",
-      "root": "microservices/apps/users",
+      "root": "apps/users",
       "entryFile": "main",
-      "sourceRoot": "microservices/apps/users/src",
+      "sourceRoot": "apps/users/src",
       "compilerOptions": {
-        "tsConfigPath": "microservices/apps/users/tsconfig.app.json"
+        "tsConfigPath": "apps/users/tsconfig.app.json"
       }
     },
     "courses": {
       "type": "application",
-      "root": "microservices/apps/courses",
+      "root": "apps/courses",
       "entryFile": "main",
-      "sourceRoot": "microservices/apps/courses/src",
+      "sourceRoot": "apps/courses/src",
       "compilerOptions": {
-        "tsConfigPath": "microservices/apps/courses/tsconfig.app.json"
+        "tsConfigPath": "apps/courses/tsconfig.app.json"
       }
     },
     "api-gateway": {
       "type": "application",
-      "root": "microservices/apps/api-gateway",
+      "root": "apps/api-gateway",
       "entryFile": "main",
-      "sourceRoot": "microservices/apps/api-gateway/src",
+      "sourceRoot": "apps/api-gateway/src",
       "compilerOptions": {
-        "tsConfigPath": "microservices/apps/api-gateway/tsconfig.app.json"
+        "tsConfigPath": "apps/api-gateway/tsconfig.app.json"
       }
     }
   }
