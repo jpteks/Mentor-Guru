@@ -1,49 +1,40 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "apps/microservices/src",
+  "sourceRoot": "microservices/apps/users/src",
   "compilerOptions": {
     "deleteOutDir": true,
     "webpack": true,
-    "tsConfigPath": "apps/microservices/tsconfig.app.json"
+    "tsConfigPath": "microservices/apps/users/tsconfig.app.json"
   },
   "monorepo": true,
-  "root": "apps/microservices",
+  "root": "microservices",
   "projects": {
     "users": {
       "type": "application",
-      "root": "apps/users",
+      "root": "microservices/apps/users",
       "entryFile": "main",
-      "sourceRoot": "apps/users/src",
+      "sourceRoot": "microservices/apps/users/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/users/tsconfig.app.json"
+        "tsConfigPath": "microservices/apps/users/tsconfig.app.json"
       }
     },
     "courses": {
       "type": "application",
-      "root": "apps/courses",
+      "root": "microservices/apps/courses",
       "entryFile": "main",
-      "sourceRoot": "apps/courses/src",
+      "sourceRoot": "microservices/apps/courses/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/courses/tsconfig.app.json"
-      }
-    },
-    "contracts": {
-      "type": "library",
-      "root": "libs/contracts",
-      "entryFile": "index",
-      "sourceRoot": "libs/contracts/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/contracts/tsconfig.lib.json"
+        "tsConfigPath": "microservices/apps/courses/tsconfig.app.json"
       }
     },
     "api-gateway": {
       "type": "application",
-      "root": "apps/api-gateway",
+      "root": "microservices/apps/api-gateway",
       "entryFile": "main",
-      "sourceRoot": "apps/api-gateway/src",
+      "sourceRoot": "microservices/apps/api-gateway/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/api-gateway/tsconfig.app.json"
+        "tsConfigPath": "microservices/apps/api-gateway/tsconfig.app.json"
       }
     }
   }
