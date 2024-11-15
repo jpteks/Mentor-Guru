@@ -1,6 +1,6 @@
 import { CustomerField } from "@/app/testpage/lib/definitions";
-import Breadcrumbs from "@/app/(admin)/components/ui/invoices/breadcrumbs";
-import Form from "@/app/(admin)/components/ui/invoices/create-form";
+import Breadcrumbs from "@/app/(admin)/components/ui/subscrib/breadcrumbs";
+import Form from "@/app/(admin)/components/ui/subscrib/create-form";
 
 export default async function Page() {
   //const customers = await fetchCustomers();

@@ -129,9 +129,9 @@ export function InvoicesMobileSkeleton() {
 
 export function PaperTableSkeleton() {
   return (
-    <div className={` mt-6 flow-root`}>
-      <div className='inline-block min-w-full align-middle'>
-        <div className='rounded-lg bg-gray-50 dark:bg-gray-600 p-2 md:pt-0'>
+    <div className={`relative  mt-6 flow-root`}>
+      <div className={`${shimmer}  inline-block min-w-full align-middle`}>
+        <div className='rounded-lg bg-gray-50 dark:bg-gray-500 p-2 md:pt-0'>
           <div className='md:hidden'>
             <InvoicesMobileSkeleton />
             <InvoicesMobileSkeleton />

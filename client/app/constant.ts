@@ -60,10 +60,10 @@ export const year = [
 
 export const paper = ["1", "2", "3"];
 
-export const backend_url = "http://localhost:3002";
+export const backend_url = process.env.BACKEND_URL;
 
 export const backendApi = axios.create({
-  baseURL: backend_url,
+  baseURL: "http://localhost:3002",
   withCredentials: true,
 });
 

@@ -1,4 +1,4 @@
-import { Module,forwardRef } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigifyModule } from '@itgorillaz/configify';
 import { AuthController } from './auth.controller';
@@ -6,7 +6,7 @@ import { AuthService } from './auth.service';
 import { EmailService } from './email/email.service';
 import { OtpService } from './otp/otp.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { User, UserSchema } from '../schemas/User.schema';
+import { UserSchema } from '../schemas/User.schema';
 import { UserModule } from '../user/user.module';
 import { OTPModule } from './otp/otp.module';
 import { EmailModule } from './email/email.module';
@@ -22,7 +22,8 @@ import { SubscriptionModule } from '../subscription/subscription.module';
     // }),
     OTPModule,
     EmailModule,
-    forwardRef(() => UserModule), forwardRef(() => SubscriptionModule),
+    forwardRef(() => UserModule),
+    forwardRef(() => SubscriptionModule),
     //   MongooseModule.forRootAsync({
     //     imports: [ConfigModule],
     //     useFactory: async (configService: ConfigService) => ({

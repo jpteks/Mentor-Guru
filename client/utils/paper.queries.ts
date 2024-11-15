@@ -34,6 +34,7 @@ export async function getPapers(
     return { papers, totalPages };
   } catch (error) {
     console.error("Error fetching papers:", error);
-    throw new Error("Failed to retrieve papers.");
+   return { error: { statusCode: 500, message: "Failed to retrieve papers." } };
+   // throw new Error("Failed to retrieve papers.");
   }
 }

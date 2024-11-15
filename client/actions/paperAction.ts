@@ -36,11 +36,25 @@ export async function getPaperAction(
   name: string,
   category: string
 ) {
-  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
-  await dbConnect();
-  const papers = await getPapers(offset, ITEMS_PER_PAGE, name, category);
-  if (!papers) {
-    return { errors: { name: "Papers not found" } };
+  try {
+    const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+    await dbConnect();
+
+    const result = await getPapers(offset, ITEMS_PER_PAGE, name, category);
+
+    if ("error" in result) {
+      return { error: result.error }; // Pass backend error to the frontend
+    }
+
+    if (!result.papers || result.papers.length === 0) {
+      return { error: { statusCode: 404, message: "No papers found." } };
+    }
+
+    return { papers: result.papers, totalPages: result.totalPages };
+  } catch (error) {
+    console.error("Error in getPaperAction:", error);
+    return {
+      error: { statusCode: 500, message: "An unexpected error occurred." },
+    };
   }
-  return { papers: papers.papers, totalPages: papers.totalPages };
 }

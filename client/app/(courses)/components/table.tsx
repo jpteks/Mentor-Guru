@@ -1,7 +1,7 @@
 import { getPaperAction } from "@/actions/paperAction";
 import { Button } from "@/components/ui/button";
 import Pagination from "@/components/ui/pagination";
-import { Download } from "lucide-react";
+import { Download, FileX } from "lucide-react";
 import PreviewBtn from "./ButtonPreview";
 
 const Table = async ({
@@ -13,7 +13,20 @@ const Table = async ({
   name: string;
   currentPage: number;
 }) => {
-  const { papers, totalPages } = await getPaperAction(currentPage, name, level);
+  const response = await getPaperAction(currentPage, name, level);
+
+  if (response.error) {
+    // Handle error responses
+    const { message } = response.error;
+    return (
+      <div className='text-center p-5 flex items-center justify-center text-red-500'>
+        <FileX size={33} />
+        <p>{message}</p>
+      </div>
+    );
+  }
+
+  const { papers, totalPages } = response;
 
   return (
     <div className='rounded-lg border border-gray-200'>

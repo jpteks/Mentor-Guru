@@ -17,7 +17,7 @@ const SidebarRoutes = () => {
       icon: LucideUploadCloud,
     },
     {
-      label: "Enrolled Students",
+      label: "Subscribers",
       href: "/dashboard/subscriptions",
       icon: Files,
     },
