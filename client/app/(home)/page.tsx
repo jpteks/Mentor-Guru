@@ -1,11 +1,12 @@
 import { ModeToggle } from "@/components/mode-toggle";
-import { GraduationCap} from "lucide-react";
+import { GraduationCap } from "lucide-react";
 import MobileNav from "./components/Mobile-nav";
 import { Testimonial } from "./components/Testimonial";
 import TypeAnime from "./components/TypeAnime";
 import Why from "./components/Why";
 import WhyMobile from "./components/Why-mobile";
 import Link from "next/link";
+import Pricing from "./components/pricing";
 
 export default function Home() {
   return (
@@ -102,6 +103,8 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      <Pricing />
 
       <footer className=' py-6 text-xs max-w-xl mx-auto border'>
         <div className='container mx-auto px-4 flex flex-col md:flex-row justify-between items-center'>

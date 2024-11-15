@@ -2,7 +2,44 @@ import { RefreshCw } from "lucide-react";
 //import { LatestInvoice } from "../../lib/definitions";
 import clsx from "clsx";
 import Image from "next/image";
-import { latestInvoices } from "../../../../testpage/lib/definitions";
+
+const latestInvoices = [
+  {
+    id: "1",
+    name: "Alex Smith",
+    image_url: "/avatars/01.png",
+    email: "XXXXXXXXXXXXXXX",
+    amount: "$250.00",
+  },
+  {
+    id: "2",
+    name: "Jose Garcia",
+    image_url: "/avatars/02.png",
+    email: "jose@example.com",
+    amount: "$150.00",
+  },
+  {
+    id: "3",
+    name: "Adam Smith",
+    image_url: "/avatars/03.png",
+    email: "XXXXXXXXXXXXXX",
+    amount: "$350.00",
+  },
+  {
+    id: "4",
+    name: "Payal Dias",
+    image_url: "/avatars/04.png",
+    email: "payal@example.com",
+    amount: "$450.00",
+  },
+  {
+    id: "5",
+    name: "John Garcia",
+    image_url: "/avatars/05.png",
+    email: "john@example.com",
+    amount: "$550.00",
+  },
+];
 
 export default async function LatestInvoices() {
   return (

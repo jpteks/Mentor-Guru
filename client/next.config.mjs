@@ -4,6 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         hostname: "utfs.io",
+        pathname:""
       },
       {
         hostname: "i.pravatar.cc",

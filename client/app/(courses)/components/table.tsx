@@ -1,7 +1,8 @@
 import { getPaperAction } from "@/actions/paperAction";
 import { Button } from "@/components/ui/button";
 import Pagination from "@/components/ui/pagination";
-import { Download } from "lucide-react";
+import { Download, FileX } from "lucide-react";
+import PreviewBtn from "./ButtonPreview";
 
 const Table = async ({
   name,
@@ -12,7 +13,20 @@ const Table = async ({
   name: string;
   currentPage: number;
 }) => {
-  const { papers, totalPages } = await getPaperAction(currentPage, name, level);
+  const response = await getPaperAction(currentPage, name, level);
+
+  if (response.error) {
+    // Handle error responses
+    const { message } = response.error;
+    return (
+      <div className='text-center p-5 flex items-center justify-center text-red-500'>
+        <FileX size={33} />
+        <p>{message}</p>
+      </div>
+    );
+  }
+
+  const { papers, totalPages } = response;
 
   return (
     <div className='rounded-lg border border-gray-200'>
@@ -52,9 +66,7 @@ const Table = async ({
                     })}
                   </td>
                   <td className='whitespace-nowrap px-4 py-2 text-gray- flex items-center gap-2'>
-                    <Button variant={"outline"} className='dark:bg-transparent'>
-                      preview
-                    </Button>
+                    <PreviewBtn url={subj.url} />
                     <Button className='dark:bg-transparent' variant={"outline"}>
                       <Download size={22} />
                     </Button>
@@ -62,7 +74,9 @@ const Table = async ({
                 </tr>
               ))
             ) : (
-              <div className="text-2xl font-medium text-center p-3">No paper yet</div>
+              <div className='text-2xl font-medium text-center p-3'>
+                No paper yet
+              </div>
             )}
           </tbody>
         </table>

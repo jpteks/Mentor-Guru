@@ -13,7 +13,6 @@ import { loginDto } from '../dto/login.dto';
 import { requestDto } from '../dto/request.dto';
 import { ResetPasswordDto } from '../dto/resetPassword.dto';
 import { Subscription } from '../schemas/Subscription.schema';
-import { createSubscriptionDto } from '../dto/createSubscription.dto';
 import { Payment } from '../schemas/Payment.schema';
 import { Plan } from '../schemas/Plan.schema';
 @Injectable()
@@ -32,8 +31,9 @@ export class AuthService {
     createUserDto: createUserDto,
   ): Promise<{ statusCode: number; message: string; token: string }> {
     try {
-      const { username, email, phoneNumber, region, password, role } = createUserDto;
-  
+      const { username, email, phoneNumber, region, password, role } =
+        createUserDto;
+
       // Check if email already exists
       const user = await this.userModel.findOne({ email });
       if (user)
@@ -42,43 +42,41 @@ export class AuthService {
           message: 'User already exists',
           token: null,
         };
-  
+
       // Hash the password
       const hashedPassword = await bcrypt.hash(password, 10);
       const otp = this.otpService.generateOtp();
       const otpExpiry = new Date(Date.now() + 10 * 60000); // OTP valid for 10 minutes
       const freePlan = await this.planModel.findOne({ packageName: 'Free' });
-      if (!freePlan) return {
-        statusCode: HttpStatus.BAD_REQUEST,
-        message: 'Plan not found',
-        token: null,
-        
-      };
+      if (!freePlan)
+        return {
+          statusCode: HttpStatus.BAD_REQUEST,
+          message: 'Plan not found',
+          token: null,
+        };
       // Create new user
       const newUser = new this.userModel({
         username,
         email,
         phoneNumber,
         region,
-        plan:freePlan._id,
+        plan: freePlan._id,
         password: hashedPassword,
         role,
         otp,
         subscription: null,
         otpExpiry,
         subscriptionDate: new Date().toLocaleDateString('en-CA'),
-        subscriptionExpiresAt:null
+        subscriptionExpiresAt: null,
       });
-  
+
       // Save the user
       await newUser.save();
-  
-  
-      
+
       const subscription = new this.subscriptionModel({
         user: newUser._id,
         plan: freePlan._id,
-        payment:null,
+        payment: null,
         subscriptionDate: new Date().toLocaleDateString('en-CA'),
         expirationDate: null,
       });
@@ -91,7 +89,7 @@ export class AuthService {
         paymentMethod: 'cash',
         paymentDate: new Date().toLocaleDateString('en-CA'),
       });
-  
+
       await payment.save();
       await this.subscriptionModel.updateOne(
         { _id: subscription._id },
@@ -104,11 +102,15 @@ export class AuthService {
       );
       await subscription.save();
       // Send OTP via email
-      await this.emailService.sendOtpEmail(newUser.username, newUser.email, otp);
-  
+      await this.emailService.sendOtpEmail(
+        newUser.username,
+        newUser.email,
+        otp,
+      );
+
       // Generate JWT token
       const token = this.jwtService.sign({ id: newUser._id });
-  
+
       return {
         statusCode: HttpStatus.CREATED,
         message: 'OTP sent through your mail. It expires in 10 minutes.',
@@ -117,7 +119,7 @@ export class AuthService {
     } catch (e) {
       // Log error for debugging
       console.error('Error during registration:', e);
-  
+
       return {
         statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
         message: 'Server crashed',
@@ -125,7 +127,7 @@ export class AuthService {
       };
     }
   }
-  
+
   //------------------------------------------------verifyOTp----------------------------------
   async verifyOtp(
     otpDto: otpDto,

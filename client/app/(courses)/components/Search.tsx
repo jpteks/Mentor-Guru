@@ -1,62 +1,38 @@
-import {
-  CalendarIcon,
-  EnvelopeClosedIcon,
-  FaceIcon,
-  GearIcon,
-  PersonIcon,
-  RocketIcon,
-} from "@radix-ui/react-icons";
+"use client";
 
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-  CommandShortcut,
-} from "@/components/ui/command";
+import { SearchIcon } from "lucide-react";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import { useDebouncedCallback } from "use-debounce";
 
-export function SearchBar() {
+export default function Search({ placeholder }: { placeholder: string }) {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+
+  const handleSearch = useDebouncedCallback(term => {
+    const params = new URLSearchParams(searchParams);
+    params.set("page", "1");
+    if (term) {
+      params.set("query", term);
+    } else {
+      params.delete("query");
+    }
+    replace(`${pathname}?${params.toString()}`);
+  }, 300);
   return (
-    <Command className='rounded-lg border shadow-md md:min-w-[450px]'>
-      <CommandInput placeholder='Type a command or search...' />
-      <CommandList>
-        <CommandEmpty>No results found.</CommandEmpty>
-        <CommandGroup heading='Suggestions'>
-          <CommandItem>
-            <CalendarIcon className='mr-2 h-4 w-4' />
-            <span>Calendar</span>
-          </CommandItem>
-          <CommandItem>
-            <FaceIcon className='mr-2 h-4 w-4' />
-            <span>Search Emoji</span>
-          </CommandItem>
-          <CommandItem disabled>
-            <RocketIcon className='mr-2 h-4 w-4' />
-            <span>Launch</span>
-          </CommandItem>
-        </CommandGroup>
-        <CommandSeparator />
-        <CommandGroup heading='Settings'>
-          <CommandItem>
-            <PersonIcon className='mr-2 h-4 w-4' />
-            <span>Profile</span>
-            <CommandShortcut>⌘P</CommandShortcut>
-          </CommandItem>
-          <CommandItem>
-            <EnvelopeClosedIcon className='mr-2 h-4 w-4' />
-            <span>Mail</span>
-            <CommandShortcut>⌘B</CommandShortcut>
-          </CommandItem>
-          <CommandItem>
-            <GearIcon className='mr-2 h-4 w-4' />
-            <span>Settings</span>
-            <CommandShortcut>⌘S</CommandShortcut>
-          </CommandItem>
-        </CommandGroup>
-      </CommandList>
-    </Command>
+    <div className='relative flex flex-1 flex-shrink-0'>
+      <label htmlFor='search' className='sr-only'>
+        Search
+      </label>
+      <input
+        className='peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500'
+        placeholder={placeholder}
+        onChange={e => {
+          handleSearch(e.target.value);
+        }}
+        defaultValue={searchParams.get("query")?.toString()}
+      />
+      <SearchIcon className='absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900' />
+    </div>
   );
 }

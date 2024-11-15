@@ -7,7 +7,7 @@ import { ConfigifyModule } from '@itgorillaz/configify';
 import { AuthModule } from './auth/auth.module';
 import { userConfiguration } from './config/config.configuration';
 import { UserModule } from './user/user.module';
-import {SubscriptionModule} from './subscription/subscription.module'
+import { SubscriptionModule } from './subscription/subscription.module';
 import { PlanModule } from './Plan/plan.module';
 import { PaymentModule } from './Payment/payment.module';
 @Module({
@@ -24,7 +24,7 @@ import { PaymentModule } from './Payment/payment.module';
     UserModule,
     SubscriptionModule,
     PlanModule,
-    PaymentModule
+    PaymentModule,
   ],
   controllers: [UsersController],
   providers: [UsersService],

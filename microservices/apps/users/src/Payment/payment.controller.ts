@@ -1,5 +1,5 @@
 // payment.controller.ts
-import { Controller, Get,  Param,  UseGuards , Request} from '@nestjs/common';
+import { Controller, Get, Param, UseGuards, Request } from '@nestjs/common';
 import { PaymentService } from './payment.service';
 import { JwtAuthGuard } from '../guards/jwt.guard';
 import { Roles } from '../decorator/role.decorator';
@@ -16,7 +16,7 @@ export class PaymentController {
   findAll() {
     return this.paymentService.findAll();
   }
-  @Roles(UserRole.ADMIN,UserRole.STUDENT)
+  @Roles(UserRole.ADMIN, UserRole.STUDENT)
   @UseGuards(RolesGuard)
   @Get(':id')
   findOne(@Param('id') id: string, @Request() request) {
@@ -28,11 +28,4 @@ export class PaymentController {
     }
     return this.paymentService.findOne(id);
   }
-
-  
-
-//   @Delete(':id')
-//   remove(@Param('id') id: string) {
-//     return this.paymentService.remove(id);
-//   }
 }
