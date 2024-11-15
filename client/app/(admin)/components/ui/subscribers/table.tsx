@@ -1,8 +1,8 @@
 //import { fetchFilteredInvoices } from "../../lib/data";
 import { subscribersType } from "@/types/subscription";
-import { formatDateToLocal } from "../../../../testpage/lib/utils";
 import { UpdateInvoice, DeleteInvoice } from "./buttons";
 import PlanStatus from "./status";
+import { formatDateToLocal } from "@/lib/utils";
 
 export default async function SubscriberTable({
   subscribers,

@@ -1,5 +1,3 @@
-import { CheckIcon, ClockIcon } from "lucide-react";
-import clsx from "clsx";
 import { Badge } from "@/components/ui/badge";
 
 export default function PlanStatus({ status }: { status: string }) {
@@ -35,5 +33,5 @@ export default function PlanStatus({ status }: { status: string }) {
   //   </span>
   // );
 
- return <Badge>{status} </Badge>;
+  return <Badge>{status} </Badge>;
 }
