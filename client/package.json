@@ -30,7 +30,6 @@
     "cmdk": "1.0.0",
     "cookies-next": "^4.3.0",
     "framer-motion": "^11.11.8",
-    "jose": "^5.9.6",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.447.0",
     "mongoose": "^8.7.3",
