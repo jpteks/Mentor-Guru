@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Pagination from "@/components/ui/pagination";
 import { Download, FileX } from "lucide-react";
 import PreviewBtn from "./ButtonPreview";
+import { Suspense } from "react";
 
 const Table = async ({
   name,
@@ -84,7 +85,9 @@ const Table = async ({
 
       <div className='rounded-b-lg border-t border-gray-200 px-4 py-2'>
         <div className='mt-5 flex w-full justify-center'>
-          <Pagination totalPages={totalPages as number} />
+          <Suspense fallback={<div>Loading...</div>}>
+            <Pagination totalPages={totalPages as number} />
+          </Suspense>
         </div>
       </div>
     </div>

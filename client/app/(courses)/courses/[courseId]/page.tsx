@@ -29,7 +29,10 @@ const Course = () => {
     <div className='p-2 grow'>
       <Card
         className='border w-full h-[200px]  rounded-md bg-center bg-no-repeat'
-        style={{ background: "url('/Hexagon.svg')" }}
+        style={{
+          background:
+            "url('https://utfs.io/a/f3s5czn47t/sDJN6CSX6MvYA1C0a3P9eZStRoHwcvnJ2jOBrzQKspa1Ux3T')",
+        }}
       >
         <CardHeader>
           <CardDescription className='flex text-xs font-semibold items-center'>
@@ -113,7 +116,7 @@ const Course = () => {
                   <Video /> Forces types, components etc
                 </AccordionContent>
               </AccordionItem>
-               <AccordionItem value='item-4'>
+              <AccordionItem value='item-4'>
                 <AccordionTrigger className='flex items-center justify-between px-2 bg-slate-200 dark:bg-inherit'>
                   Forces
                 </AccordionTrigger>
@@ -130,7 +133,7 @@ const Course = () => {
           <Card className='px-4 pt-2 dark:bg-[#1d1e22]'>
             <div className='flex items-center justify-start gap-2'>
               <Avatar>
-                <AvatarImage src='/profile.jpeg' />
+                <AvatarImage src='https://utfs.io/a/f3s5czn47t/sDJN6CSX6MvYNk0TfNs7aXQdjRgU5IyzWbwFBp4T2irZM31Y' />
                 <AvatarFallback>Usr</AvatarFallback>
               </Avatar>
               Instructor
@@ -159,7 +162,10 @@ const Course = () => {
 
             <div className='border mt-2 p-1 flex items-center gap-2 text-xs hover:underline cursor-pointer'>
               <Avatar>
-                <AvatarImage src='/google.svg' className='object-cover' />
+                <AvatarImage
+                  src='https://utfs.io/a/f3s5czn47t/sDJN6CSX6MvYpdqhxs8LdOaUJ8ehvYZ7r2Ff0HXCwlEB41gi'
+                  className='object-cover'
+                />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
               <h3>Nuclear physics</h3>

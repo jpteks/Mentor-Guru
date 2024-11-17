@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Menu } from "@/app/(home)/components/menu";
 import AvatarBtn from "./profileAvatar";
 import Search from "./Search";
+import { Suspense } from "react";
 
 const Header = () => {
   return (
@@ -21,16 +22,24 @@ const Header = () => {
       </Link>
 
       <div className='w-full hidden lg:flex justify-center '>
-        <Search placeholder="search course..." />
+        <Suspense fallback={<div>Loading ....</div>}>
+          <Search placeholder='search course...' />
+        </Suspense>
       </div>
 
       <div className='flex  items-center justify-end w-1/2 md:w-1/4 '>
         <div className='flex justify-center flex-row-reverse items-center gap-2 border rounded-full p-1'>
-          <AvatarBtn />
+          <Suspense fallback={<div>Loading ....</div>}>
+            <AvatarBtn />
+          </Suspense>
 
-          <ModeToggle />
+          <Suspense fallback={<div>Loading ....</div>}>
+            <ModeToggle />
+          </Suspense>
 
-          <Notifications />
+          <Suspense fallback={<div>Loading ....</div>}>
+            <Notifications />
+          </Suspense>
 
           <div className='md:hidden block'>
             <Menu />

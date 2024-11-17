@@ -1,14 +1,18 @@
-"use client";
-import PDFViewer from "@/app/(courses)/components/PDFViewer";
-import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
+import Preview from "./preview";
 
-export default function Page() {
-  const searchParams = useSearchParams();
-  const url = searchParams.get("url") || "";
-  
+const page = () => {
   return (
     <div>
-      <PDFViewer pdfUrl={`https://utfs.io/f/${url}`} />
+      <Suspense fallback={<PreviewFallback />}>
+        <Preview />
+      </Suspense>
     </div>
   );
+};
+
+export default page;
+
+function PreviewFallback() {
+  return <>placeholder</>;
 }

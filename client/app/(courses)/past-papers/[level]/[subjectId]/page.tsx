@@ -3,7 +3,7 @@ import Table from "@/app/(courses)/components/table";
 
 import { Suspense } from "react";
 
-export default async function page({
+export default async function SubjectTable({
   params,
   searchParams,
 }: {

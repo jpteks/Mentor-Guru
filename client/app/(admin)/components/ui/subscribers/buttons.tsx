@@ -1,4 +1,3 @@
-
 import { PencilIcon, PlusIcon, TrashIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -15,6 +14,8 @@ export function CreateInvoice() {
 }
 
 export function UpdateInvoice({ id }: { id: string }) {
+  console.log(id);
+  
   return (
     <Link
       href='/dashboard/invoices'
@@ -26,6 +27,7 @@ export function UpdateInvoice({ id }: { id: string }) {
 }
 
 export function DeleteInvoice({ id }: { id: string }) {
+   console.log(id);
   return (
     <>
       <button className='rounded-md border p-2 hover:bg-gray-100'>

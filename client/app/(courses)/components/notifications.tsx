@@ -12,7 +12,7 @@ import { Bell } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const Notifications = () => {
-  const [notifications, setNotifications] = useState<any>([
+  const notifications = [
     {
       id: 1,
       title: "New Message",
@@ -34,7 +34,7 @@ const Notifications = () => {
       timestamp: "2023-05-01T10:30:00Z",
       read: false,
     },
-  ]);
+  ];
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     setIsMounted(true);
