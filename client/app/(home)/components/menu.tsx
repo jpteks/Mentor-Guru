@@ -44,6 +44,22 @@ export function Menu() {
               Browse Course
             </Link>
           </SheetClose>
+          <SheetClose asChild>
+            <Link
+              href='/past-papers'
+              className='text-center py-2 text-2xl font-black'
+            >
+              Past paper
+            </Link>
+          </SheetClose>
+          <SheetClose asChild>
+            <Link
+              href='/solutions'
+              className='text-center py-2 text-2xl font-black'
+            >
+              Solutions
+            </Link>
+          </SheetClose>
         </div>
         <SheetFooter>
           <SheetClose asChild>
