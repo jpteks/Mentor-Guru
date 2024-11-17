@@ -2,17 +2,10 @@ import { backend_url } from "@/app/constant";
 import { pricingType } from "@/types/pricing";
 import clsx from "clsx";
 import { Check } from "lucide-react";
-import { cookies } from "next/headers";
 
 async function getData(): Promise<pricingType[]> {
-  const cookieStore = cookies();
-  const token = cookieStore.get("refreshToken")?.value;
-
   try {
     const res = await fetch(`${backend_url}/plans`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
       cache: "force-cache",
     });
 
