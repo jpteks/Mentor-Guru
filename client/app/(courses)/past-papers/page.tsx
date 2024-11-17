@@ -16,13 +16,15 @@ const PastPapers = () => {
             {
               title: "Ordinary",
               description: "This is the first past paper",
-              image: "/card.jpg",
+              image:
+                "https://utfs.io/a/f3s5czn47t/sDJN6CSX6MvY0HIWELvZowzOpsYWD1jXQ3evFdluRHbPTtNa",
               link: "past-papers/ordinary",
             },
             {
               title: "Advanced",
               description: "This is the second past paper",
-              image: "/card.jpg",
+              image:
+                "https://utfs.io/a/f3s5czn47t/sDJN6CSX6MvY0HIWELvZowzOpsYWD1jXQ3evFdluRHbPTtNa",
               link: "past-papers/advanced",
             },
           ].map((card, index) => (
@@ -39,7 +41,7 @@ const PastPapers = () => {
                 <div className='rounded-full grid place-items-center gap-2 '>
                   <Image
                     className='w-10/12 object-cover rounded-full border'
-                    src='/card.jpg'
+                    src={card.image}
                     alt='resource'
                     width={300}
                     height={400}

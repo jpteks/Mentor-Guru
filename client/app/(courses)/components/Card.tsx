@@ -13,7 +13,7 @@ const CardCourse = () => {
           alt='ok'
           width={300}
           height={400}
-          src='/card.jpg'
+          src='https://utfs.io/a/f3s5czn47t/sDJN6CSX6MvY0HIWELvZowzOpsYWD1jXQ3evFdluRHbPTtNa'
           className='h-56 w-full rounded-md object-cover'
         />
 

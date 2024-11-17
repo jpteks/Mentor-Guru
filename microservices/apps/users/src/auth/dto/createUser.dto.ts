@@ -41,10 +41,9 @@ export class createUserDto {
   @IsDate()
   lastLogin: Date;
   @IsOptional()
-  subscription:string;
+  subscription: string;
   @IsOptional()
-  subscriptionDate:Date;
+  subscriptionDate: Date;
   @IsOptional()
-  subscriptionExpiresAt:Date
-  
+  subscriptionExpiresAt: Date;
 }
