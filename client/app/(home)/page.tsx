@@ -1,103 +1,48 @@
-import { ModeToggle } from "@/components/mode-toggle";
-import { GraduationCap } from "lucide-react";
 import MobileNav from "./components/Mobile-nav";
 import { Testimonial } from "./components/Testimonial";
-import TypeAnime from "./components/TypeAnime";
 import Why from "./components/Why";
 import WhyMobile from "./components/Why-mobile";
-import Link from "next/link";
 import Pricing from "./components/pricing";
+import Hero from "./components/hero";
 
 export default function Home() {
   return (
-    <section>
+    <section className=''>
       <MobileNav />
-      {/* Section 1: Hero Section with Geometric Background */}
-      <section className='bg-cover bg-blue-600 dark:bg-inherit  bg-center  min-h-screen flex flex-col items-center justify-center relative overflow-hidden '>
-        <GraduationCap
-          className='absolute left-10 top-10  hidden md:flex'
-          size={52}
-        />
-        <div className='absolute left-900 top-10  hidden md:flex'>
-          <ModeToggle />
-        </div>
-        <h1 className='text-4xl md:text-6xl p-3  font-black z-10 text-center text-white '>
-          Start Learning from <TypeAnime /> <br /> & Talented
-          <span className='text-orange-500'> Tutors.</span>
-        </h1>
 
-        <div className='flex space-x-4 mt-8 z-10'>
-          <button
-            // whileHover={{ scale: 1.2 }}
-            // whileTap={{ scale: 1.1 }}
-            // drag='x'
-            // dragConstraints={{ left: -100, right: 100 }}
-            className='bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition'
-          >
-            Join Us Now
-          </button>
-          <Link href='/signin'>
-            <button className='bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition'>
-              Start Learning
-            </button>
-          </Link>
-        </div>
-
-        <Link href='/courses'>
-          <button className='hidden md:flex absolute top-10 right-10 bg-orange-500 text-white px-4 py-2 rounded-md z-10 hover:bg-orange-600 transition'>
-            Browse Course
-          </button>
-        </Link>
-      </section>
+      {/* Section 1: Hero Section  */}
+      <Hero />
 
       {/* Section 2: Why Learning Online is Best for Student */}
       <Why />
       <WhyMobile />
 
       {/* Testimonial Section */}
-      <section>
-        <Testimonial />
-      </section>
-
-      {/* Video Section */}
-      <section className=' flex items-center justify-center py-16 h-96'>
-        <button className='w-16 h-16 bg-white rounded-full flex items-center justify-center'>
-          <svg
-            className='w-8 h-8 text-black'
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
-            stroke='currentColor'
-          >
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth={2}
-              d='M14.752 11.168l-5.197-2.878A1 1 0 008 9.118v5.764a1 1 0 001.555.832l5.197-2.878a1 1 0 000-1.664z'
-            />
-          </svg>
-        </button>
-      </section>
+      <Testimonial />
 
       <div className=' py-16 '>
         {/* Stats Section */}
+        <h2 className='text-center mb-7  text-muted-foreground mx-auto text-xl font-semibold'>
+          App Stats
+        </h2>
+
         <div className='flex justify-center gap-2 md:space-x-8 mb-16 flex-wrap'>
-          <div className='bg-blue-600 text-white text-center px-8 py-6 rounded-lg shadow-md'>
+          <div className='bg-transparent border text-black dark:text-white text-center px-8 py-6 rounded-lg shadow-md'>
             <h4 className='text-sm font-semibold mb-2'>USERS</h4>
             <p className='text-3xl font-bold'>2000+</p>
           </div>
 
-          <div className='bg-blue-600 text-white text-center px-8 py-6 rounded-lg shadow-md'>
+          <div className='bg-transparent border text-black dark:text-white text-center px-8 py-6 rounded-lg shadow-md'>
             <h4 className='text-sm font-semibold mb-2'>INSTRUCTORS</h4>
             <p className='text-3xl font-bold'>15+</p>
           </div>
 
-          <div className='bg-blue-600 text-white text-center px-8 py-6 rounded-lg shadow-md'>
+          <div className='bg-transparent border text-black dark:text-white text-center px-8 py-6 rounded-lg shadow-md'>
             <h4 className='text-sm font-semibold mb-2'>LEARNERS</h4>
             <p className='text-3xl font-bold'>500K+</p>
           </div>
 
-          <div className='bg-blue-600 text-white text-center px-8 py-6 rounded-lg shadow-md'>
+          <div className='bg-transparent border text-black dark:text-white text-center px-8 py-6 rounded-lg shadow-md'>
             <h4 className='text-sm font-semibold mb-2'>COURSES</h4>
             <p className='text-3xl font-bold'>10+</p>
           </div>

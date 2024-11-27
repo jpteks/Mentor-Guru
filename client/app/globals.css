@@ -12,7 +12,20 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  .gradient-blue-hsl {
+  background: linear-gradient(
+    to right,
+    hsl(217, 91%, 60%),
+    /* blue-500 */ hsl(222, 68%, 39%) /* blue-800 */
+  );
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
 }
+}
+
+
 
 @layer base {
   :root {
@@ -73,5 +86,4 @@ body {
   * {
     @apply border-border;
   }
-  
 }
