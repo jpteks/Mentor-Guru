@@ -85,7 +85,9 @@ const Table = async ({
 
       <div className='rounded-b-lg border-t border-gray-200 px-4 py-2'>
         <div className='mt-5 flex w-full justify-center'>
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={<div className='animate-spin bg-violet-50'></div>}
+          >
             <Pagination totalPages={totalPages as number} />
           </Suspense>
         </div>

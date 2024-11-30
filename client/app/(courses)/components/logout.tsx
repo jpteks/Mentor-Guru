@@ -16,11 +16,11 @@ const Logout = () => {
     }
   };
   return (
-    <div className='border-t py-3 dark:border-neutral-600 grid '>
+    <div className=' py-3 dark:border-neutral-600 grid '>
       <Button
         onClick={logout}
         variant={"outline"}
-        className='flex rounded-md dark:bg-transparent'
+        className='flex rounded-md hover:bg-red-500 dark:bg-transparent'
       >
         <LogOut className='mr-2 ' size={16} />
         Logout

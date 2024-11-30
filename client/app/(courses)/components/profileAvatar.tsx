@@ -11,6 +11,8 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Logout from "./logout";
+import { PersonIcon } from "@radix-ui/react-icons";
 
 const AvatarBtn = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -39,16 +41,17 @@ const AvatarBtn = () => {
           <div className={`flex flex-col items-start space-y-2 p-2 `}>
             <Link
               href='/'
-              className='text-sm font-medium hover:bg-blue-200 dark:hover:bg-slate-600 w-full hover:p-1 hover:rounded-md'
+              className='text-xs hover:underline font-medium  w-full flex items-center justify-center gap-2 hover:rounded-md'
             >
+              <PersonIcon />
               Profile
             </Link>
 
             <Link
               href='/'
-              className='text-sm font-medium hover:bg-blue-200 dark:hover:bg-slate-600 w-full hover:p-1 hover:rounded-md'
+              className='text-sm font-medium hover:bg-blue-200w-full  hover:rounded-md'
             >
-              Subscription
+              <Logout />
             </Link>
           </div>
         </DropdownMenuContent>
