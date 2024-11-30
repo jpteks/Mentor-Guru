@@ -3,6 +3,12 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "react-hot-toast";
+import { PHProvider } from './providers'
+import dynamic from 'next/dynamic'
+
+const PostHogPageView = dynamic(() => import('./PostHogPageView'), {
+  ssr: false,
+})
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -26,6 +32,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang='en'>
+        <PHProvider>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -36,9 +43,11 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <Toaster position='top-center' />
+          <PostHogPageView /> 
           {children}
         </ThemeProvider>
       </body>
+      </PHProvider>
     </html>
   );
 }
