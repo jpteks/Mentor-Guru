@@ -1,11 +1,11 @@
 import { HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User } from '../schemas/User.schema'; 
+import { User } from '../schemas/User.schema';
 import { createUserDto } from '../dto/createUser.dto';
 import { updateUserDto } from '../dto/updateUser.dto';
 import * as bcrypt from 'bcrypt';
-import {Subscription }from '../schemas/Subscription.schema';
+import { Subscription } from '../schemas/Subscription.schema';
 import { Payment } from '../schemas/Payment.schema';
 import { Plan } from '../schemas/Plan.schema';
 @Injectable()
@@ -36,40 +36,38 @@ export class UserService {
       // Hash the password
       const hashedPassword = await bcrypt.hash(password, 10);
       const freePlan = await this.planModel.findOne({ packageName: 'Free' });
-      if (!freePlan) return {
-        statusCode: HttpStatus.BAD_REQUEST,
-        message: 'Plan not found',
-        token: null,
-        
-      };
+      if (!freePlan)
+        return {
+          statusCode: HttpStatus.BAD_REQUEST,
+          message: 'Plan not found',
+          token: null,
+        };
       // Create new user
       const newUser = new this.userModel({
-       username,
+        username,
         email,
         phoneNumber,
         region,
-        plan:freePlan._id,
+        plan: freePlan._id,
         password: hashedPassword,
         otp: null,
         otpExpiry: null,
         role,
         isEmailVerified: true,
-        accountStatus:'active' ,
-        subscription:null,
-        subscriptionDate:new Date().toLocaleDateString('en-CA'),
-        subscriptionExpiresAt:null
-        
+        accountStatus: 'active',
+        subscription: null,
+        subscriptionDate: new Date().toLocaleDateString('en-CA'),
+        subscriptionExpiresAt: null,
       });
 
       // Save the new user to the database
       await newUser.save();
-     
-    
+
       const subscription = new this.subscriptionModel({
         user: user._id,
         plan: freePlan._id,
-        payment:null,
-        subscriptionDate:new Date().toLocaleDateString('en-CA'),
+        payment: null,
+        subscriptionDate: new Date().toLocaleDateString('en-CA'),
         expirationDate: null,
       });
       await subscription.save();
@@ -81,7 +79,7 @@ export class UserService {
         paymentMethod: 'cash',
         paymentDate: new Date().toISOString().split('T')[0],
       });
-  
+
       await payment.save();
       await this.subscriptionModel.updateOne(
         { _id: subscription._id },
@@ -93,7 +91,7 @@ export class UserService {
         { _id: newUser._id },
         { $set: { subscription: subscription._id } },
       );
-     
+
       return {
         statusCode: HttpStatus.CREATED,
         message: 'user created',
@@ -111,13 +109,23 @@ export class UserService {
     }
   }
 
-  async findAll(): Promise<User[]> {
-    return this.userModel.find().populate('plan', 'packageName').exec();
+  async findAll() {
+    const totalUsers = await this.userModel.countDocuments().exec();
+    const users = await this.userModel
+      .find()
+      .populate('plan', 'packageName')
+      .exec();
+    return {
+      users,
+      totalUsers,
+    };
   }
 
   async findOne(id: string): Promise<User> {
-    const user = await this.userModel.findById(id).populate('plan', 'packageName')
-    .exec();
+    const user = await this.userModel
+      .findById(id)
+      .populate('plan', 'packageName')
+      .exec();
     if (!user) {
       throw new NotFoundException(`User with id ${id} not found`);
     }
@@ -156,14 +164,11 @@ export class UserService {
     // subscription.subscriptionDate=null;
     // subscription.expirationDate=null;
 
-
     const result = await this.userModel.findByIdAndDelete(id).exec();
     if (!result) {
       return { message: 'user not found', statusCode: HttpStatus.NOT_FOUND };
     }
-    
-   
-    
+
     return { message: 'user deleted successfully', statusCode: HttpStatus.OK };
   }
 }

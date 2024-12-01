@@ -5,13 +5,19 @@ const iconMap = {
   active_users: "📊",
 };
 
-export default function CardWrapper() {
+export default function CardWrapper({
+  totalSubscribers = 1,
+  totalUsers = 2,
+}: {
+  totalSubscribers: number;
+  totalUsers: number;
+}) {
   return (
     <>
       <Card title='Total Payments' value={"10,000FCFA"} type='payments' />
-      <Card title='Subscribers' value={20} type='subscribers' />
-      <Card title='Total Users' value={500} type='users' />
-      <Card title='Active Users' value={61} type='active_users' />
+      <Card title='Subscribers' value={totalSubscribers} type='subscribers' />
+      <Card title='Total Users' value={totalUsers - 1} type='users' />
+      <Card title='Active Users' value={1} type='active_users' />
     </>
   );
 }

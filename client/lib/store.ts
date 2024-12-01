@@ -1,9 +1,8 @@
 import { create } from "zustand";
 import { getCookie } from "cookies-next";
-import { verifyToken } from "@/utils/verifyToken";
+import { verifyTokenAction } from "@/actions/verifyTokenAction";
 
-const at = getCookie("accessToken");
-const payload = at && verifyToken(at as string);
+// Define the Auth type
 export type Auth = {
   accessToken: string | null;
   role: string | null;
@@ -11,27 +10,49 @@ export type Auth = {
   id: string | null;
 };
 
+// Define the store's state and actions types
 type State = {
   auth: Auth;
 };
 
 type Actions = {
   setAuth: (auth: Auth) => void;
+  fetchAuth: () => Promise<void>;
 };
 
+// Zustand store
 export const useAuth = create<State & Actions>(set => ({
   auth: {
-    accessToken: at ?? null,
-    role: payload?.role ?? null,
-    id: payload?.id ?? null,
+    accessToken: null,
+    role: null,
+    id: null,
   },
   setAuth: (auth: Auth) =>
-    set(state => ({
-      ...state,
-      auth: {
-        accessToken: auth.accessToken,
-        role: auth.role,
-        id: auth.id,
-      },
+    set(() => ({
+      auth,
     })),
+  fetchAuth: async () => {
+    const at = getCookie("accessToken") as string | undefined;
+    if (at) {
+      try {
+        const payload = await verifyTokenAction(at);
+        set(() => ({
+          auth: {
+            accessToken: at,
+            role: payload?.role ?? null,
+            id: payload?.id ?? null,
+          },
+        }));
+      } catch (error) {
+        console.error("Failed to verify token:", error);
+        set(() => ({
+          auth: {
+            accessToken: null,
+            role: null,
+            id: null,
+          },
+        }));
+      }
+    }
+  },
 }));

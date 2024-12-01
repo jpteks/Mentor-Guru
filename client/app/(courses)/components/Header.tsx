@@ -1,10 +1,11 @@
 import { ModeToggle } from "@/components/mode-toggle";
-
-import { GraduationCap, Search } from "lucide-react";
 import Notifications from "./notifications";
 import Link from "next/link";
 import { Menu } from "@/app/(home)/components/menu";
 import AvatarBtn from "./profileAvatar";
+import Search from "./Search";
+import { Suspense } from "react";
+import Image from "next/image";
 
 const Header = () => {
   return (
@@ -14,30 +15,37 @@ const Header = () => {
       </h3>
 
       <Link href='/'>
-        <h3 className='font-black text-4xl block lg:hidden'>
-          <GraduationCap />
-        </h3>
+        <div className='block lg:hidden py-3'>
+          <Image
+            src={
+              "https://utfs.io/a/f3s5czn47t/sDJN6CSX6MvYCsudO05EwIl5vQdWOGxmz6pU9Tu1SJHobh03"
+            }
+            alt='logo'
+            width={30}
+            height={30}
+          />
+        </div>
       </Link>
 
       <div className='w-full hidden lg:flex justify-center '>
-        <div className='flex p-1 items-center justify-center gap-2 py-3 px-3 rounded-full  border'>
-          <Search size={16} />
-          <input
-            type='search'
-            placeholder='find a course...'
-            className='bg-transparent outline-none text-xs'
-            //onFocus={() => alert("hello")}
-          />
-        </div>
+        <Suspense fallback={<div>Loading ....</div>}>
+          <Search placeholder='search course...' />
+        </Suspense>
       </div>
 
       <div className='flex  items-center justify-end w-1/2 md:w-1/4 '>
         <div className='flex justify-center flex-row-reverse items-center gap-2 border rounded-full p-1'>
-          <AvatarBtn />
+          <Suspense fallback={<div>Loading ....</div>}>
+            <AvatarBtn />
+          </Suspense>
 
-          <ModeToggle />
+          <Suspense fallback={<div>Loading ....</div>}>
+            <ModeToggle />
+          </Suspense>
 
-          <Notifications />
+          <Suspense fallback={<div>Loading ....</div>}>
+            <Notifications />
+          </Suspense>
 
           <div className='md:hidden block'>
             <Menu />

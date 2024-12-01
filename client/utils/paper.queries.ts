@@ -1,14 +1,25 @@
 import { Paper } from "@/models/paper.model";
+import { Solution } from "@/models/paperSolution.model";
 
 type paperType = { name: string; category: string; url: string };
 
 export async function createPaper(paper: paperType) {
   try {
     const paperDB = new Paper(paper);
-    await paperDB.save()
+    await paperDB.save();
     return paperDB;
   } catch (error) {
-    console.log("paper not saved",error);
+    console.log("paper not saved", error);
+  }
+}
+
+export async function createPaperSolution(paper: paperType) {
+  try {
+    const solutionDB = new Solution(paper);
+    await solutionDB.save();
+    return solutionDB;
+  } catch (error) {
+    console.log("paper solution not saved", error);
   }
 }
 
@@ -34,6 +45,9 @@ export async function getPapers(
     return { papers, totalPages };
   } catch (error) {
     console.error("Error fetching papers:", error);
-    throw new Error("Failed to retrieve papers.");
+    return {
+      error: { statusCode: 500, message: "Failed to retrieve papers." },
+    };
+    // throw new Error("Failed to retrieve papers.");
   }
 }

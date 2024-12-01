@@ -1,17 +1,13 @@
 //import { jwtVerify, JWTPayload } from "jose";
 import jwt from "jsonwebtoken";
 
-if (!process.env.NEXT_PUBLIC_JWT_SECRET) {
-  throw new Error("JWT_SECRET environment variable is required.");
-}
-
 export interface authPayload {
   id: string;
   role: string;
 }
 
 //const SECRET_KEY = new TextEncoder().encode(process.env.JWT_SECRET);
-const SECRET_KEY = process.env.NEXT_PUBLIC_JWT_SECRET;
+const SECRET_KEY = process.env.JWT_SECRET;
 
 // User Roles Data
 const roles: Record<string, string[]> = {
@@ -20,15 +16,18 @@ const roles: Record<string, string[]> = {
 };
 
 // Verify and decode JWT
-export const verifyToken = (token: string): authPayload | null => {
-  console.log(SECRET_KEY);
+export const verifyToken = (token: string): authPayload => {
   try {
-    const payload = jwt.verify(token, SECRET_KEY);
+    console.log("secret", SECRET_KEY);
+
+    const payload = jwt.verify(token, SECRET_KEY as string, {
+      algorithms: ["HS256"],
+    });
 
     return payload as authPayload;
   } catch (error) {
     console.error("Error decoding token:", error);
-    return null;
+    return { role: "", id: "" };
   }
 };
 

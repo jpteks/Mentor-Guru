@@ -25,7 +25,7 @@ import { backendApi } from "@/app/constant";
 import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
 import { useAuth } from "@/lib/store";
-import { verifyToken } from "@/utils/verifyToken";
+import { verifyTokenAction } from "@/actions/verifyTokenAction";
 
 const formSchema = z.object({
   password: z.string().min(6, {
@@ -56,9 +56,8 @@ const FormLogin = () => {
         withCredentials: true,
       });
       const token = response.data.token;
-      console.log(response.data,token);
 
-      const payload = token && verifyToken(token);
+      const payload = token && (await verifyTokenAction(token));
 
       if (response?.data) {
         const { statusCode, message } = response.data;
@@ -88,9 +87,11 @@ const FormLogin = () => {
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
         // Handle Axios-specific errors
-        toast.error(
+        console.log(
           `API error: ${error.response?.data?.message || error.message}`
         );
+
+        toast.error(`Server error please retry again`);
       } else if (error instanceof Error) {
         // Handle generic errors
         console.error(`Something went wrong: ${error.message}`);

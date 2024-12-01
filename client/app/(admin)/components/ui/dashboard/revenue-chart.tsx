@@ -4,9 +4,60 @@
 // https://www.chartjs.org/
 // https://airbnb.io/visx/
 
+import { generateYAxis } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
-import { generateYAxis } from "../../../../testpage/lib/utils";
-import { revenue } from "../../../../testpage/lib/placeholder-data";
+
+
+const revenue = [
+  {
+    month: "Jan",
+    revenue: 2000,
+  },
+  {
+    month: "Feb",
+    revenue: 2350,
+  },
+  {
+    month: "Mar",
+    revenue: 1610,
+  },
+  {
+    month: "Apr",
+    revenue: 1890,
+  },
+  {
+    month: "May",
+    revenue: 2560,
+  },
+  {
+    month: "Jun",
+    revenue: 2030,
+  },
+  {
+    month: "Jul",
+    revenue: 2310,
+  },
+  {
+    month: "Aug",
+    revenue: 2670,
+  },
+  {
+    month: "Sep",
+    revenue: 1890,
+  },
+  {
+    month: "Oct",
+    revenue: 1750,
+  },
+  {
+    month: "Nov",
+    revenue: 2010,
+  },
+  {
+    month: "Dec",
+    revenue: 2780,
+  },
+];
 
 export default async function RevenueChart() {
   // const revenue = await fetchRevenue();

@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
-import { Document,Types} from 'mongoose';
+import { Document } from 'mongoose';
 import { Subscription } from './Subscription.schema';
 import { Plan } from './Plan.schema';
 export enum UserRole {
@@ -12,13 +12,13 @@ export enum UserRole {
 export class User extends Document {
   @Prop({ unique: true })
   email: string;
-  @Prop({type: mongoose.Schema.Types.ObjectId,ref:'Subscription'})
-  subscription:Subscription;
-  @Prop({ type: mongoose.Types.ObjectId, ref: 'Plan', })
-  plan: Plan
-  // @Prop({ type: Date }) 
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Subscription' })
+  subscription: Subscription;
+  @Prop({ type: mongoose.Types.ObjectId, ref: 'Plan' })
+  plan: Plan;
+  // @Prop({ type: Date })
   // subscriptionDate: Date;
-  // @Prop({ type: Date }) 
+  // @Prop({ type: Date })
   // subscriptionExpiresAt: Date;
   @Prop({ required: false })
   password: string;

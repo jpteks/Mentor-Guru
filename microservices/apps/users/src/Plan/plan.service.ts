@@ -23,7 +23,9 @@ export class PlanService {
   }
 
   async update(id: string, updatePlanDto: CreatePlanDto): Promise<Plan> {
-    return this.planModel.findByIdAndUpdate(id, updatePlanDto, { new: true }).exec();
+    return this.planModel
+      .findByIdAndUpdate(id, updatePlanDto, { new: true })
+      .exec();
   }
 
   async remove(id: string): Promise<any> {

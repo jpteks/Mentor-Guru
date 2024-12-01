@@ -60,7 +60,12 @@ export const year = [
 
 export const paper = ["1", "2", "3"];
 
-export const backend_url = "http://localhost:3002";
+export const backend_url =
+  process.env.NEXT_PUBLIC_BACKEND_URL || "https://mentorguru.onrender.com";
+
+if (!backend_url) {
+  throw new Error("backend url is not set.");
+}
 
 export const backendApi = axios.create({
   baseURL: backend_url,

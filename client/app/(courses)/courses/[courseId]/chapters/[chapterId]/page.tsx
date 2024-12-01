@@ -13,12 +13,7 @@ import {
   Share,
 } from "lucide-react";
 
-const Video = ({
-  params,
-}: {
-  params: { courseId: string; chapterId: string };
-}) => {
-  // check if user is auth is not redirect to "/"
+const Video = () => {
   return (
     <div className='grow'>
       <div className='py-2 block md:hidden'>

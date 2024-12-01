@@ -1,13 +1,50 @@
 import { RefreshCw } from "lucide-react";
 //import { LatestInvoice } from "../../lib/definitions";
 import clsx from "clsx";
-import Image from "next/image";
-import { latestInvoices } from "../../../../testpage/lib/definitions";
+//import Image from "next/image";
+
+const latestInvoices = [
+  {
+    id: "1",
+    name: "Alex Smith",
+    image_url: "/avatars/01.png",
+    email: "alexsmith@gmail.com",
+    amount: "250.00",
+  },
+  {
+    id: "2",
+    name: "Jose Garcia",
+    image_url: "/avatars/02.png",
+    email: "jose@example.com",
+    amount: "150.00",
+  },
+  {
+    id: "3",
+    name: "Adam Smith",
+    image_url: "/avatars/03.png",
+    email: "adamsmith@gmail.com",
+    amount: "350.00",
+  },
+  {
+    id: "4",
+    name: "Payal Dias",
+    image_url: "/avatars/04.png",
+    email: "payal@example.com",
+    amount: "450.00",
+  },
+  {
+    id: "5",
+    name: "John Garcia",
+    image_url: "/avatars/05.png",
+    email: "john@example.com",
+    amount: "550.00",
+  },
+];
 
 export default async function LatestInvoices() {
   return (
     <div className='flex w-full flex-col md:col-span-4'>
-      <h2 className={`mb-4 text-xl md:text-2xl`}>Latest Invoices</h2>
+      <h2 className={`mb-4 text-xl md:text-2xl`}>Latest Subscriptions</h2>
       <div className='flex grow flex-col justify-between rounded-xl bg-gray-50 dark:bg-slate-900 p-4'>
         {/* NOTE: Uncomment this code in Chapter 7 */}
 
@@ -24,13 +61,13 @@ export default async function LatestInvoices() {
                 )}
               >
                 <div className='flex items-center'>
-                  <Image
+                  {/* <Image
                     src={invoice.image_url}
                     alt={`${invoice.name}'s profile picture`}
                     className='mr-4 rounded-full'
                     width={32}
                     height={32}
-                  />
+                  /> */}
                   <div className='min-w-0'>
                     <p className='truncate text-sm font-semibold md:text-base'>
                       {invoice.name}
@@ -41,7 +78,7 @@ export default async function LatestInvoices() {
                   </div>
                 </div>
                 <p className={`truncate text-sm font-medium md:text-base`}>
-                  {invoice.amount}
+                  {invoice.amount} FCFA
                 </p>
               </div>
             );
