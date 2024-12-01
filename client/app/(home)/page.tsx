@@ -6,6 +6,7 @@ import Pricing from "./components/pricing";
 import Hero from "./components/hero";
 import AppStats from "./components/appStats";
 import Footer from "./components/footer";
+import VideoPlayer from "./components/videoPlayer";
 
 export default function Home() {
   return (
@@ -15,6 +16,8 @@ export default function Home() {
 
       <Why />
       <WhyMobile />
+
+      <VideoPlayer />
 
       <Testimonial />
 

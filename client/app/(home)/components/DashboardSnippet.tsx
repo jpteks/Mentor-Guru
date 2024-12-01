@@ -10,7 +10,6 @@ function DashboardSnippet() {
           alt='snippet'
           sizes='100vw'
           fill
-          objectFit='contain'
         />
       </div>
     </div>
