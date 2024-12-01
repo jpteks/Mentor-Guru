@@ -314,23 +314,6 @@ export class SubscriptionService {
         { _id: subscription._id },
         {
           $set: {
-<<<<<<< HEAD
-            plan: freePlan._id,             
-            expirationDate: null,          
-            Payment: newPayment._id,       
-          },
-        },
-      );
-      await this.userModel.updateOne(
-        { _id: subscription.user },
-        {
-          $set: {
-            plan: freePlan._id,
-          },
-        }
-      );
-      console.log(subscription)
-=======
             plan: freePlan._id,
             expirationDate: null,
             Payment: newPayment._id,
@@ -338,7 +321,6 @@ export class SubscriptionService {
         },
       );
       console.log(subscription);
->>>>>>> 0a75d5028136a5b6f3f5e00e9cd8af618dcce4b7
     }
   }
 }
