@@ -230,11 +230,19 @@ async checkSubscriptionAccess(userId: string): Promise<void> {
         { _id: subscription._id },
         {
           $set: {
-            'plan': freePlan._id,  
-            expirationDate: null,
-            Payment:newPayment._id   
+            plan: freePlan._id,             
+            expirationDate: null,          
+            Payment: newPayment._id,       
           },
         },
+      );
+      await this.userModel.updateOne(
+        { _id: subscription.user },
+        {
+          $set: {
+            plan: freePlan._id,
+          },
+        }
       );
       console.log(subscription)
     }
