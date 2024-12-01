@@ -1,4 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 
 // Loading animation
 const shimmer =
@@ -33,19 +34,11 @@ export function CardsSkeleton() {
 
 export function LevelCardSkeleton() {
   return (
-    <div className={`${shimmer} relative w-full overflow-hidden`}>
-      <Card className='bg-gray-200'>
-        <CardHeader>
-          <CardTitle>
-            <div className='mx-auto h-4 w-24 rounded-md bg-gray-300' />
-          </CardTitle>
-          <CardContent className=''>
-            <div className='rounded-full mx-auto  grid bg-gray-300 h-40 w-40 place-items-center mt-4 ' />
-            <div className='w-full h-5 rounded-md py-4 mt-3 bg-gray-300  text-white' />
-          </CardContent>
-        </CardHeader>
-      </Card>
-    </div>
+    <Skeleton className='flex flex-col items-center space-y-3 h-[400px] p-6'>
+      <Skeleton className=' rounded-full w-[330px] h-[330px] ' />
+
+      <Skeleton className='h-10 w-full' />
+    </Skeleton>
   );
 }
 
@@ -57,6 +50,8 @@ export function LevelWrapperSkeleton() {
     </div>
   );
 }
+
+
 
 export function SubjectCardSkeleton() {
   return (

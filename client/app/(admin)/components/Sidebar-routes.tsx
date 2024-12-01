@@ -13,7 +13,12 @@ const SidebarRoutes = () => {
     { href: "/dashboard", label: "Dashboard", icon: LucideLayoutDashboard },
     {
       href: "/dashboard/upload-papers",
-      label: "upload",
+      label: "upload papers",
+      icon: LucideUploadCloud,
+    },
+    {
+       href: "/dashboard/upload-solutions",
+      label: "upload solutions",
       icon: LucideUploadCloud,
     },
     {

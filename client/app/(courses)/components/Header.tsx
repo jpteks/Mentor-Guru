@@ -1,12 +1,11 @@
 import { ModeToggle } from "@/components/mode-toggle";
-
-import { GraduationCap } from "lucide-react";
 import Notifications from "./notifications";
 import Link from "next/link";
 import { Menu } from "@/app/(home)/components/menu";
 import AvatarBtn from "./profileAvatar";
 import Search from "./Search";
 import { Suspense } from "react";
+import Image from "next/image";
 
 const Header = () => {
   return (
@@ -16,9 +15,16 @@ const Header = () => {
       </h3>
 
       <Link href='/'>
-        <h3 className='font-black text-4xl block lg:hidden'>
-          <GraduationCap />
-        </h3>
+        <div className='block lg:hidden py-3'>
+          <Image
+            src={
+              "https://utfs.io/a/f3s5czn47t/sDJN6CSX6MvYCsudO05EwIl5vQdWOGxmz6pU9Tu1SJHobh03"
+            }
+            alt='logo'
+            width={30}
+            height={30}
+          />
+        </div>
       </Link>
 
       <div className='w-full hidden lg:flex justify-center '>
