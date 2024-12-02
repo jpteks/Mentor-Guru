@@ -69,6 +69,9 @@ if (!backend_url) {
 
 export const backendApi = axios.create({
   baseURL: backend_url,
+  headers: {
+    "Content-Type": "application/json",
+  },
   withCredentials: true,
 });
 
