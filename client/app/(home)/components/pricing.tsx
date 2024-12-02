@@ -52,9 +52,9 @@ const Pricing = async () => {
                   {(() => {
                     switch (plan.packageName) {
                       case "Premium":
-                        return "50,000";
+                        return "2500";
                       case "Basic":
-                        return "20,000";
+                        return "2000";
                       default:
                         return "0";
                     }
@@ -62,7 +62,7 @@ const Pricing = async () => {
                   FCFA
                 </strong>
                 <span className='text-sm font-medium text-gray-700 dark:text-white'>
-                  /year
+                  /month
                 </span>
               </p>
             </div>
