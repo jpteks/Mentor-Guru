@@ -320,6 +320,14 @@ export class SubscriptionService {
           },
         },
       );
+      await this.userModel.updateOne(
+        { _id: subscription.user },
+        {
+          $set: {
+            plan: freePlan._id,
+          },
+        }
+      );
       console.log(subscription);
     }
   }
