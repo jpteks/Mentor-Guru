@@ -1,6 +1,6 @@
 import { CardSkeleton } from "@/app/(admin)/components/ui/skeletons";
-import { backend_url } from "@/app/constant";
-import { cookies } from "next/headers";
+// import { backend_url } from "@/app/constant";
+// import { cookies } from "next/headers";
 import { Suspense } from "react";
 import UsersTable from "../../components/ui/users/table";
 import { backendApi } from "@/app/constant";
