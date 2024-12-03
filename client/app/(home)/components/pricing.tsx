@@ -10,7 +10,7 @@ async function getData(): Promise<pricingType[]> {
     });
 
     if (!res.ok) {
-      console.error("Failed to fetch data", await res.text());
+      console.error("Failed to fetch data [/plans]", await res.text());
       return [];
     }
 

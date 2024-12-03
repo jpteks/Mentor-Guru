@@ -30,6 +30,7 @@ export async function getPapers(
   category?: string
 ) {
   try {
+    console.log("name", name, "category", category);
     // Dynamic filters with appropriate types
     const filters: Partial<Record<keyof typeof Paper.prototype, unknown>> = {};
     if (name) filters.name = { $regex: name, $options: "i" }; // Case-insensitive search
