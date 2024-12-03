@@ -3,7 +3,8 @@ import { CardSkeleton } from "@/app/(admin)/components/ui/skeletons";
 // import { cookies } from "next/headers";
 import { Suspense } from "react";
 import UsersTable from "../../components/ui/users/table";
-import { backendApi } from "@/app/constant";
+import { backend_url } from "@/app/constant";
+import { cookies } from "next/headers";
 // async function getUsers() {
 //   const cookieStore = cookies();
 //   const token = cookieStore.get("refreshToken")?.value;
@@ -74,7 +75,6 @@ import { backendApi } from "@/app/constant";
 //   // ];
 
 //   const { users } = await getUsers();
- 
 
 //   return (
 //     <div className='p-6'>
@@ -87,9 +87,24 @@ import { backendApi } from "@/app/constant";
 
 // export default Customers;
 async function getUsers() {
+  const cookieStore = cookies();
+  const token = cookieStore.get("refreshToken")?.value;
   try {
-    const response = await backendApi.get("/user");
-    return response.data; // Ensure your API returns the correct structure
+    const res = await fetch(`${backend_url}/user`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      cache: "no-cache",
+    });
+
+    if (!res.ok) {
+      console.error("Failed to fetch data", await res.text());
+      return [];
+    }
+
+    return await res.json();
   } catch (error) {
     console.error("An error occurred while fetching users:", error);
     return { users: [] }; // Fallback to an empty users list
@@ -100,7 +115,7 @@ const Customers = async () => {
   const { users } = await getUsers();
 
   return (
-    <div className="p-6">
+    <div className='p-6'>
       <Suspense fallback={<CardSkeleton />}>
         <UsersTable users={users} />
       </Suspense>

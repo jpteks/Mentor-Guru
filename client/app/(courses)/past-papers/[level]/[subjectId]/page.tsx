@@ -10,7 +10,8 @@ export default async function SubjectTable({
   params: { subjectId: string; level: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
-  const subjectId = params.subjectId;
+  const subjectIdEndcoded = params.subjectId;
+  const subjectId = decodeURIComponent(subjectIdEndcoded);
   const level = params.level;
   const currentPage = Number(searchParams?.page) || 1;
 

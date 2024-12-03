@@ -1,5 +1,7 @@
+import { Badge } from "@/components/ui/badge";
 import Search from "@/components/ui/search";
 import { usersType } from "@/types/user";
+
 
 export default async function UsersTable({ users }: { users: usersType[] }) {
   return (
@@ -69,7 +71,7 @@ export default async function UsersTable({ users }: { users: usersType[] }) {
                   {users &&
                     users.length > 0 &&
                     users.map(user => {
-                      if (user.role == "adminu") return null;
+                      if (user.role == "") return null;
                       return (
                         <tr key={user._id} className='group'>
                           <td className='whitespace-nowrap bg-white py-5 pl-4 pr-3 text-sm text-black group-first-of-type:rounded-md group-last-of-type:rounded-md sm:pl-6'>
@@ -87,7 +89,7 @@ export default async function UsersTable({ users }: { users: usersType[] }) {
                             {user.region}
                           </td>
                           <td className='whitespace-nowrap bg-white px-4 py-5 text-sm group-first-of-type:rounded-md group-last-of-type:rounded-md'>
-                            {user.plan?.packageName}
+                            <Badge> {user.plan?.packageName}</Badge>
                           </td>
                         </tr>
                       );

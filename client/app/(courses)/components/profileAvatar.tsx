@@ -40,7 +40,7 @@ const AvatarBtn = () => {
         <DropdownMenuContent align='start'>
           <div className={`flex flex-col items-start space-y-2 p-2 `}>
             <Link
-              href='/'
+              href='/userid/profile'
               className='text-xs hover:underline font-medium  w-full flex items-center justify-center gap-2 hover:rounded-md'
             >
               <PersonIcon />
