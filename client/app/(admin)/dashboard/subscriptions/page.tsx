@@ -32,7 +32,7 @@ async function getData(currentPage: number, query: string) {
 
     return await res.json();
   } catch (error) {
-    console.error("An error occurred while fetching data:", error);
+    console.error("An error occurred while fetching subscription:", error);
     return [];
   }
 }
@@ -65,7 +65,7 @@ export default async function Page(props: {
         <CreateInvoice />
       </div>
       <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
-        <SubscriberTable  subscribers={subscribers} />
+        <SubscriberTable subscribers={subscribers} />
       </Suspense>
       <div className='mt-5 flex w-full justify-center'>
         <Pagination totalPages={totalPages} />

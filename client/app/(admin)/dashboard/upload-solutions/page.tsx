@@ -15,7 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { paper, subjects, year } from "@/app/constant";
-import { addPaperAction } from "@/actions/paperAction";
+import { addPaperSolutionAction } from "@/actions/paperAction";
 import { paperFormState, StringMap } from "@/types/paper";
 import { Input } from "@/components/ui/input";
 import SubmitBtn from "../../components/SubmitBtn";
@@ -23,7 +23,7 @@ import SubmitBtn from "../../components/SubmitBtn";
 const initialState: paperFormState<StringMap> = {};
 
 export default function Home() {
-  const [formState, formAction] = useFormState(addPaperAction, initialState);
+  const [formState, formAction] = useFormState(addPaperSolutionAction, initialState);
   const [url, setUrl] = useState("");
   //const { name, category, url } = formState?.data || {};
   const [showForm, setshowForm] = useState(false);

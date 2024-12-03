@@ -28,4 +28,4 @@ const paperSchema = new mongoose.Schema(
 );
 
 export const Solution =
-  mongoose.models.Paper || mongoose.model("Solution", paperSchema);
+  mongoose.models.Solution || mongoose.model("Solution", paperSchema);

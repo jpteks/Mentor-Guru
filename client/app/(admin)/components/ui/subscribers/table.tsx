@@ -13,7 +13,7 @@ export default async function SubscriberTable({
     <div className='mt-6 flow-root'>
       <div className='inline-block min-w-full align-middle'>
         <div className='rounded-lg bg-gray-50 dark:bg-inherit dark:border p-2 md:pt-0'>
-          <div className='md:hidden'>
+          {/* <div className='md:hidden'>
             {subscribers &&
               subscribers.length > 0 &&
               subscribers?.map(subscriber => (
@@ -46,7 +46,7 @@ export default async function SubscriberTable({
                   </div>
                 </div>
               ))}
-          </div>
+          </div> */}
           <table className='hidden min-w-full text-gray-900 dark:text-white md:table'>
             <thead className='rounded-lg text-left text-sm font-normal'>
               <tr>
@@ -69,7 +69,7 @@ export default async function SubscriberTable({
                   Date
                 </th>
                 <th scope='col' className='px-3 py-5 font-medium'>
-                  Status
+                  Plan
                 </th>
                 <th scope='col' className='relative py-3 pl-6 pr-3'>
                   <span className='sr-only'>Edit</span>
@@ -86,32 +86,32 @@ export default async function SubscriberTable({
                   >
                     <td className='whitespace-nowrap py-3 pl-6 pr-3'>
                       <div className='flex items-center gap-3'>
-                        <p>{subscriber.user.username}</p>
+                        <p>{subscriber.user?.username}</p>
                       </div>
                     </td>
                     <td className='whitespace-nowrap px-3 py-3'>
-                      {subscriber.user.email}
+                      {subscriber.user?.email}
                     </td>
                     <td className='whitespace-nowrap px-3 py-3'>
-                      {subscriber.user.phoneNumber}
+                      {subscriber.user?.phoneNumber}
                     </td>
                     <td className='whitespace-nowrap px-3 py-3'>
-                      {subscriber.payment.amount}
+                      {subscriber.payment?.amount}
                     </td>
                     <td className='whitespace-nowrap px-3 py-3'>
-                      {subscriber.payment.paymentMethod}
+                      {subscriber.payment?.paymentMethod}
                     </td>
                     <td className='whitespace-nowrap px-3 py-3'>
-                      {formatDateToLocal(subscriber.payment.paymentDate)}
+                      {formatDateToLocal(subscriber.payment?.paymentDate)}
                     </td>
 
                     <td className='whitespace-nowrap px-3 py-3'>
-                      <PlanStatus status={subscriber.plan.packageName} />
+                      <PlanStatus status={subscriber.plan?.packageName} />
                     </td>
                     <td className='whitespace-nowrap py-3 pl-6 pr-3'>
                       <div className='flex justify-end gap-3'>
-                        <UpdateInvoice id={subscriber._id} />
-                        <DeleteInvoice id={subscriber._id} />
+                        <UpdateInvoice id={subscriber?._id} />
+                        <DeleteInvoice id={subscriber?._id} />
                       </div>
                     </td>
                   </tr>

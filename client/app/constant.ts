@@ -61,7 +61,8 @@ export const year = [
 export const paper = ["1", "2", "3"];
 
 export const backend_url =
-  process.env.NEXT_PUBLIC_BACKEND_URL || "https://mentorguru.onrender.com";
+  process.env.NEXT_PUBLIC_BACKEND_URL || " http://localhost:3002";
+//"https://mentorguru.onrender.com";
 
 if (!backend_url) {
   throw new Error("backend url is not set.");

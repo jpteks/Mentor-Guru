@@ -9,14 +9,16 @@ import {
 } from "@/components/ui/card";
 
 const Plan = () => {
-  const currentPlan: "free" | "basic" | "premium" = "free";
+  // get random number from o to 2  
+
+  const plan = ["free", "basic", "premium"];
+  const currentPlan = plan[0];
   return (
     <div className='h-screen border-x p-6'>
       <h1 className='font-bold mb-7'>Subscription Plan</h1>
 
       <div className='max-w-md flex flex-col gap-3'>
-        {/* Current Plan Card */}
-        <Card className="dark:bg-transparent">
+        <Card className='dark:bg-transparent'>
           <CardHeader>
             <CardTitle className='text-sm capitalize'>
               {currentPlan} Plan
@@ -31,7 +33,7 @@ const Plan = () => {
         {currentPlan === "free" && (
           <>
             {/* Basic Upgrade Card */}
-            <Card className="dark:bg-transparent">
+            <Card className='dark:bg-transparent'>
               <CardHeader>
                 <CardTitle className='text-sm'>Basic Plan</CardTitle>
                 <CardDescription className='text-xs'>
@@ -46,7 +48,7 @@ const Plan = () => {
             </Card>
 
             {/* Premium Upgrade Card */}
-            <Card className="dark:bg-transparent">
+            <Card className='dark:bg-transparent'>
               <CardHeader>
                 <CardTitle className='text-sm'>Premium Plan</CardTitle>
                 <CardDescription className='text-xs'>
@@ -64,7 +66,7 @@ const Plan = () => {
         )}
 
         {currentPlan === "basic" && (
-          <Card className="dark:bg-transparent">
+          <Card className='dark:bg-transparent'>
             <CardHeader>
               <CardTitle className='text-sm'>Premium Plan</CardTitle>
               <CardDescription className='text-xs'>
