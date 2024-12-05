@@ -52,3 +52,36 @@ export async function getPapers(
     // throw new Error("Failed to retrieve papers.");
   }
 }
+
+export async function getPapersSolution(
+  offset: number,
+  ITEMS_PER_PAGE: number,
+  name?: string,
+  category?: string
+) {
+  try {
+    console.log("name", name, "category", category);
+    // Dynamic filters with appropriate types
+    const filters: Partial<Record<keyof typeof Solution.prototype, unknown>> =
+      {};
+    if (name) filters.name = { $regex: name, $options: "i" }; // Case-insensitive search
+    if (category) filters.category = category;
+
+    // Count documents with filters
+    const totalPapers = await Solution.countDocuments(filters);
+    const totalPages = Math.ceil(totalPapers / ITEMS_PER_PAGE);
+
+    // Retrieve paginated documents
+    const papers = await Solution.find(filters)
+      .skip(offset)
+      .limit(ITEMS_PER_PAGE);
+
+    return { papers, totalPages };
+  } catch (error) {
+    console.error("Error fetching solutions:", error);
+    return {
+      error: { statusCode: 500, message: "Failed to retrieve solutions." },
+    };
+    // throw new Error("Failed to retrieve papers.");
+  }
+}
