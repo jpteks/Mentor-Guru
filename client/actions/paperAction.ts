@@ -4,7 +4,12 @@ import { dbConnect } from "@/lib/mongo.connection";
 import { paperSchema } from "@/schemas/paper";
 import { paperFormState, StringMap } from "@/types/paper";
 import { convertZodErrors } from "@/utils/errors";
-import { createPaper, createPaperSolution, getPapers } from "@/utils/paper.queries";
+import {
+  createPaper,
+  createPaperSolution,
+  getPapers,
+  getPapersSolution,
+} from "@/utils/paper.queries";
 
 export async function addPaperAction(
   prevState: paperFormState<StringMap>,
@@ -93,7 +98,12 @@ export async function getPaperSolutionAction(
     const offset = (currentPage - 1) * ITEMS_PER_PAGE;
     await dbConnect();
 
-    const result = await getPapers(offset, ITEMS_PER_PAGE, name, category);
+    const result = await getPapersSolution(
+      offset,
+      ITEMS_PER_PAGE,
+      name,
+      category
+    );
 
     if ("error" in result) {
       return { error: result.error }; // Pass backend error to the frontend
