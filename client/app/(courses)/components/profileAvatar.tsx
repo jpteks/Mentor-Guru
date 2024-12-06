@@ -1,61 +1,72 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
+import { verifyTokenAction } from "@/actions/verifyTokenAction";
+import AvatarBtnContent from "./profileAvatar-content";
+import { cookies } from "next/headers";
+import { authPayload } from "@/utils/verifyToken";
+import { backend_url } from "@/app/constant";
+import { usersType } from "@/types/user";
 
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+async function getData(): Promise<usersType> {
+  const cookieStore = cookies();
+  const token = cookieStore.get("refreshToken")?.value;
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import Logout from "./logout";
-import { PersonIcon } from "@radix-ui/react-icons";
+  const payload = token && ((await verifyTokenAction(token)) as authPayload);
+  const userId = (payload && payload?.id) as string;
+  try {
+    const res = await fetch(`${backend_url}/user/${userId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      cache: "force-cache",
+    });
 
-const AvatarBtn = () => {
-  const [isMounted, setIsMounted] = useState(false);
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    if (!res.ok) {
+      console.error("Failed to fetch data [/profile]", await res.text());
+      return {
+        _id: "",
+        email: "",
+        password: "",
+        phoneNumber: "",
+        plan: {
+          packageName: "",
+        },
+        region: "",
+        role: "",
+        subscription: "",
+        username: "",
+        bio: "",
+        avatarUrl: "",
+      };
+    }
 
-  if (!isMounted) return null;
+    return await res.json();
+  } catch (error) {
+    console.error("An error occurred while fetching data:", error);
+    return {
+      _id: "",
+      email: "",
+      password: "",
+      phoneNumber: "",
+      plan: {
+        packageName: "",
+      },
+      region: "",
+      role: "",
+      subscription: "",
+      username: "",
+      bio: "",
+      avatarUrl: "",
+    };
+  }
+}
+
+const AvatarBtn = async () => {
+  const data: usersType = await getData();
 
   return (
-    <div className='z-50'>
-      <DropdownMenu>
-        <DropdownMenuTrigger className='outline-none' asChild>
-          <Button
-            variant='outline'
-            size='icon'
-            className='rounded-full flex items-center justify-center p-2 relative'
-          >
-            <Avatar>
-              <AvatarImage src='https://github.com/shadcn.png' alt='@shadcn' />
-              <AvatarFallback>user</AvatarFallback>
-            </Avatar>
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align='start'>
-          <div className={`flex flex-col items-start space-y-2 p-2 `}>
-            <Link
-              href='/userid/profile'
-              className='text-xs hover:underline font-medium  w-full flex items-center justify-center gap-2 hover:rounded-md'
-            >
-              <PersonIcon />
-              Profile
-            </Link>
-
-            <Link
-              href='/'
-              className='text-sm font-medium hover:bg-blue-200w-full  hover:rounded-md'
-            >
-              <Logout />
-            </Link>
-          </div>
-        </DropdownMenuContent>
-      </DropdownMenu>
+    <div>
+      <AvatarBtnContent data={data} />
     </div>
   );
 };

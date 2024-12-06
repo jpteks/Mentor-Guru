@@ -36,7 +36,7 @@ export class UserController {
     return this.usersService.create(createUserDto);
   }
 
-  // Admin: Get all users
+  // Admin: Get all usersa
   @Get()
   @Roles(UserRole.ADMIN)
   @UseGuards(RolesGuard)
@@ -48,7 +48,7 @@ export class UserController {
   @Get(':id')
   @Roles(UserRole.ADMIN, UserRole.STUDENT)
   @UseGuards(RolesGuard)
-  findOne(@Param('id') id: string, @Request() request) {
+  async findOne(@Param('id') id: string, @Request() request) {
     const userRole = request.user.role;
 
     // If the user is a student, they can only get their own info
@@ -58,7 +58,11 @@ export class UserController {
       };
     }
 
-    return this.usersService.findOne(id);
+    const user = await this.usersService.findOne(id);
+
+    console.log('user', user);
+
+    return user;
   }
 
   // Admin: Update user by ID

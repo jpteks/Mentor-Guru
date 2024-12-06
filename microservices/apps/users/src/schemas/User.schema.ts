@@ -23,6 +23,15 @@ export class User extends Document {
   @Prop({ required: false })
   password: string;
 
+  @Prop({ required: false, default: '' })
+  bio: string;
+
+  @Prop({
+    default:
+      'https://utfs.io/a/f3s5czn47t/sDJN6CSX6MvYpdmKilBLdOaUJ8ehvYZ7r2Ff0HXCwlEB41gi', // Replace with your default avatar URL
+  })
+  avatarUrl: string;
+
   @Prop({ required: false, minlength: 3 })
   username: string;
 

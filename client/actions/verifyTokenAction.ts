@@ -2,6 +2,8 @@
 
 import { verifyToken } from "@/utils/verifyToken";
 
+
+
 export async function verifyTokenAction(token: string) {
   try {
     //TODO
@@ -9,5 +11,6 @@ export async function verifyTokenAction(token: string) {
     return verifyToken(token);
   } catch (error) {
     console.error("Error in getPaperAction:", error);
+    return { id: "", role: "" };
   }
 }

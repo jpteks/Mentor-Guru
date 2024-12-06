@@ -1,3 +1,4 @@
+import { backend_url } from "@/app/constant";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,12 +8,68 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
+import { usersType } from "@/types/user";
+import { cookies } from "next/headers";
 
-const Plan = () => {
-  // get random number from o to 2  
+async function getData(userId: string): Promise<usersType> {
+  const cookieStore = cookies();
+  const token = cookieStore.get("refreshToken")?.value;
+  try {
+    const res = await fetch(`${backend_url}/user/${userId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      cache: "force-cache",
+    });
 
-  const plan = ["free", "basic", "premium"];
-  const currentPlan = plan[0];
+    if (!res.ok) {
+      console.error("Failed to fetch data [/profile]", await res.text());
+      return {
+        _id: "",
+        email: "",
+        password: "",
+        phoneNumber: "",
+        plan: {
+          packageName: "",
+        },
+        region: "",
+        role: "",
+        subscription: "",
+        username: "",
+        bio: "",
+        avatarUrl: "",
+      };
+    }
+
+    return await res.json();
+  } catch (error) {
+    console.error("An error occurred while fetching data:", error);
+    return {
+      _id: "",
+      email: "",
+      password: "",
+      phoneNumber: "",
+      plan: {
+        packageName: "",
+      },
+      region: "",
+      role: "",
+      subscription: "",
+      username: "",
+      bio: "",
+      avatarUrl: "",
+    };
+  }
+}
+
+const Plan = async ({ params }: { params: { userId: string } }) => {
+  // get random number from o to 2
+  const userId = params.userId;
+  const data: usersType = await getData(userId);
+
+  const currentPlan = data.plan?.packageName;
   return (
     <div className='h-screen border-x p-6'>
       <h1 className='font-bold mb-7'>Subscription Plan</h1>
@@ -30,7 +87,7 @@ const Plan = () => {
         </Card>
 
         {/* Show upgrade options based on current plan */}
-        {currentPlan === "free" && (
+        {currentPlan === "Free" && (
           <>
             {/* Basic Upgrade Card */}
             <Card className='dark:bg-transparent'>
@@ -65,7 +122,7 @@ const Plan = () => {
           </>
         )}
 
-        {currentPlan === "basic" && (
+        {currentPlan === "Basic" && (
           <Card className='dark:bg-transparent'>
             <CardHeader>
               <CardTitle className='text-sm'>Premium Plan</CardTitle>
@@ -82,7 +139,7 @@ const Plan = () => {
           </Card>
         )}
 
-        {currentPlan === "premium" && (
+        {currentPlan === "Premium" && (
           <p className='text-sm text-gray-500'>
             You are on the Premium plan. Enjoy all the features!
           </p>

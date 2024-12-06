@@ -24,7 +24,7 @@ const ProfileItems = ({ label, href }: ProfileItemsProps) => {
       onClick={onClick}
       type='button'
       className={cn(
-        "flex items-center border-y gap-x-2 text-slate-500 text-sm font-[500] pl-6 transition-all hover:text-slate-600 hover:bg-slate-300/20 w-full",
+        "flex items-center border-y gap-x-2 text-slate-500 text-sm font-[500] pl-6 transition-all w-full",
         isActive &&
           " bg-black dark:bg-white dark:text-black text-white"
       )}
