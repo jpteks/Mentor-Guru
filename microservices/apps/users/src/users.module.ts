@@ -10,6 +10,7 @@ import { UserModule } from './user/user.module';
 import { SubscriptionModule } from './subscription/subscription.module';
 import { PlanModule } from './Plan/plan.module';
 import { PaymentModule } from './Payment/payment.module';
+
 @Module({
   imports: [
     ConfigifyModule.forRootAsync(),
@@ -27,6 +28,13 @@ import { PaymentModule } from './Payment/payment.module';
     PaymentModule,
   ],
   controllers: [UsersController],
-  providers: [UsersService],
+  providers: [UsersService /*AddBioAndAvatarMigrationService*/],
 })
-export class UsersModule {}
+export class UsersModule {
+  // constructor(
+  //   private readonly migrationService: AddBioAndAvatarMigrationService,
+  // ) {
+  //   // Run the migration during startup
+  //   this.migrationService.runMigration();
+  // }
+}

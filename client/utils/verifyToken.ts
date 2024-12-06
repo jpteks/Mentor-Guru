@@ -18,8 +18,6 @@ const roles: Record<string, string[]> = {
 // Verify and decode JWT
 export const verifyToken = (token: string): authPayload => {
   try {
-    console.log("secret", SECRET_KEY);
-
     const payload = jwt.verify(token, SECRET_KEY as string, {
       algorithms: ["HS256"],
     });
