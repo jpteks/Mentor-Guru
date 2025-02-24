@@ -2,62 +2,9 @@
 import ProfileItems from "./profileItems";
 //import { useParams } from "next/navigation";
 import UserAvatar from "./avatarUplaod";
-import { cookies } from "next/headers";
-import { backend_url } from "@/app/constant";
 import { usersType } from "@/types/user";
-
-async function getData(userId: string): Promise<usersType> {
-  const cookieStore = cookies();
-  const token = cookieStore.get("refreshToken")?.value;
-  try {
-    const res = await fetch(`${backend_url}/user/${userId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      cache: "force-cache",
-    });
-
-    if (!res.ok) {
-      console.error("Failed to fetch data [/profile]", await res.text());
-      return {
-        _id: "",
-        email: "",
-        password: "",
-        phoneNumber: "",
-        plan: {
-          packageName: "",
-        },
-        region: "",
-        role: "",
-        subscription: "",
-        username: "",
-        bio: "",
-        avatarUrl: "",
-      };
-    }
-
-    return await res.json();
-  } catch (error) {
-    console.error("An error occurred while fetching data:", error);
-    return {
-      _id: "",
-      email: "",
-      password: "",
-      phoneNumber: "",
-      plan: {
-        packageName: "",
-      },
-      region: "",
-      role: "",
-      subscription: "",
-      username: "",
-      bio: "",
-      avatarUrl: "",
-    };
-  }
-}
+import { auth } from "@/auth";
+import { getCachedUser } from "@/actions/userAction";
 
 const ProfilePageSidebar = async ({ userId }: { userId: string }) => {
   //const params = useParams<{ userId: string }>();
@@ -65,19 +12,22 @@ const ProfilePageSidebar = async ({ userId }: { userId: string }) => {
   const routes = [
     { href: `/${userId}/profile`, label: "Account" },
     // { href: "/userid/profile/password", label: "Password" },
-    { href: `/${userId}/profile/plan`, label: "Plan" },
+    //{ href: `/${userId}/profile/plan`, label: "Plan" },
   ];
 
-  const data: usersType = await getData(userId);
+  const data: usersType = await getCachedUser(userId);
 
+  const session = await auth();
 
   return (
     <div className='flex flex-col h-full'>
       <div className='flex flex-col gap-3'>
         <div className='grid place-items-center gap-2 p-3'>
-          <UserAvatar avatarUrl={data.avatarUrl} />
+          <UserAvatar
+            avatarUrl={data.avatarUrl || (session?.user?.image as string)}
+          />
           <p className='font-bold text-slate-800 dark:text-white'>
-            {data.username}
+            {data.username || session?.user?.name}
           </p>
         </div>
         <div className='flex md:flex-col'>

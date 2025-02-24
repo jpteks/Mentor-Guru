@@ -1,6 +1,6 @@
 "use client";
 
-import { FileText, LayoutDashboard, File, BookOpen } from "lucide-react";
+import { FileText, LayoutDashboard, File, BookOpen, Layers } from "lucide-react";
 import SidebarItems from "./Siderbar-items";
 
 const SidebarRoutes = () => {
@@ -9,6 +9,7 @@ const SidebarRoutes = () => {
     { href: "/courses", label: "All Courses", icon: BookOpen },
     { href: "/past-papers", label: "PastPapers", icon: File },
     { href: "/solutions", label: "Solutions", icon: FileText },
+    {href: '/resources',label: "Resources", icon: Layers }
   ];
   const routes = guestRoutes;
   return (

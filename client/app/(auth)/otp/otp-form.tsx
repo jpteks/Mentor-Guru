@@ -11,7 +11,7 @@ import {
 import OtpWrapper from "@/components/OtpWrapper";
 import { Button } from "@/components/ui/button";
 import { LockKeyhole } from "lucide-react";
-import React, { useState } from "react";
+import React from "react";
 import OTPInput from "react-otp-input";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,15 +19,13 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import toast from "react-hot-toast";
 import { useRouter, useSearchParams } from "next/navigation";
-import { backendApi } from "@/app/constant";
-import { AxiosError } from "axios";
+import { verifyOTpActions } from "@/actions/authAction";
 
 const formSchema = z.object({
   otp: z.string().min(6, { message: "fill in the complete OTP!" }),
 });
 
 const Otp = () => {
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
@@ -41,73 +39,16 @@ const Otp = () => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const { otp } = values;
-    const data = {
-      otp: +otp,
-    };
-    try {
-      setLoading(true);
-      const response = await backendApi.post("/auth/verify-otp", data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+    const res = await verifyOTpActions(+otp, token as string);
 
-      const { statusCode, message } = response.data;
+    if (res.success) {
+      toast.success(res.message);
 
-      if (statusCode >= 400) {
-        switch (statusCode) {
-          case 401:
-            toast.error("Invalid or expired token. Please try again.");
-            return;
-          case 404:
-            toast.error("User not found.");
-            return;
-          case 400:
-            toast.error(message || "Invalid request."); // Display message if available
-            return;
-          case 500:
-            toast.error("Server error. Please try again later.");
-            return;
-          case 410:
-            toast.error(
-              "OTP has expired. A new OTP has been sent to your email."
-            );
-            return;
-          default:
-            toast.error("An unexpected error occurred.");
-            return;
-        }
-      } else {
-        // If statusCode is 2xx, handle success
-        toast.success(message || "OTP verified successfully.");
-        router.push(`/signin`);
-      }
-    } catch (error: unknown) {
-      // Check if the error is an AxiosError
-      if (error instanceof AxiosError) {
-        // Handle network or server errors
-        if (error.response) {
-          toast.error(
-            `API error: ${error.response.data?.message || error.message}`
-          );
-        } else if (error.request) {
-          // Request made but no response
-          toast.error("Network error. Please check your connection.");
-        } else {
-          // Unexpected error
-          console.error("An unexpected error occurred: " + error.message);
-          toast.error("An unexpected error occurred: ");
-        }
-      } else if (error instanceof Error) {
-        // Handle other generic errors
-        console.error(`Something went wrong: ${error.message}`);
-        toast.error(`Something went wrong`);
-      } else {
-        // Catch-all for unknown error types
-        toast.error("An unknown error occurred.");
-      }
-    } finally {
-      setLoading(false);
+      router.push(`/signin`);
+    } else {
+      toast.error(res.message);
+      //reset form
+      form.reset();
     }
   }
 
@@ -118,7 +59,7 @@ const Otp = () => {
       </div>
       <OtpWrapper
         title=' OTP verification'
-        text='Paste the Otp code sent to you'
+        text='Paste the Otp code sent to your email'
         href=''
         link=''
       >
@@ -163,10 +104,15 @@ const Otp = () => {
             />
 
             <Button
+              disabled={form.formState.isSubmitting}
               type='submit'
-              className='w-full mt-3 bg-[#155FA0] hover:bg-[#155FA0] dark:text-white'
+              className='w-full mt-4'
             >
-              {loading ? "Verifying..." : "Verify me"}
+              {form.formState.isSubmitting ? (
+                <div className='h-5 w-5 animate-spin rounded-full border-b-2 border-stone-400'></div>
+              ) : (
+                "Verify OTP"
+              )}
             </Button>
 
             <p className='cursor-pointer text-sm text-slate-600 text-center'>

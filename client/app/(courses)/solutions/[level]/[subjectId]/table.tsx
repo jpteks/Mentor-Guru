@@ -1,8 +1,9 @@
-import {  getPaperAction } from "@/actions/paperAction";
+import { getPaperSolutionAction } from "@/actions/paperAction";
+import PreviewBtn from "@/app/(courses)/components/ButtonPreview";
 import { Button } from "@/components/ui/button";
 import Pagination from "@/components/ui/pagination";
 import { Download, FileX } from "lucide-react";
-import PreviewBtn from "./ButtonPreview";
+
 import { Suspense } from "react";
 
 const Table = async ({
@@ -14,7 +15,7 @@ const Table = async ({
   name: string;
   currentPage: number;
 }) => {
-  const response = await getPaperAction(currentPage, name, level);
+  const response = await getPaperSolutionAction(currentPage, name, level);
 
   if (response.error) {
     // Handle error responses
