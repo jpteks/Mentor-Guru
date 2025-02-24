@@ -21,11 +21,8 @@ import { Eye, EyeOff, Mail } from "lucide-react";
 import Link from "next/link";
 
 import toast from "react-hot-toast";
-import { backendApi } from "@/app/constant";
 import { useRouter } from "next/navigation";
-import { AxiosError } from "axios";
-import { useAuth } from "@/lib/store";
-import { verifyTokenAction } from "@/actions/verifyTokenAction";
+import { loginAuthActions } from "@/actions/authAction";
 
 const formSchema = z.object({
   password: z.string().min(6, {
@@ -36,10 +33,9 @@ const formSchema = z.object({
 
 const FormLogin = () => {
   const router = useRouter();
-  const setAuth = useAuth(state => state.setAuth);
+
   const [isShowPassword, setIsShowPassword] = useState(false);
   const toggleShowPassword = () => setIsShowPassword(!isShowPassword);
-  const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -50,58 +46,13 @@ const FormLogin = () => {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    try {
-      setLoading(true);
-      const response = await backendApi.post("/auth/login", values, {
-        withCredentials: true,
-      });
-      const token = response.data.token;
+    const response = await loginAuthActions(values);
 
-      const payload = token && (await verifyTokenAction(token));
-
-      if (response?.data) {
-        const { statusCode, message } = response.data;
-
-        if (statusCode === 409) {
-          router.push("/otp");
-        }
-        if (statusCode === 400) {
-          toast.error(message);
-        } else {
-          setAuth({
-            role: payload?.role as string,
-            id: payload?.id as string,
-            accessToken: token,
-          });
-          if (payload?.role === "admin") {
-            toast.success(message || "Logged in successfully");
-            return router.push("/dashboard");
-          } else {
-            router.push("/courses");
-            toast.success(message || "Logged in successfully");
-          }
-        }
-      } else {
-        toast.error("Unexpected response from the server.");
-      }
-    } catch (error: unknown) {
-      if (error instanceof AxiosError) {
-        // Handle Axios-specific errors
-        console.log(
-          `API error: ${error.response?.data?.message || error.message}`
-        );
-
-        toast.error(`Server error please retry again`);
-      } else if (error instanceof Error) {
-        // Handle generic errors
-        console.error(`Something went wrong: ${error.message}`);
-
-        toast.error(`Something went wrong`);
-      } else {
-        toast.error("An unknown error occurred.");
-      }
-    } finally {
-      setLoading(false);
+    if (!response.success) {
+      toast.error(response.message as string);
+    } else {
+      toast.success(response.message);
+      router.push("/courses");
     }
   }
   return (
@@ -167,10 +118,15 @@ const FormLogin = () => {
             ForgotPassword?
           </Link>
           <Button
+            disabled={form.formState.isSubmitting}
             type='submit'
-            className='w-full mt-3 bg-[#155FA0] hover:bg-[#155FA0] dark:text-white'
+            className='w-full mt-4'
           >
-            {loading ? "Loading..." : "SignIn"}
+            {form.formState.isSubmitting ? (
+              <div className='h-5 w-5 animate-spin rounded-full border-b-2 border-stone-400'></div>
+            ) : (
+              "SignIn"
+            )}
           </Button>
         </div>
       </form>

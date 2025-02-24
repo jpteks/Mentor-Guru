@@ -24,7 +24,7 @@ import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { backendApi, Region } from "@/app/constant";
+import { Region } from "@/app/constant";
 import AuthWrapper from "@/components/AuthWrapper";
 import { InputPhone } from "@/components/ui/inputPhone";
 import { InputForm } from "@/components/ui/inputForm";
@@ -32,33 +32,16 @@ import { Eye, EyeOff, Mail, Phone, User } from "lucide-react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Checkbox } from "@/components/ui/checkbox";
-
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  phoneNumber: z.string().min(9, {
-    message: "phone number must be at least 9 characters.",
-  }),
-  region: z.string().min(3, {
-    message: "region must be at least 3 characters.",
-  }),
-  password: z.string().min(6, {
-    message: "Password must be at least 6 characters.",
-  }),
-  terms: z.boolean().refine(v => v, { message: "Accept terms and conditions" }),
-  email: z.string().email({ message: "Email should be valid" }),
-  role: z.enum(["student", "admin", "tutor"]),
-});
+import { userSchema } from "@/schemas/user";
+import { registerAuthActions } from "@/actions/authAction";
 
 const Register = () => {
   const router = useRouter();
   const [isShowPassword, setIsShowPassword] = useState(false);
   const toggleShowPassword = () => setIsShowPassword(!isShowPassword);
-  const [loading, setLoading] = useState(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof userSchema>>({
+    resolver: zodResolver(userSchema),
     defaultValues: {
       username: "",
       phoneNumber: "",
@@ -69,17 +52,17 @@ const Register = () => {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    try {
-      setLoading(true);
-      const response = await backendApi.post("/auth/register", values);
-      const token = response.data.token;
-      toast.success(response.data.message);
+  async function onSubmit(values: z.infer<typeof userSchema>) {
+    const res = await registerAuthActions(values);
+
+    if (res.success) {
+      toast.success(res.message);
+
+      const token = res.token;
+
       router.push(`/otp?token=${token}`);
-    } catch (error) {
-      toast.error("Something went wrong" + error);
-    } finally {
-      setLoading(false);
+    } else {
+      toast.error(res.message);
     }
   }
   const [isMounted, setIsMounted] = useState(false);
@@ -217,10 +200,15 @@ const Register = () => {
                 )}
               />
               <Button
+                disabled={form.formState.isSubmitting}
                 type='submit'
-                className='w-full mt-3 bg-[#155FA0] hover:bg-[#155FA0] dark:text-white'
+                className='w-full mt-4'
               >
-                {loading ? "Loading..." : "SignUp"}
+                {form.formState.isSubmitting ? (
+                  <div className='h-5 w-5 animate-spin rounded-full border-b-2 border-stone-400'></div>
+                ) : (
+                  "Register"
+                )}
               </Button>
               <FormField
                 control={form.control}

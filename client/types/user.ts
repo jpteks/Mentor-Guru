@@ -1,19 +1,13 @@
 export interface usersType {
-  _id: string;
+  _id?: string;
 
   email: string;
 
   role: string;
 
-  bio: string;
+  bio?: string;
 
-  avatarUrl: string;
-
-  subscription: string;
-
-  plan: {
-    packageName: string;
-  };
+  avatarUrl?: string;
 
   password: string;
 
@@ -22,6 +16,12 @@ export interface usersType {
   phoneNumber: string;
 
   region: string;
+  isEmailVerified: string;
+  accountStatus: string;
+  otp: string;
+  otpExpiry: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 /**

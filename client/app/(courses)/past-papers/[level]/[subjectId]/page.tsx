@@ -1,7 +1,8 @@
 import { PaperTableSkeleton } from "@/app/(courses)/components/skeletonns";
-import Table from "@/app/(courses)/components/table";
+
 
 import { Suspense } from "react";
+import Table from "./table";
 
 export default async function SubjectTable({
   params,

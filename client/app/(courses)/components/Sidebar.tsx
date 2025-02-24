@@ -1,7 +1,7 @@
 import Link from "next/link";
 import SidebarRoutes from "./Sidebar-routes";
 import Image from "next/image";
-import UpgradeCard from "./upgrade-card";
+//import UpgradeCard from "./upgrade-card";
 
 const SiderBar = () => {
   return (
@@ -24,7 +24,7 @@ const SiderBar = () => {
       </div>
 
       <SidebarRoutes />
-      <UpgradeCard />
+      {/* <UpgradeCard /> */}
     </aside>
   );
 };
